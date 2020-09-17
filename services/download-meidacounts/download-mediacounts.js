@@ -22,19 +22,48 @@ const mediacountsFolderName = "mediacounts";
 
 const numberOfDays = dateFns.differenceInDays(new Date(), minDate);
 
+async function objectExist(objectParams) {
+  try {
+    return await s3.headObject(objectParams).promise()
+  } catch (error) {
+    return false;
+  }
+}
+
 async function downloadFile(urlData) {
 
   const s3ObjectKey = `${mediacountsFolderName}/${urlData.year}/${urlData.filename}`;
 
+  const objectParams = { Bucket: bucketName, Key: s3ObjectKey };
+
+  const existingObject = await objectExist(objectParams);
+
   const s3StreamPass = new Stream.PassThrough();
+
+  const CancelToken = axios.CancelToken;
+  const source = CancelToken.source();
 
   const { data, headers } = await axios({
     method: 'get',
     url: urlData.url,
-    responseType: 'stream'
+    responseType: 'stream',
+    cancelToken: source.token
   });
 
-  s3.upload({ Bucket: bucketName, Key: s3ObjectKey, Body: s3StreamPass }, (err, data) => {
+  if (existingObject) {
+    const objectContentLength = existingObject.ContentLength + '';
+    const downloadFileContentLength = headers['content-length']
+    if (objectContentLength === downloadFileContentLength) {
+      console.log(`${s3ObjectKey} - exists and complete`);
+      source.cancel();
+      return;
+    } else {
+      console.log(`Found incomplete object ${s3ObjectKey}, deleting and downloading again`, { objectContentLength, downloadFileContentLength })
+      await s3.deleteObject(objectParams).promise();
+    }
+  }
+
+  s3.upload({ ...objectParams, Body: s3StreamPass }, (err, data) => {
     console.log(err, data);
   });
   data.pipe(s3StreamPass);
