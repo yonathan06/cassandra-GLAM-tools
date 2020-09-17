@@ -4,9 +4,10 @@ WORKDIR    /usr/cassandra-app
 
 # Copy and install production packages
 COPY       config config/
-COPY       server.js ./
+COPY       pages pages/
 COPY       api.js ./
 COPY       routes.js ./
+COPY       server.js ./
 COPY       package*.json ./
 RUN        npm ci --production
 
