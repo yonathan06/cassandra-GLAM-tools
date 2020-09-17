@@ -76,7 +76,13 @@ async function downloadFiles() {
   console.log(`Downloaded all files successfully`);
 }
 
-console.log(`Streaming mediacount dump from wikimedia to S3, bucket: ${bucketName}`)
+s3.listBuckets().promise().then(buckets => {
+  const bucketExist = buckets.Buckets.findIndex(bucket => bucket.Name === bucketName) !== -1;
+  if (!bucketExist) {
+    throw new Error(`Bucket ${bucketName} not exist, or not found`);
+  }
+  console.log(`Streaming mediacount dump from wikimedia to S3, bucket: ${bucketName}`)
+  downloadFiles();
+})
 
-downloadFiles();
 
