@@ -19,17 +19,15 @@ function glamToJson(glam) {
 var glams = function (req, res, glams, admin) {
     let result = [];
 
-    for (var id in glams) {
-        if (!glams.hasOwnProperty(id))
-            continue;
+    for (var name in glams) {
 
-        json = glamToJson(glams[id]);
+        json = glamToJson(glams[name]);
 
         if (admin) {
-            json['lastrun'] = glams[id]['lastrun'];
-            json['status'] = glams[id]['status'];
+            json['lastrun'] = glams[name]['lastrun'];
+            json['status'] = glams[name]['status'];
         } else {
-            if (glams[id]['status'] !== 'running') {
+            if (glams[name]['status'] !== 'running') {
                 continue;
             }
         }
@@ -101,19 +99,21 @@ var createGlam = function (req, res, config) {
 
     glam['image'] = image;
 
-    // Password is optional
-    let password = req.body['password'];
-    if (password !== undefined && password !== '') {
-        glam['http-auth'] = {
-            'username': glam['database'],
-            'password': password
-        };
-    }
+    // // Password is optional
+    // let password = req.body['password'];
+    // if (password !== undefined && password !== '') {
+    //     glam['http-auth'] = {
+    //         'username': glam['database'],
+    //         'password': password
+    //     };
+    // }
 
-    glam['status'] = 'pending';
-
-    config.insertGlam(glam);
-    res.sendStatus(200);
+    config.insertGlam(glam).then(() => {
+        res.sendStatus(200);
+    }).catch(err => {
+        res.sendStatus(500);
+        console.error(err);
+    });
 }
 
 var updateGlam = function (req, res, config) {

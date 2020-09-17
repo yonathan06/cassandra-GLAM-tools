@@ -2,10 +2,11 @@ node_modules/
 package-lock.json
 /app/pages/docs.html
 *.log
-/config/config.json
 .vscode
 venv
 *.csv
 *.gz
 /cassandra-GLAM-tools.iml
 /.idea/
+config.*.json
+.DS_Store

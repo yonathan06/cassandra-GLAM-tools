@@ -3,9 +3,9 @@ var request = require('request');
 var api = require('./api.js');
 var auth = require('http-auth');
 
-var config = require('../config/config.js');
+var config = require('./config/config.js');
 
-// Reload configuration every hour because MongoDB is also modified by run.py
+// Reload configuration every hour
 function loadGlams() {
     config.loadGlams();
     setTimeout(loadGlams, 3600000);
@@ -39,13 +39,16 @@ module.exports = function (app, apicache) {
             }
         }
         
-        function createAuth(auth_config) {
+        function authenticateAdmin(auth_config) {
             let auth_basic = auth.basic({
                 realm: auth_config['realm']
             }, function (username, password, callback) {
                 callback(username === auth_config['username'] && password === auth_config['password']);
             });
-            (auth.connect(auth_basic))(req, res, next);
+            const callCheck = auth_basic.check(() => {
+                next();
+            });
+            callCheck(req, res);
         }
         
         function createGlamAuth(auth_config) {
@@ -68,7 +71,7 @@ module.exports = function (app, apicache) {
         if (id === 'user') {
             createGlamAuth(config.glamUser);
         } else if (id === 'admin') {
-            createAuth(config.admin);
+            authenticateAdmin(config.admin);
         } else {
             let glam = config.glams[id];
             
@@ -77,7 +80,7 @@ module.exports = function (app, apicache) {
             } else if (glam.hasOwnProperty('http-auth') === false) {
                 next();
             } else {
-                createAuth(glam['http-auth']);
+                authenticateAdmin(glam['http-auth']);
             }
         }
     });

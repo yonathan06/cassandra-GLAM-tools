@@ -1,0 +1,19 @@
+version: '3.6'
+
+services:
+  cassandra-postgres:
+    container_name: cassandra-postgres
+    image: postgres:12.3-alpine
+    environment:
+      - POSTGRES_USER=cassandra
+      - POSTGRES_PASSWORD=cassandra
+      - POSTGRES_DB=cassandra
+    ports:
+      - 5432:5432
+    volumes:
+      - cassandra-postgres:/var/lib/postgresql/data
+
+  
+volumes:
+  cassandra-postgres:
+    external: false

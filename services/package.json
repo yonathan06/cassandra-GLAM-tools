@@ -1,0 +1,11 @@
+{
+  "name": "cassandra",
+  "version": "2.0.0",
+  "author": "Synapta Srl <info@synapta.it> (https://synapta.it/)",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "mariadb": "^2.1.1",
+    "pg": "~7.4.0"
+  }
+}

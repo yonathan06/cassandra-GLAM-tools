@@ -1,0 +1,6 @@
+{
+  "env": {
+    "ENV": "development"
+  },
+  "exec": "npm start"
+}
