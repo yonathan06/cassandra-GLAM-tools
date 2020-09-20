@@ -100,7 +100,11 @@ const urlsData = Array(numberOfDays).fill(1).map((_, index) => {
 
 async function downloadFiles() {
   for (const urlData of urlsData) {
-    await downloadFile(urlData);
+    try {
+      await downloadFile(urlData);
+    } catch(error) {
+      console.error(`Error streaming file to s3`, error);
+    }
   }
   console.log(`Downloaded all files successfully`);
 }
