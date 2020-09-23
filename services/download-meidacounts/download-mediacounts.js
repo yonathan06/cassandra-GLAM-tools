@@ -5,7 +5,7 @@ const ProgressBar = require('progress');
 const AWS = require("aws-sdk");
 AWS.config = {
   ...AWS.config,
-  ...config.aws.config 
+  ...config.aws.config
 };
 const { Stream } = require('stream');
 const s3 = new AWS.S3();
@@ -13,12 +13,7 @@ const s3 = new AWS.S3();
 const bucketName = config.aws.wikiDumpBucket;
 
 const startDateFormat = 'yyyy-MM-dd';
-let startDate = dateFns.parse(config.mediacountStartDate, startDateFormat, new Date());
-try {
-  startDate = dateFns.parse(process.argv[2], startDateFormat, new Date());
-} catch(err) {
-  console.log('start date should be in the following format: ' + startDateFormat);
-}
+let startDate = dateFns.parse(process.argv[2] || config.mediacountStartDate, startDateFormat, new Date());
 
 const baseurl = "https://dumps.wikimedia.org/other/mediacounts/daily/"
 
@@ -106,7 +101,7 @@ async function downloadFiles() {
   for (const urlData of urlsData) {
     try {
       await downloadFile(urlData);
-    } catch(error) {
+    } catch (error) {
       console.error(`Error streaming file to s3`, error);
     }
   }
