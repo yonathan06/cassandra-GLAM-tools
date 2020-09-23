@@ -13,7 +13,21 @@ const s3 = new AWS.S3();
 const bucketName = config.aws.wikiDumpBucket;
 
 const startDateFormat = 'yyyy-MM-dd';
-let startDate = dateFns.parse(process.argv[2] || config.mediacountStartDate, startDateFormat, new Date());
+
+function resolveStartDate() {
+  const startDateFlagArg = process.argv.indexOf('--startDate');
+  if (startDateFlagArg === -1) {
+    return dateFns.parse(config.mediacountStartDate, startDateFormat, new Date());
+  }
+  const startDateArg = process.argv[startDateFlagArg + 1];
+  if (startDateArg === 'yesterday') {
+    return dateFns.sub(new Date, { days: 1 });
+  }
+  return dateFns.parse(startDateArg, startDateFormat, new Date());
+}
+
+const startDate = resolveStartDate();
+console.log("startDate", startDate)
 
 const baseurl = "https://dumps.wikimedia.org/other/mediacounts/daily/"
 
