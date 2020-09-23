@@ -8,8 +8,8 @@ import urllib.request
 
 import psycopg2
 
-from glams_table import get_glam_by_name
-from ..config import config
+from .glams_table import get_glam_by_name
+from config import config
 
 watched = set()
 
@@ -98,7 +98,6 @@ def main():
     args = parser.parse_args()
 
     # read settings
-    # config = json.load(open('../config/config.json'))
 
     glam = get_glam_by_name(args.glam)
 

@@ -10,7 +10,7 @@ var processQuery = function (db, files, step) {
         endSetup();
         return;
     }
-    filetoRead = "SQL/" + files[step];
+    filetoRead = `${__dirname}/SQL/${files[step]}`;
     console.log(filetoRead);
     fs.readFile(filetoRead, 'ascii', function (_, read) {
         // console.log("Executing: ");

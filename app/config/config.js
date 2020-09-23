@@ -1,5 +1,4 @@
 const { Pool } = require('pg');
-const pgtools = require('pgtools');
 const AWS = require("aws-sdk");
 const fs = require('fs');
 const SQL = require('@nearform/sql');
@@ -72,7 +71,6 @@ async function insertGlam(glam) {
   const query = SQL`INSERT INTO glams (name, fullname, category, image, database, status) 
                     VALUES (${name}, ${fullname}, ${category}, ${image}, ${database}, 'pending')`;
   await cassandraPgPool.query(query)
-  await pgtools.createdb(config.postgres, glam.database);
   await sendNewGlamMessage({ name, fullname, category, image, database });
   console.log(`Created new GLAM with db: "${name}"`);
 }

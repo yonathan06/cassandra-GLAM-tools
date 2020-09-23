@@ -13,10 +13,8 @@ import psycopg2.errors
 import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
 
-from services.etl.glams_table import create_database, get_glams, update_to_failed, update_to_running
-from ..config import config
-
-# config_file = '../config/config.json'
+from .glams_table import create_database, get_glams, update_to_failed, update_to_running, get_glam_by_name
+from config import config
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s')
@@ -27,16 +25,16 @@ def views_date():
 
 def setup(name):
     logging.info('Running setup.js for %s', name)
-    subprocess.run(['node', 'setup.js', name], check=True)
+    subprocess.run(['node', f'{__package__}/setup.js', name], check=True)
     logging.info('Subprocess setup.js completed')
 
 def etl(name):
     logging.info('Running etl.js for %s', name)
-    subprocess.run(['node', 'etl.js', name], check=True)
+    subprocess.run(['node', f'{__package__}/etl.js', name], check=True)
     logging.info('Subprocess etl.js completed')
 
 
-def process_glam(glam, config):
+def process_glam(glam):
     if datetime.utcnow() < glam['lastrun'] + timedelta(days=1):
         logging.info('Glam %s is already updated', glam['name'])
         return
@@ -67,9 +65,17 @@ def process_glam(glam, config):
     else:
         logging.error('Failed scheduler for %s', glam['name'])
 
+def first_time_process(glam):
+    glam['lastrun'] = datetime.fromtimestamp(0)
+    create_database(glam['database'])
+    try:
+        setup(glam['name'])
+    except SubprocessError:
+        logging.error('Subprocess setup.py failed')
+        return
+    process_glam(glam)
 
 def main():
-    # config = json.load(open(config_file))
     try:
         sentry_logging = LoggingIntegration(
             level=logging.INFO,
@@ -98,7 +104,9 @@ def main():
                 except SubprocessError:
                     logging.error('Subprocess setup.py failed')
                     continue
-            process_glam(glam, config)
+            else:
+                glam['lastrun'] = glam['lastrun'].replace(tzinfo=None)
+            process_glam(glam)
 
     except (Exception, psycopg2.Error) as error: 
         logging.error("Error while fetching and processing glams from PostgreSQL", error)

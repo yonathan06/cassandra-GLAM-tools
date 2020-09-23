@@ -6,3 +6,5 @@ unidecode
 langid
 gensim
 requests
+boto3
+pySqsListener

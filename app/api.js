@@ -67,6 +67,7 @@ var createGlam = function (req, res, config) {
     let name = req.body['name'];
     if (name === undefined || name === '' || name in config.glams || name.includes(' ')) {
         res.sendStatus(400);
+        res.send("Bad name")
         return;
     }
 
@@ -76,6 +77,7 @@ var createGlam = function (req, res, config) {
     let fullname = req.body['fullname'];
     if (fullname === undefined || fullname === '') {
         res.sendStatus(400);
+        res.send("Bad full name")
         return;
     }
 
@@ -84,6 +86,7 @@ var createGlam = function (req, res, config) {
     let category = req.body['category'];
     if (category === undefined || category === '') {
         res.sendStatus(400);
+        res.send("Bad category")
         return;
     }
 
@@ -94,6 +97,7 @@ var createGlam = function (req, res, config) {
     let image = req.body['image'];
     if (image === undefined || image === '' || image.includes(' ') || !image.startsWith('http')) {
         res.sendStatus(400);
+        res.send("Bad image")
         return;
     }
 

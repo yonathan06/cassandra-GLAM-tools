@@ -5,14 +5,10 @@ import psycopg2.errors
 from psycopg2 import ProgrammingError
 import logging
 from datetime import datetime, timedelta
-from ..config import config
+from config import config
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s')
-
-# import os
-# config_file = f'../config/config.{os.environ["ENV"]}.json'
-# config = json.load(open(config_file))
 
 postgres_config = config['postgres']
 
@@ -88,7 +84,7 @@ def create_database(database):
                     "CONNECTION LIMIT = -1 TEMPLATE template0;")
     except psycopg2.errors.DuplicateDatabase:
         logging.error(
-            f'Error creating database {database}, maybe already exists')
+            f'Error creating database {database} - duplicate')
     finally:
         conn.close()
         cur.close()

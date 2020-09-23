@@ -15,11 +15,9 @@ import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
 
 from .glams_table import get_glams, update_min_date
-from ..config import config
+from config import config
 
-# config_file = '../config/config.json'
-
-global_min_date = date(2020, 1, 1)
+global_min_date = date(2019, 1, 1)
 global_max_date = date.today() - timedelta(days=2)
 views_dir = 'temp'
 
@@ -27,7 +25,7 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s')
 
 
-def add_missing_dates(config, glam):
+def add_missing_dates(glam):
     logging.info('Processing glam %s', glam['name'])
 
     connstring = "dbname=" + glam['database'] + " user=" + config['postgres']['user'] + \
@@ -40,7 +38,7 @@ def add_missing_dates(config, glam):
 
     # Find the dates already in the database
     curse.execute(
-        "select distinct access_date from visualizations order by access_date")
+        "SELECT distinct access_date FROM visualizations ORDER BY access_date")
     current_dates = list(map(lambda x: x[0], curse.fetchall()))
 
     # Find the date of the first image, if any
@@ -67,7 +65,6 @@ def add_missing_dates(config, glam):
 
 
 def main():
-    # config = json.load(open(config_file))
     try:
         sentry_logging = LoggingIntegration(
             level=logging.INFO,
@@ -93,7 +90,7 @@ def main():
                 logging.info('Glam %s is failed', glam['name'])
                 continue
 
-            add_missing_dates(config, glam)
+            add_missing_dates(glam)
             glams.append(glam)
 
     date_interval = [global_min_date + timedelta(days=x)
