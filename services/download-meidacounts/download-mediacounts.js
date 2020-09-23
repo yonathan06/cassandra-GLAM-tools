@@ -1,26 +1,30 @@
 const axios = require('axios');
+const config = require('../config/config');
 const dateFns = require('date-fns')
 const ProgressBar = require('progress');
 const AWS = require("aws-sdk");
+AWS.config = {
+  ...AWS.config,
+  ...config.aws.config 
+};
 const { Stream } = require('stream');
 const s3 = new AWS.S3();
 
-AWS.config.getCredentials(function (err) {
-  if (err) console.log(err.stack);
-  else {
-    console.log("Access key:", AWS.config.credentials.accessKeyId);
-  }
-});
+const bucketName = config.aws.wikiDumpBucket;
 
-const bucketName = 'wikimedia-dump';
-
-const minDate = new Date(2019, 0, 1);
+const startDateFormat = 'yyyy-MM-dd';
+let startDate = dateFns.parse(config.mediacountStartDate, startDateFormat, new Date());
+try {
+  startDate = dateFns.parse(process.argv[2], startDateFormat, new Date());
+} catch(err) {
+  console.log('start date should be in the following format: ' + startDateFormat);
+}
 
 const baseurl = "https://dumps.wikimedia.org/other/mediacounts/daily/"
 
-const mediacountsFolderName = "mediacounts";
+const mediacountsFolderName = config.aws.wikiMediacountsFolder;
 
-const numberOfDays = dateFns.differenceInDays(new Date(), minDate);
+const numberOfDays = dateFns.differenceInDays(new Date(), startDate);
 
 async function objectExist(objectParams) {
   try {
@@ -86,7 +90,7 @@ async function downloadFile(urlData) {
 }
 
 const urlsData = Array(numberOfDays).fill(1).map((_, index) => {
-  const date = dateFns.addDays(minDate, index);
+  const date = dateFns.addDays(startDate, index);
   const year = date.getFullYear();
   const month = dateFns.format(date, 'MM');
   const day = dateFns.format(date, 'dd');
