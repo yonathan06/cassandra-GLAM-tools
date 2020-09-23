@@ -1,10 +1,24 @@
 const { Pool } = require('pg');
 const pgtools = require('pgtools');
+const AWS = require("aws-sdk");
 const fs = require('fs');
 const SQL = require('@nearform/sql');
+const config = JSON.parse(fs.readFileSync(`${__dirname}/config.${process.env.ENV}.json`));
 
-const path = require('path');
-const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, `config.${process.env.ENV}.json`)));
+
+AWS.config = {
+  ...AWS.config,
+  ...config.aws.config
+};
+
+const sqs = new AWS.SQS();
+
+function sendNewGlamMessage(glam) {
+  return sqs.sendMessage({
+    QueueUrl: config.aws.newGlamQueueUrl,
+    MessageBody: JSON.stringify(glam),
+  }).promise()
+}
 
 config.glamUser.realm = 'User area';
 const glamUser = config.glamUser;
@@ -14,7 +28,6 @@ config.admin.realm = 'Admin area';
 const cassandraPgPool = new Pool(config.postgres);
 
 const glams = {};
-
 
 async function loadGlams() {
   const query = `SELECT * FROM glams`;
@@ -54,18 +67,14 @@ async function loadGlams() {
   return glams;
 }
 
-function insertGlam(glam) {
+async function insertGlam(glam) {
   const { name, fullname, category, image, database } = glam;
   const query = SQL`INSERT INTO glams (name, fullname, category, image, database, status) 
-    VALUES (${name}, ${fullname}, ${category}, ${image}, ${database}, 'pending')
-  `;
-  return cassandraPgPool.query(query)
-    .then(result => {
-      return pgtools.createdb(config.postgres, glam.database);
-    })
-    .then(() => {
-      console.log(`Created new GLAM with db: "${name}"`);
-    });
+                    VALUES (${name}, ${fullname}, ${category}, ${image}, ${database}, 'pending')`;
+  await cassandraPgPool.query(query)
+  await pgtools.createdb(config.postgres, glam.database);
+  await sendNewGlamMessage({ name, fullname, category, image, database });
+  console.log(`Created new GLAM with db: "${name}"`);
 }
 
 function updateGlam(glam) {

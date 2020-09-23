@@ -1,6 +1,5 @@
 var { Pool } = require('pg');
 var fs = require('fs');
-console.log(__dirname)
 var config = JSON.parse(fs.readFileSync(`${__dirname}/config.${process.env.ENV}.json`));
 
 const cassandraPgPool = new Pool(config.postgres);
