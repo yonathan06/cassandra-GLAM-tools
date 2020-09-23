@@ -63,7 +63,11 @@ async function downloadFile(urlData) {
   }
 
   s3.upload({ ...objectParams, Body: s3StreamPass }, (err, data) => {
-    console.log(err, data);
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(data.Key);
+    }
   });
   data.pipe(s3StreamPass);
 
