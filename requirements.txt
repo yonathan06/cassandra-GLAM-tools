@@ -1,9 +1,0 @@
-psycopg2-binary
-pymongo
-sentry-sdk
-mwclient
-mwparserfromhell
-unidecode
-langid
-gensim
-requests

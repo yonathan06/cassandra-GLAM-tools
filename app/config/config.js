@@ -72,7 +72,7 @@ async function insertGlam(glam) {
                     VALUES (${name}, ${fullname}, ${category}, ${image}, ${database}, 'pending')`;
   await cassandraPgPool.query(query)
   await sendNewGlamMessage({ name, fullname, category, image, database });
-  console.log(`Created new GLAM with db: "${name}"`);
+  console.log(`Created new GLAM "${name}"`);
 }
 
 function updateGlam(glam) {
