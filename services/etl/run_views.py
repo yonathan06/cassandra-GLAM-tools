@@ -1,9 +1,7 @@
-import fcntl
 import json
 import logging
 import os
 import subprocess
-import sys
 import time
 from datetime import date, datetime, timedelta
 from subprocess import SubprocessError
@@ -11,29 +9,20 @@ from subprocess import SubprocessError
 import psycopg2
 from psycopg2 import ProgrammingError
 
-import sentry_sdk
-from sentry_sdk.integrations.logging import LoggingIntegration
-
-from .glams_table import get_glams, update_min_date
+from .glams_table import get_glams, update_min_date, get_glam_database_connection
 from config import config
+import etl.views
 
-global_min_date = date(2019, 1, 1)
+global_min_date = datetime.strptime(
+    config['mediacountStartDate'], "%Y-%m-%d").date()
 global_max_date = date.today() - timedelta(days=2)
-views_dir = 'temp'
-
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s %(levelname)s %(message)s')
+views_dir = 'tmp'
 
 
-def add_missing_dates(glam):
-    logging.info('Processing glam %s', glam['name'])
+def add_missing_dates(glam: dict):
+    logging.info('Adding missing dates to glam: %s', glam['name'])
 
-    connstring = "dbname=" + glam['database'] + " user=" + config['postgres']['user'] + \
-        " password=" + config['postgres']['password'] + \
-        " host=" + config['postgres']['host'] + \
-        " port=" + str(config['postgres']['port'])
-    conn = psycopg2.connect(connstring)
-    conn.autocommit = True
+    conn = get_glam_database_connection(glam['database'])
     curse = conn.cursor()
 
     # Find the dates already in the database
@@ -64,20 +53,7 @@ def add_missing_dates(glam):
             glam['missing_dates'].append(date_value)
 
 
-def main():
-    try:
-        sentry_logging = LoggingIntegration(
-            level=logging.INFO,
-            event_level=logging.ERROR
-        )
-        sentry_sdk.init(
-            dsn=config['raven']['glamtoolsetl']['DSN'],
-            integrations=[sentry_logging]
-        )
-        logging.info('External error reporting ENABLED')
-    except KeyError:
-        logging.info('External error reporting DISABLED')
-
+def process_glams_mediacounts():
     glams = []
 
     for glam in get_glams():
@@ -96,37 +72,17 @@ def main():
     date_interval = [global_min_date + timedelta(days=x)
                      for x in range(0, (global_max_date - global_min_date).days)]
 
-    # for all dates
     for date_value in date_interval:
         logging.info('Working with date %s', date_value)
 
         for glam in glams:
+            glams_with_missing_date = []
             logging.info('Working with GLAM %s', glam['name'])
             date_str = date_value.strftime("%Y-%m-%d")
 
             if date_value in glam['missing_dates']:
-                try:
-                    subprocess.run(
-                        ['python3', 'views.py', glam['name'], date_str, '--dir', views_dir], check=True)
-                    update_min_date(glam, date_str)
-                except SubprocessError:
-                    logging.error('Subprocess views.py failed')
-
-        views_path = os.path.join(views_dir, date_str + '.tsv.bz2')
-        if os.path.isfile(views_path):
-            os.remove(views_path)
-
-
-if __name__ == '__main__':
-    # change the working directory to the script's own directory
-    script_dir = os.path.dirname(sys.argv[0])
-    if script_dir != '':
-        os.chdir(script_dir)
-
-    try:
-        lockfile = open('/tmp/cassandra_views.lock', 'w')
-        fcntl.flock(lockfile, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        main()
-        fcntl.flock(lockfile, fcntl.LOCK_UN)
-    except IOError:
-        raise SystemExit('Views is already running')
+                glams_with_missing_date.append(glam)
+                update_min_date(glam, date_str)
+            if len(glams_with_missing_date) != 0:
+                etl.views.process_mediacounts(
+                    glams_with_missing_date, date_value)

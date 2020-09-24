@@ -90,15 +90,15 @@ def create_database(database):
         cur.close()
 
 
-def get_glam_connection_str(glam):
-    return f"""dbname={glam['database']} user={config['postgres']['user']}
+def get_glam_connection_str(glam_database):
+    return f"""dbname={glam_database} user={config['postgres']['user']}
                password={config['postgres']['password']}
                host={config['postgres']['host']}
                port={str(config['postgres']['port'])}
             """
 
 
-def get_glam_database_connection(glam):
-    pgconnection = psycopg2.connect(get_glam_connection_str(glam))
+def get_glam_database_connection(glam_database):
+    pgconnection = psycopg2.connect(get_glam_connection_str(glam_database))
     pgconnection.autocommit = True
     return pgconnection

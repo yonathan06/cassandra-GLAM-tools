@@ -1,6 +1,7 @@
 import boto3
 import logging
 import os
+from datetime import date
 from config import config
 
 bucket_name = config['aws']['wikiDumpBucket']
@@ -19,11 +20,11 @@ if not os.path.exists(tmp_mediacounts_folder):
     os.makedirs(tmp_mediacounts_folder)
 
 
-def get_mediacount_file_by_date(date):
-    filename = f"mediacounts.{date.strftime('%Y-%m-%d')}.v00.tsv.bz2"
-    object_key = f"{config['aws']['wikiMediacountsFolder']}/{date.year}/{filename}"
+def get_mediacount_file_by_date(date_val: date):
+    filename = f"mediacounts.{date_val.strftime('%Y-%m-%d')}.v00.tsv.bz2"
+    object_key = f"{config['aws']['wikiMediacountsFolder']}/{date_val.year}/{filename}"
 
-    year_folder = f"{tmp_mediacounts_folder}/{date.year}"
+    year_folder = f"{tmp_mediacounts_folder}/{date_val.year}"
     if not os.path.exists(year_folder):
         os.makedirs(year_folder)
     filepath = f"{year_folder}/{filename}"
