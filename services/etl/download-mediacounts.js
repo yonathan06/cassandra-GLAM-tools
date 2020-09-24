@@ -1,13 +1,14 @@
 const axios = require('axios');
-const config = require('../config/config');
+const { Stream } = require('stream');
 const dateFns = require('date-fns')
 const ProgressBar = require('progress');
 const AWS = require("aws-sdk");
+const config = require('../config/config');
+
 AWS.config = {
   ...AWS.config,
   ...config.aws.config
 };
-const { Stream } = require('stream');
 const s3 = new AWS.S3();
 
 const bucketName = config.aws.wikiDumpBucket;

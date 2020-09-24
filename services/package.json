@@ -6,6 +6,10 @@
   "private": true,
   "dependencies": {
     "mariadb": "^2.1.1",
-    "pg": "~7.4.0"
+    "pg": "~7.4.0",
+    "aws-sdk": "^2.754.0",
+    "axios": "^0.20.0",
+    "date-fns": "^2.16.1",
+    "progress": "^2.0.3"
   }
 }

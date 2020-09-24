@@ -4,6 +4,7 @@ from sqs_listener import SqsListener
 from config import config
 from etl.glams_table import get_glam_by_name
 from etl.run import first_time_process
+from new_glam_views import process_new_glam_views
 
 class NewGlamListener(SqsListener):
     def handle_message(self, body, attributes, messages_attributes):
@@ -11,6 +12,7 @@ class NewGlamListener(SqsListener):
       print(f'received new message. Glam name: {glam_name}')
       glam = get_glam_by_name(glam_name)
       first_time_process(glam)
+      process_new_glam_views(glam_name)
 
 logger = logging.getLogger('sqs_listener')
 logger.setLevel(logging.INFO)

@@ -5,10 +5,10 @@ import os
 import sys
 import urllib.parse
 import urllib.request
-
+import logging
 import psycopg2
 
-from .glams_table import get_glam_by_name
+from .glams_table import get_glam_by_name, get_glam_database_connection
 from config import config
 
 watched = set()
@@ -46,12 +46,11 @@ def download(date, folder):
     return filename
 
 
-def process(conn, date, folder):
-    filename = download(date, folder)
-    print("Loading visualizations from file", filename)
+def process(conn, date, filename):
+    logging.info(f"Loading visualizations from file {filename}")
 
     source_file = bz2.BZ2File(filename, "r")
-    curse = conn.cursor()
+    cur = conn.cursor()
     counter = 0
 
     for line in source_file:
@@ -64,31 +63,30 @@ def process(conn, date, folder):
         if key in watched:
             counter += 1
             if counter % 100 == 0:
-                print("Loading progress: " +
+                logging.info("Loading progress: " +
                       str(counter * 100 // len(watched)) + "%")
-            query = "select * from dailyinsert('" + key.replace(
+            query = "SELECT * FROM dailyinsert('" + key.replace(
                 "'", "''") + "','" + date + "'," + arr[2] + "," + arr[22] + "," + arr[23] + ")"
-            curse.execute(query)
+            cur.execute(query)
 
-    curse.execute('refresh materialized view visualizations_sum')
-    curse.execute('refresh materialized view visualizations_stats')
-    curse.close()
+    cur.execute('REFRESH MATERIALIZED VIEW visualizations_sum')
+    cur.execute('REFRESH MATERIALIZED VIEW visualizations_stats')
+    cur.close()
     source_file.close()
 
 
 def loadImages(conn):
-    curse = conn.cursor()
-    curse.execute("SELECT img_name FROM images;")
+    cur = conn.cursor()
+    cur.execute("SELECT img_name FROM images;")
     w = 0
-    while w < curse.rowcount:
+    while w < cur.rowcount:
         w += 1
-        file = curse.fetchone()
+        file = cur.fetchone()
         file = file[0]
         # print(file)
         if file not in watched:
             watched.add(file)
-    curse.close()
-
+    cur.close()
 
 def main():
     parser = argparse.ArgumentParser()
@@ -105,19 +103,15 @@ def main():
         print("Unknown Glam name", args.glam)
         sys.exit(1)
 
-    connstring = "dbname=" + glam['database'] + " user=" + config['postgres']['user'] + \
-        " password=" + config['postgres']['password'] + \
-        " host=" + config['postgres']['host'] + \
-        " port=" + str(config['postgres']['port'])
-    pgconnection = psycopg2.connect(connstring)
-    pgconnection.autocommit = True
+    pgconnection = get_glam_database_connection(glam)
 
     loadImages(pgconnection)
-    process(pgconnection, args.date, args.dir)
+    filename = download(args.date, args.dir)
+    process(pgconnection, args.date, filename)
 
+    os.remove(filename)
     pgconnection.close()
     print("Process completed")
-
 
 if __name__ == "__main__":
     main()
