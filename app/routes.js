@@ -17,7 +17,7 @@ module.exports = function (app, apicache) {
     
     app.use('/', express.static(__dirname + '/pages'));
     
-    app.get('/health', () => {
+    app.get('/cassandra-app', (req, res) => { // health check
         res.send("ok");
     })
 
