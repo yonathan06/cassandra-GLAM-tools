@@ -6,8 +6,8 @@ var auth = require('http-auth');
 var config = require('./config/config.js');
 
 // Reload configuration every hour
-function loadGlams() {
-    config.loadGlams();
+async function loadGlams() {
+    const glams = await config.loadGlams();
     setTimeout(loadGlams, 3600000);
 }
 
