@@ -9,7 +9,7 @@ from subprocess import SubprocessError
 import psycopg2
 from psycopg2 import ProgrammingError
 
-from .glams_table import get_glams, update_min_date, get_glam_database_connection
+from .glams_table import get_glams, get_running_glams,update_min_date, get_glam_database_connection
 from config import config
 import etl.views
 
@@ -52,7 +52,6 @@ def add_missing_dates(glam: dict):
         if date_value not in current_dates:
             glam['missing_dates'].append(date_value)
 
-
 def process_glams_mediacounts():
     glams = []
 
@@ -86,3 +85,18 @@ def process_glams_mediacounts():
             if len(glams_with_missing_date) != 0:
                 etl.views.process_mediacounts(
                     glams_with_missing_date, date_value)
+
+
+def process_glams_mediacounts_for_date(date_value: date, mediacount_filepath: str):
+    glams = get_running_glams()
+    for glam in glams:
+        glams_with_missing_date = []
+        logging.info('Working with GLAM %s', glam['name'])
+        date_str = date_value.strftime("%Y-%m-%d")
+
+        if date_value in glam['missing_dates']:
+            glams_with_missing_date.append(glam)
+            update_min_date(glam, date_str)
+        if len(glams_with_missing_date) != 0:
+            etl.views.process_mediacounts(
+                glams_with_missing_date, date_value)

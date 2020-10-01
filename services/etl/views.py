@@ -75,6 +75,31 @@ def _process(conn, date, filename, glam_images):
     source_file.close()
 
 
+def update_glam_mediacounts_from_file(extracted_file, date_value, glam_conn, glam_images, glam_name):
+    logging.info(f"Updating mediacounts for {glam_name}")
+    cur = glam_conn.cursor()
+    counter = 0
+    for line in extracted_file:
+        if counter == len(glam_images):
+            break
+        arr = line.decode().split("\t")
+        keysX = arr[0].split("/")
+        key = keysX[len(keysX) - 1]
+        key = urllib.parse.unquote(key)
+        if key in glam_images:
+            counter += 1
+            if counter % 100 == 0:
+                logging.info("Loading progress: " +
+                             str(counter * 100 // len(glam_images)) + "%")
+            query = "SELECT * FROM dailyinsert('" + key.replace(
+                "'", "''") + "','" + date_value.strftime("%Y-%m-%d") + "'," + arr[2] + "," + arr[22] + "," + arr[23] + ")"
+            cur.execute(query)
+
+    cur.execute('REFRESH MATERIALIZED VIEW visualizations_sum')
+    cur.execute('REFRESH MATERIALIZED VIEW visualizations_stats')
+    cur.close()
+
+
 def load_images(conn):
     cur = conn.cursor()
     cur.execute("SELECT img_name FROM images;")
@@ -90,14 +115,16 @@ def load_images(conn):
     return glam_images
 
 
-def process_mediacounts(glams: [dict], process_date: date) -> None:
-    filename = get_mediacount_file_by_date(process_date)
+def process_mediacounts(glams: [dict], process_date: date, **kwargs) -> None:
+    filepath = kwargs.get('filepath', None)
+    remove_file_after_process = kwargs.get('remove_file_after_process', True)
+    if filepath == None:
+        filepath = get_mediacount_file_by_date(process_date)
 
     for glam in glams:
         conn = get_glam_database_connection(glam["database"])
         glam_images = load_images(conn)
-        _process(conn, process_date.strftime(
-            "%Y-%m-%d"), filename, glam_images)
+        _process(conn, process_date, filepath, glam_images)
         conn.close()
-
-    os.remove(filename)
+    if remove_file_after_process:
+        os.remove(filepath)

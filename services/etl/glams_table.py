@@ -37,6 +37,31 @@ def get_glams():
         connection.close()
         cursor.close()
 
+def get_running_glams():
+    connection, cursor = open_connection()
+    try:
+        cursor.execute("SELECT * FROM glams WHERE status != 'paused' AND status != 'failed'")
+        glams = cursor.fetchall()
+        return glams
+    except Exception as error:
+        logging.error('Error getting all glams', error)
+    finally:
+        connection.close()
+        cursor.close()
+
+def get_glam_images(glam_conn):
+    cur = glam_conn.cursor()
+    cur.execute("SELECT img_name FROM images;")
+    w = 0
+    glam_images = set()
+    while w < cur.rowcount:
+        w += 1
+        image = cur.fetchone()
+        image = image[0]
+        if image not in glam_images:
+            glam_images.add(image)
+    cur.close()
+    return glam_images
 
 def get_glam_by_name(name):
     connection, cursor = open_connection()
@@ -99,6 +124,6 @@ def get_glam_connection_str(glam_database):
 
 
 def get_glam_database_connection(glam_database):
-    pgconnection = psycopg2.connect(get_glam_connection_str(glam_database))
-    pgconnection.autocommit = True
-    return pgconnection
+    conn = psycopg2.connect(get_glam_connection_str(glam_database))
+    conn.autocommit = True
+    return conn
