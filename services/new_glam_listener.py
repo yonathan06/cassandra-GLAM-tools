@@ -10,12 +10,11 @@ from etl.views import process_mediacounts
 
 def process_new_glam_views(glam_name):
     glam = get_glam_by_name(glam_name)
-    start_date = datetime.strptime(
+    date_val = datetime.strptime(
         config['mediacountStartDate'], "%Y-%m-%d").date()
-    current_date = start_date
     today = date.today()
-    while current_date < today:
-        process_mediacounts([glam], current_date)
+    while date_val < today:
+        process_mediacounts([glam], date_val)
 
 
 class NewGlamListener(SqsListener):
