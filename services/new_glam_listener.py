@@ -16,14 +16,16 @@ def process_new_glam_views(glam_name):
     while date_val < today:
         process_mediacounts([glam], date_val)
 
+def initialize_new_glam(glam_name): 
+    glam = get_glam_by_name(glam_name)
+    first_time_process(glam)
+    process_new_glam_views(glam_name)
 
 class NewGlamListener(SqsListener):
     def handle_message(self, body, attributes, messages_attributes):
         glam_name = body["name"]
         print(f'received new message. Glam name: {glam_name}')
-        glam = get_glam_by_name(glam_name)
-        first_time_process(glam)
-        process_new_glam_views(glam_name)
+        initialize_new_glam(glam_name)
 
 
 logger = logging.getLogger('sqs_listener')

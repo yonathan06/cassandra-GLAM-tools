@@ -105,7 +105,7 @@ def create_database(database):
     conn, cur = open_connection()
     try:
         cur.execute(f"CREATE DATABASE {database} WITH OWNER = {postgres_config['user']} " +
-                    "ENCODING = 'UTF8' TABLESPACE = pg_default " +
+                    "ENCODING = 'UTF8'" +
                     "CONNECTION LIMIT = -1 TEMPLATE template0;")
     except psycopg2.errors.DuplicateDatabase:
         logging.error(
