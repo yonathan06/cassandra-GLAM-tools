@@ -17,6 +17,10 @@ module.exports = function (app, apicache) {
     
     app.use('/', express.static(__dirname + '/pages'));
     
+    app.get('/health', () => {
+        res.send("ok");
+    })
+
     app.get('/docs', function (req, res) {
         res.sendFile(__dirname + '/pages/docs.html');
     });
