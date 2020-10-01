@@ -26,7 +26,7 @@ def etl(name):
 
 
 def process_glam(glam):
-    if datetime.utcnow() < glam['lastrun'] + timedelta(days=1):
+    if datetime.utcnow() < glam['lastrun'].replace(tzinfo=None) + timedelta(days=1):
         logging.info('Glam %s is already updated', glam['name'])
         return
 

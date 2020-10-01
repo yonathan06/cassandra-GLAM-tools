@@ -36,4 +36,5 @@ def get_mediacount_file_by_date(date_val: date):
 def upload_mediacount_file(year: str, filename: str):
     object_key = f"{config['aws']['wikiMediacountsFolder']}/{year}/{filename}"
     filepath = f"{tmp_mediacounts_folder}/{year}/{filename}"
-    s3.Object(bucket_name, object_key).upload_file(filepath, object_key)
+    logging.info(f"Uploading file to s3: {object_key}")
+    s3.Object(bucket_name, object_key).upload_file(filepath)

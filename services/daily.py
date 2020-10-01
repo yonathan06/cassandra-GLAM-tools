@@ -1,4 +1,3 @@
-import fcntl
 import logging
 import bz2
 import os
@@ -13,9 +12,7 @@ from etl.download_mediacounts import download_file
 if __name__ == "__main__":
     logging.info("Starting daily tasks")
     with_sentry()
-    lockfile = open(f'tmp/cassandra_views.lock', 'w')
-    fcntl.flock(lockfile, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    yesterday_date = date.today() - timedelta(days = 1)
+    yesterday_date = date.today() - timedelta(days=1)
     glams = get_running_glams()
     # run jobs
     filepath = download_file(yesterday_date)
@@ -25,10 +22,9 @@ if __name__ == "__main__":
         process_glam(glam)
         conn = get_glam_database_connection(glam['database'])
         glam_images = get_glam_images(conn)
-        update_glam_mediacounts_from_file(extracted_file, yesterday_date, conn, glam_images)
+        update_glam_mediacounts_from_file(
+            extracted_file, yesterday_date, conn, glam_images, glam["name"])
         conn.close()
 
     extracted_file.close()
     os.remove(filepath)
-
-    fcntl.flock(lockfile, fcntl.LOCK_UN)
