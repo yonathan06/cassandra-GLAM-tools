@@ -6,6 +6,7 @@ WORKDIR    /usr/cassandra-app
 COPY       config config/
 COPY       pages pages/
 COPY       api.js ./
+COPY       locales locales/
 COPY       routes.js ./
 COPY       server.js ./
 COPY       package*.json ./
