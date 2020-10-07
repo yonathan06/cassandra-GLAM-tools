@@ -1,0 +1,9 @@
+{
+  "lang": "en",
+  "title": "GLAM stat tool (Cassandra)",
+  "views": {
+    "index": {
+      "institutions": "INSTITUTION"
+    }
+  }
+}

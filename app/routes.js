@@ -7,7 +7,7 @@ var config = require('./config/config.js');
 
 // Reload configuration every hour
 async function loadGlams() {
-    const glams = await config.loadGlams();
+    await config.loadGlams();
     setTimeout(loadGlams, 3600000);
 }
 
@@ -112,10 +112,11 @@ module.exports = function (app, apicache) {
     });
     
     // VIEWS
-    app.get('/:id', apicache("1 hour"), function (req, res) {
+    app.get('/:id', function (req, res) {
+        console.log("req", req)
         let glam = config.glams[req.params.id];
         if (isValidGlam(glam)) {
-            res.sendFile(__dirname + '/pages/views/index.html');
+            res.render(__dirname + '/pages/views/index.hbs', { localeDict: req.localesDicts.en });
         } else {
             res.sendStatus(400);
         }
