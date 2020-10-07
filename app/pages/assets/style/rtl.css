@@ -1,0 +1,101 @@
+@import url(https://tools-static.wmflabs.org/fontcdn/css?family=Chivo:300,400,400italic,700&subset=latin,latin-ext);
+
+.link-out-big {
+  margin-left: 0;
+  margin-right: .4rem;
+}
+
+.link-out-small {
+  margin-left: 0;
+  margin-right: .1rem;
+}
+
+
+/* SIDEBAR */
+#main-sidebar {
+  left: auto;
+  right: 0;
+}
+
+#main-sidebar > #sidebar-logo {
+  text-align: center;
+}
+
+#main-sidebar > .institutions-menu {
+  right: 0;
+  left: auto;
+}
+
+#main-sidebar > .institutions-menu > h6 {
+  padding: .5rem var(--sidebar-items-left) .5rem 0;
+}
+
+#main-sidebar > .sidebar-links {
+  right: var(--sidebar-items-left);
+}
+
+#main-sidebar > .sidebar-links > ul {
+  padding: 0 0 0 5rem;
+}
+
+#main-sidebar > .admin-panel {
+  right: var(--sidebar-items-left);
+}
+
+/* SECONDAY SIDEBAR */
+#secondary-sidebar {
+  left: auto;
+  right: 0;
+}
+
+/* MAIN CONTAINER */
+#main-container {
+  margin-left: 0;
+  margin-right: var(--sidebar-width);
+}
+
+#sub_header {
+  padding-left: 0;
+  padding-right: 1.5em;
+}
+
+#sub_header > div {
+  float: right;
+  margin-right: 0;
+  margin-left: 5em;
+}
+
+#sub_header > div:last-child {
+  margin-right: 5em;
+  margin-left: 0;
+}
+
+#success-glam a:hover {
+  background-color: rgba(6, 69, 173, 0.2);
+}
+
+.cover {
+  margin-right: var(--sidebar-width);
+  margin-left: 0;
+}
+
+.close-chart-info {
+  right: auto;
+  left: 0;
+}
+
+.text {
+  float: right;
+  margin-left: 20px;
+  margin-right: 0;
+}
+
+@media screen and (max-width: 576px) {
+  #main-container {
+    margin-right: var(--sidebar-width);
+    margin-left: 0;
+  }
+}
+.w-20 {
+  max-width: 20%;
+}

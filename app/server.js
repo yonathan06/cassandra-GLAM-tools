@@ -37,9 +37,15 @@ app.use(cookieParser())
 
 app.use(i18n.init)
 app.use((req, res, next) => {
+    if (!req.cookies.lang) {
+        req.cookies.lang = 'en';
+    }
     req.localesDicts = localesDicts;
     next();
 })
+hbs.registerHelper('json', function(object){
+	return new hbs.SafeString(JSON.stringify(object));
+});
 app.set('view engine', 'hbs');
 app.engine('hbs', hbs.__express);
 

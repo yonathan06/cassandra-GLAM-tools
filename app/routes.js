@@ -113,10 +113,9 @@ module.exports = function (app, apicache) {
     
     // VIEWS
     app.get('/:id', function (req, res) {
-        console.log("req", req)
         let glam = config.glams[req.params.id];
         if (isValidGlam(glam)) {
-            res.render(__dirname + '/pages/views/index.hbs', { localeDict: req.localesDicts.en });
+            res.render(__dirname + '/pages/views/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
         } else {
             res.sendStatus(400);
         }

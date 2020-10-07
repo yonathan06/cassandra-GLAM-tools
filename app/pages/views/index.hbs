@@ -9,6 +9,9 @@
 	<link rel="stylesheet" href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.css" />
 	<link rel="stylesheet" href="/assets/style/style.css" />
+	{{#if langDict.isRtl}}
+		<link rel="stylesheet" href="/assets/style/rtl.css">
+	{{/if}}
 	<base id="basebase" href="" />
 	<style>
 		body {
@@ -35,7 +38,7 @@
 			<div id="cover-overlay"></div>
 			<div class="row w-100 py-4 glam-title-container">
 				<div class="col-12 col-lg-7 glam-title-section">
-					<h5>{{localeDict.views.index.institutions}}</h5>
+					<h5>{{langDict.views.index.institutions}}</h5>
 					<div class="glam-title-desc">
 						<h1 class="glamName"></h1>
 					</div>
@@ -211,6 +214,9 @@
 		</main>
 	</div>
 	<div class="futovac"></div>
+	<script>
+		langDict = {{ json langDict }}
+	</script>
 	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.js"></script>
 	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>

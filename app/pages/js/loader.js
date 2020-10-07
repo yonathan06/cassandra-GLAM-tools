@@ -36,19 +36,21 @@ $('#main-sidebar').load('/views/templates/sidebar.html', function() {
       }
     });
     // Set mouse handler
+    const direction = langDict.isRtl ? 'right' : 'left'
     $('.institutions-menu').mouseenter(function() {
-      $('#secondary-sidebar').css('left', 'var(--sidebar-width)');
+    console
+      $('#secondary-sidebar').css(direction, 'var(--sidebar-width)');
       $(this).css('opacity', '.4');
     }).mouseleave(function() {
       if ($('#secondary-sidebar:hover').length === 0) {
-        $('#secondary-sidebar').css('left', '0');
+        $('#secondary-sidebar').css(direction, '0');
         $('.institutions-menu').css('opacity', '1');
       }
     });
     // Set mouse handlers
     $('#secondary-sidebar').mouseleave(function() {
       if ($('.institutions-menu:hover').length === 0) {
-        $(this).css('left', '0');
+        $(this).css(direction, '0');
         $('.institutions-menu').css('opacity', '1');
       }
     });

@@ -164,6 +164,11 @@ h2 {
   font-weight: 100;
 }
 
+#main-sidebar > #langSelect{
+  display: block;
+  margin: 20px auto 0 auto;
+}
+
 /* SIDEBAR */
 #main-sidebar {
   background-color: var(--bg-gray);
@@ -176,9 +181,7 @@ h2 {
 }
 
 #main-sidebar > #sidebar-logo {
-  position: absolute;
-  top: 3rem;
-  left: var(--sidebar-items-left);
+  text-align: center;
 }
 
 #main-sidebar > .institutions-menu {
