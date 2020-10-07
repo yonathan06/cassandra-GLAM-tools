@@ -1,4 +1,10 @@
-@import url(https://tools-static.wmflabs.org/fontcdn/css?family=Chivo:300,400,400italic,700&subset=latin,latin-ext);
+html {
+  direction: rtl;
+}
+
+body {
+  text-align: right;
+}
 
 .link-out-big {
   margin-left: 0;

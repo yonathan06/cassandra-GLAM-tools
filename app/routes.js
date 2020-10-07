@@ -15,7 +15,19 @@ loadGlams();
 
 module.exports = function (app, apicache) {
     
+    app.use('/views/templates/:file', function(req, res) {
+        if (req.params.file.endsWith('hbs')) {
+            res.render(__dirname + `/pages/views/templates/${req.params.file}`, { langDict: req.localesDicts[req.cookies.lang] });
+        } else {
+            res.sendFile(__dirname + `/pages/views/templates/${req.params.file}`);
+        }
+    })
+
     app.use('/', express.static(__dirname + '/pages'));
+
+    app.get('/', function (req, res) {
+        res.render(__dirname + '/pages/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
+    });
     
     app.get('/cassandra-app', (req, res) => { // health check
         res.send("ok");
@@ -24,7 +36,7 @@ module.exports = function (app, apicache) {
     app.get('/docs', function (req, res) {
         res.sendFile(__dirname + '/pages/docs.html');
     });
-    
+
     app.get('/404', function (req, res) {
         res.sendStatus(404);
     });

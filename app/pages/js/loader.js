@@ -15,9 +15,9 @@ function is_touch_device() {
 }
 
 // Load main sidebar
-$('#main-sidebar').load('/views/templates/sidebar.html', function() {
+$('#main-sidebar').load('/views/templates/sidebar.hbs', function() {
   // Load secondary sidebar
-  $('#secondary-sidebar').load('/views/templates/secondary-sidebar.html', function() {
+  $('#secondary-sidebar').load('/views/templates/secondary-sidebar.hbs', function() {
     // Fill GLAMS list
     $.get('/api/glams', function(glams) {
       if (glams.length > 0) {
@@ -58,7 +58,7 @@ $('#main-sidebar').load('/views/templates/sidebar.html', function() {
 });
 
 // Load mobile header bar
-$('#mobile-header-bar').load('/views/templates/mobile-header.html', function() {
+$('#mobile-header-bar').load('/views/templates/mobile-header.hbs', function() {
   // attach event to burger menu
   $('.left.sidebar').first().sidebar('attach events', '#sidebar-toggler', 'show');
   //  no pointer events while menu is open (avoids to trigger click on logo)
@@ -71,7 +71,7 @@ $('#mobile-header-bar').load('/views/templates/mobile-header.html', function() {
 });
 
 // Load mobile sidebar
-$('#mobile-sidebar').load('/views/templates/mobile-sidebar.html');
+$('#mobile-sidebar').load('/views/templates/mobile-sidebar.hbs');
 
 
 $(function() {

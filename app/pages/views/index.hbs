@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html={{ langDict.lang }}>
 <html>
 
 <head>
@@ -9,6 +9,9 @@
 	<link rel="stylesheet" href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.css" />
 	<link rel="stylesheet" href="/assets/style/style.css" />
+	<script>
+		langDict = {{ json langDict }}
+	</script>
 	{{#if langDict.isRtl}}
 		<link rel="stylesheet" href="/assets/style/rtl.css">
 	{{/if}}
@@ -214,9 +217,6 @@
 		</main>
 	</div>
 	<div class="futovac"></div>
-	<script>
-		langDict = {{ json langDict }}
-	</script>
 	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.js"></script>
 	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>

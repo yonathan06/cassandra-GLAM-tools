@@ -2,6 +2,12 @@
   "isRtl": false,
   "lang": "en",
   "title": "GLAM stat tool (Cassandra)",
+  "index": {
+    "title": "Support GLAMs (Galleries, Libraries, Archives, Museums) in monitoring and evaluating their cooperation with Wikimedia projects"
+  },
+  "sidebar": {
+    "institutions": "INSTITUTIONS"
+  },
   "views": {
     "index": {
       "institutions": "INSTITUTION"
