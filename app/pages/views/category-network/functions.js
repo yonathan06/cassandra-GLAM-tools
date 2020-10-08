@@ -386,7 +386,7 @@ function sidebar(order) {
 
 function download() {
     $('#download_dataset_link').remove();
-    $('<a id="download_dataset_link" href="' + getUrlDataset() + '" download="' + "category_network.csv" + '">Download dataset</a>').appendTo('#download_dataset');
+    $('<a id="download_dataset_link" href="' + getUrlDataset() + '" download="' + "category_network.csv" + '">'+langDict.downloadDataset+'</a>').appendTo('#download_dataset');
 }
 
 $("#how_to_read_button").click(function(){

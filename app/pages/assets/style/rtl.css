@@ -96,6 +96,49 @@ body {
   margin-right: 0;
 }
 
+#white-logo {
+  padding-left: 2rem;
+  padding-right: 0;
+  border-left: 1px solid rgba(255, 255, 255, .5);
+}
+
+#breadcrumbs {
+  margin-right: 2rem;
+  margin-left: 0;
+}
+
+#topbar h6 {
+  margin: 0 0 0 .5rem;
+}
+
+.select-selected:after {
+  left: 12px;
+  right: auto;
+}
+
+.annotation_container {
+  border-right: 1px solid rgba(255, 255, 255, .5);
+  border-left: none;
+}
+
+#chart-page-footer .chart-title {
+  padding-left: 1rem;
+  margin-left: 1rem;
+  border-left: 1px solid var(--main);
+  padding-right: 0;
+  margin-right: 0;
+  border-right: none;
+}
+
+#chart-page-footer img {
+  margin-left: .5rem;
+  margin-right: 0;
+}
+
+#chart-page-footer .commons-category h6 {
+  margin: 0 0 0 .5rem;
+}
+
 @media screen and (max-width: 576px) {
   #main-container {
     margin-right: var(--sidebar-width);

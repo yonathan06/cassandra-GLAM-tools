@@ -154,7 +154,7 @@ module.exports = function (app, apicache) {
     app.get('/:id/category-network/:name?', apicache("1 hour"), function (req, res) {
         let glam = config.glams[req.params.id];
         if (isValidGlam(glam)) {
-            res.sendFile(__dirname + '/pages/views/category-network/index.html');
+            res.render(__dirname + '/pages/views/category-network/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
         } else {
             res.sendStatus(400);
         }

@@ -8,6 +8,9 @@
   "sidebar": {
     "institutions": "INSTITUTIONS"
   },
+  "description": "Description",
+  "help": "Help",
+  "downloadDataset": "Download dataset",
   "views": {
     "index": {
       "institutions": "INSTITUTION",
@@ -18,7 +21,13 @@
       "cards": {
         "categoryNetwork": {
           "title": "CATEGORY NETWORK",
-          "description": "<i>Category network</i> is a <b>GRAPH CHART</b> that shows the subcategories' topology\nbelonging to the main category. Each node represents a\ncategory, while the edges are the relations."
+          "description": "<i>Category network</i> is a <b>GRAPH CHART</b> that shows the subcategories' topology\nbelonging to the main category. Each node represents a\ncategory, while the edges are the relations.",
+          "inPageDescription": "This graph chart shows the subcategories' topology belonging to the main category.<br>Having just one category (or level) is a bad practice on Wikimedia Commons because makes difficult to the community to find and use files. Instead a multilevel and articulated categorization permits better reuse of the uploaded media.<br>This statistic is updated every day (max lag time 24h) and represents the actual scenario.<br><br><h5>How to read it</h5>Each node represents a category, while the edges are the relations. Categories at the same level share the color.The bubble size is proportional to the amount of files within every category.<br><br><h5>How to use it</h5>On the right menu you can order categories by level or by number of files. If you click into a category name the correspondent node will highlight (and vice versa).<br>On the top bar you can also drill-down to a chosen subdirectory.<br><br><h5>Use case</h5>With this graph you can understand if the media files of your interest are divided in a useful way. Probablya category with more then one hundred files needs to be splitted in two or more subcategories. In fact, the better a media is categorized on Wikimedia Commons, the more is probable to be viewed or used inside a Wikipedia page.<br>More info available on: <a href=\"https://commons.wikimedia.org/wiki/Commons:Categories\">https://commons.wikimedia.org/wiki/Commons:Categories</a>.",
+          "byLevel": "by level",
+          "byTotal": "by total",
+          "unusedMediaOnly": "UNUSED MEDIA ONLY",
+          "categoryNetworkChart": "CATEGORY NETWORK CHART",
+          "categoryInCommons": "CATEGORY IN COMMONS"
         },
         "userContribution": {
           "title": "USER CONTRIBUTION",
