@@ -10,7 +10,34 @@
   },
   "views": {
     "index": {
-      "institutions": "INSTITUTION"
+      "institutions": "INSTITUTION",
+      "categoryTitle": "Category in Commons",
+      "totalMedia": "Total media",
+      "view": "VIEW",
+      "chart": "CHART",
+      "cards": {
+        "categoryNetwork": {
+          "title": "CATEGORY NETWORK",
+          "description": "<i>Category network</i> is a <b>GRAPH CHART</b> that shows the subcategories' topology\nbelonging to the main category. Each node represents a\ncategory, while the edges are the relations."
+        },
+        "userContribution": {
+          "title": "USER CONTRIBUTION",
+          "description": "<i>Users contribution</i> is a <b>BAR CHART</b> that\nshows the number of uploads during time. Here you can\nstudy if the contribution pattern is well\ndistributed or if it's composed by spikes."
+        },
+        "usage": {
+          "title": "USAGE",
+          "description": "This chart shows the <i>usage</i> of the media of the\nmain category in Wikimedia projects."
+        },
+        "views": {
+          "title": "VIEWS",
+          "description": "<i>Views</i> is a <b>LINE CHART</b> that\nshows the sum of the views for the files thats belong\nto the main category with a 24h span."
+        },
+        "suggestions": {
+          "title": "SUGGESTIONS",
+          "description": "This page shows some unused files with links to wikidata and wikipedia pages where they can be used."
+        }
+      },
+      "searchFile": "Search files"
     }
   }
 }

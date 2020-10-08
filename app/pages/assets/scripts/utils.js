@@ -28,7 +28,7 @@ function setCategory() {
 		if (page && page === "search"){
 			subcat = d.category;
 		}
-		$('#totalMediaNum').text(formatter(d.files));
+		$('#totalMediaNum').text(Number.prototype.toLocaleString.call(d.files));
 		catUrl.text(decodeURIComponent(subcat ? subcat : d.category).replace("Category:",""));
 		catUrl.attr("href", "https://commons.wikimedia.org/wiki/"+(subcat ? ("Category:" + subcat) : d.category));
 		catUrl.attr("title", decodeURIComponent((subcat ? subcat :d.category)).replace(/[_-]/g," "));

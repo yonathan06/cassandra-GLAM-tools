@@ -571,6 +571,10 @@ footer {
   color: var(--main);
 }
 
+.close-chart-info {
+  color: white;
+}
+
 .get-chart-info:hover,
 .close-chart-info:hover {
   opacity: .5;
