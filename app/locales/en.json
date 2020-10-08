@@ -11,6 +11,9 @@
   "description": "Description",
   "help": "Help",
   "downloadDataset": "Download dataset",
+  "month": "Month",
+  "quarter": "Quarter",
+  "year": "Year",
   "views": {
     "index": {
       "institutions": "INSTITUTION",
@@ -31,7 +34,12 @@
         },
         "userContribution": {
           "title": "USER CONTRIBUTION",
-          "description": "<i>Users contribution</i> is a <b>BAR CHART</b> that\nshows the number of uploads during time. Here you can\nstudy if the contribution pattern is well\ndistributed or if it's composed by spikes."
+          "description": "<i>Users contribution</i> is a <b>BAR CHART</b> that\nshows the number of uploads during time. Here you can\nstudy if the contribution pattern is well\ndistributed or if it's composed by spikes.",
+          "selectView": "Select view",
+          "inPageDescription": "This bar chart shows the number of user contributions during time.<br>Here you can study if the contribution pattern is well distributed or if it's composed by spikes.<br>This statistic is updated every day (max lag time 24h).<br><br><h5>How to read it</h5>On the horizontal axis we have time, with one month precision. On the vertical axis the total uploaded files inthe category during a month.<br><br><h5>How to use it</h5>On the right menu you can order users by name or by number of contributions. If you click into a user name thecorrespondent graph of contributions will show up.<br>On the top bar you can also drill-down to a chosen subdirectory.<br><br><h5>Use case</h5>Here you can find the community around this category!",
+          "byName": "by name",
+          "byTotal": "by total",
+          "userContributionChart": "USERS CONTRIBUTION CHART"
         },
         "usage": {
           "title": "USAGE",

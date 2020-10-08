@@ -208,7 +208,7 @@ function download(){
     // remove old link
     $("#download_dataset a").remove();
     // recreate download link based on timespan
-    $('<a href="' + getUrlDataset() + '" download="' + "views.csv" + '">Download dataset</a>').appendTo('#download_dataset');
+    $('<a href="' + getUrlDataset() + '" download="' + "views.csv" + '">'+langDict.downloadDataset+'</a>').appendTo('#download_dataset');
 }
 
 function how_to_read(){

@@ -270,7 +270,7 @@ function sorting_sidebar() {
 }
 
 function download(){
-	$('<a href="' + getUrlDataset() + '" download="' + "usage.csv" + '">Download dataset</a>').appendTo('#download_dataset');
+	$('<a href="' + getUrlDataset() + '" download="' + "usage.csv" + '">'+langDict.downloadDataset+'</a>').appendTo('#download_dataset');
 }
 
 function how_to_read() {
