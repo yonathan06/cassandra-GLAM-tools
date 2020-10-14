@@ -95,5 +95,6 @@ module.exports = {
   glams,
   loadGlams,
   insertGlam,
-  updateGlam
+  updateGlam,
+  cassandraPgPool
 }

@@ -4,6 +4,7 @@ var api = require('./api.js');
 var auth = require('http-auth');
 
 var config = require('./config/config.js');
+const { getGlamByName, getAllGlams } = require('./lib/db.js');
 
 // Reload configuration every hour
 async function loadGlams() {
@@ -214,20 +215,20 @@ module.exports = function (app) {
         res.sendStatus(200);
     });
     
-    app.get('/api/glams', function (req, res) {
-        api.glams(req, res, config.glams);
+    app.get('/api/glams', async function (req, res) {
+        api.glams(req, res, await getAllGlams());
     });
     
-    app.get('/api/admin/glams', function (request, response) {
-        api.glams(request, response, config.glams, true);
+    app.get('/api/admin/glams', async function (request, response) {
+        api.glams(request, response, await getAllGlams(), true);
     });
     
     app.post('/api/admin/glams', function (req, res) {
         api.createGlam(req, res, config);
     });
     
-    app.get('/api/admin/glams/:id', function (req, res) {
-        let glam = config.glams[req.params.id];
+    app.get('/api/admin/glams/:id', async function (req, res) {
+        let glam = await getGlamByName(req.params.id);
         if (glam !== undefined) {
             api.getAdminGlam(req, res, glam);
         } else {
