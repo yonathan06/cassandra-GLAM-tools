@@ -7,6 +7,7 @@ COPY       config config/
 COPY       pages pages/
 COPY       api.js ./
 COPY       locales locales/
+COPY       lib lib/
 COPY       routes.js ./
 COPY       server.js ./
 COPY       package*.json ./
