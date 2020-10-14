@@ -11,9 +11,20 @@
   "description": "Description",
   "help": "Help",
   "downloadDataset": "Download dataset",
+  "day": "Day",
+  "week": "Week",
   "month": "Month",
   "quarter": "Quarter",
   "year": "Year",
+  "selectView": "Select view",
+  "categoryInCommons": "CATEGORY IN COMMONS",
+  "position": "POSITION",
+  "left": "Left",
+  "right": "Right",
+  "top": "Top",
+  "bottom": "Bottom",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
   "views": {
     "index": {
       "institutions": "INSTITUTION",
@@ -29,13 +40,11 @@
           "byLevel": "by level",
           "byTotal": "by total",
           "unusedMediaOnly": "UNUSED MEDIA ONLY",
-          "categoryNetworkChart": "CATEGORY NETWORK CHART",
-          "categoryInCommons": "CATEGORY IN COMMONS"
+          "categoryNetworkChart": "CATEGORY NETWORK CHART"
         },
         "userContribution": {
           "title": "USER CONTRIBUTION",
           "description": "<i>Users contribution</i> is a <b>BAR CHART</b> that\nshows the number of uploads during time. Here you can\nstudy if the contribution pattern is well\ndistributed or if it's composed by spikes.",
-          "selectView": "Select view",
           "inPageDescription": "This bar chart shows the number of user contributions during time.<br>Here you can study if the contribution pattern is well distributed or if it's composed by spikes.<br>This statistic is updated every day (max lag time 24h).<br><br><h5>How to read it</h5>On the horizontal axis we have time, with one month precision. On the vertical axis the total uploaded files inthe category during a month.<br><br><h5>How to use it</h5>On the right menu you can order users by name or by number of contributions. If you click into a user name thecorrespondent graph of contributions will show up.<br>On the top bar you can also drill-down to a chosen subdirectory.<br><br><h5>Use case</h5>Here you can find the community around this category!",
           "byName": "by name",
           "byTotal": "by total",
@@ -47,7 +56,14 @@
         },
         "views": {
           "title": "VIEWS",
-          "description": "<i>Views</i> is a <b>LINE CHART</b> that\nshows the sum of the views for the files thats belong\nto the main category with a 24h span."
+          "description": "<i>Views</i> is a <b>LINE CHART</b> that\nshows the sum of the views for the files thats belong\nto the main category with a 24h span.",
+          "inPageDescription": "This line chart shows the sum of the views for the files thats belong to the main category with a 24hspan.<br>Generally is quite visible the difference of visits between workdays and weekends. Sometimes some spikescould leadto a popular event. A growing trend is not always equals to a growing popularity of the category because offile additions.<br>This statistic is updated every day (max lag time 24h). The data collected here are taken from<a  href=\"https://dumps.wikimedia.org/other/mediacounts/daily/\">https://dumps.wikimedia.org/other/mediacounts/daily/</a>.A visit is recorded every time a device download a specific file from Wikimedia server. So it counts both actual visits, both visits on pages where the file is present (but only if loaded on the device). Actually this is the most precise statistic released by Wikimedia servers.<br><br><h5>How to read it</h5>On the horizontal axis we have time, with one day precision. On the vertical axis the total views performed by all files in the category. This axis has logarithmic scale.<br><br><h5>How to use it</h5>On the right menu you can order files by views, by median or by name.<br>On the top bar you can also drill-down to a chosen subdirectory or select your preferred time dimension.",
+          "viewsChart": "VIEWS CHART",
+          "byViews": "By views",
+          "byMedian": "By median",
+          "byName": "By name",
+          "annotationEditMode": "ANNOTATION EDIT MODE",
+          "addNewAnnotation": "ADD NEW ANNOTATION"
         },
         "suggestions": {
           "title": "SUGGESTIONS",

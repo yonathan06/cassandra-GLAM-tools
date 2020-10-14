@@ -11,9 +11,20 @@
   "description": "תיאור",
   "help": "עזרה",
   "downloadDataset": "הורדת נתונים",
+  "day": "יום",
+  "week": "שבוע",
   "month": "חודש",
   "quarter": "רבעון",
   "year": "שנה",
+  "selectView": "בחירת תצוגה",
+  "categoryInCommons": "קטגוריה ב - Commons",
+  "position": "מיקום",
+  "left": "שמאל",
+  "right": "ימין",
+  "top": "למעלה",
+  "bottom": "למטה",
+  "cancel": "ביטול",
+  "confirm": "אישור",
   "views": {
     "index": {
       "institutions": "מוסד",
@@ -29,13 +40,11 @@
           "byLevel": "לפי רמה",
           "byTotal": "לפי סכום",
           "unusedMediaOnly": "רק מדיה שלא בשימוש",
-          "categoryNetworkChart": "גרף רשת קטגוריות",
-          "categoryInCommons": "קטגוריה ב-Commons"
+          "categoryNetworkChart": "גרף רשת קטגוריות"
         },
         "userContribution": {
           "title": "תרומות משתמשים",
           "description": "<i>תרומת משתמשים</i> היא <b> תרשים עמודות </b> המציג \n את מספר ההעלאות במהלך הזמן. כאן תוכל \n ללמוד אם דפוס התרומה מופץ היטב או אם הוא מורכב על ידי קוצים.",
-          "selectView": "בחירת תצוגה",
           "inPageDescription": "תרשים עמודות זה מציג את מספר תרומות המשתמשים בזמן. <br> כאן תוכלו ללמוד אם דפוס התרומה מופץ היטב או אם הוא מורכב על ידי קוצים. <br> נתון זה מתעדכן כל יום (זמן השהיה מקסימלי 24 שעות). <br> <br> <h5> כיצד לקרוא אותו </h5> על הציר האופקי יש לנו זמן, עם דיוק של חודש אחד. על הציר האנכי סך הקבצים שהועלו בקטגוריה במהלך חודש. <br> <br> <h5> כיצד להשתמש בו </h5> בתפריט הימני ניתן להזמין משתמשים לפי שם או לפי מספר תרומות. אם תלחץ על שם משתמש יופיע הגרף של המגיבים של התרומות. <br> בסרגל העליון תוכל גם למקדק לספריית משנה שנבחרה. <br> <br> <h5> השתמש במקרה </h5> כאן אתה יכול למצוא את הקהילה סביב קטגוריה זו!",
           "byName": "לפי שם",
           "byTotal": "לפי סכום",
@@ -47,7 +56,14 @@
         },
         "views": {
           "title": "צפיות",
-          "description": "<i> תצוגות </i> היא <b> תרשים קו</b> המציג את סכום התצוגות עבור הקבצים השייכים לקטגוריה הראשית עם טווח של 24 שעות."
+          "description": "<i> תצוגות </i> היא <b> תרשים קו</b> המציג את סכום התצוגות עבור הקבצים השייכים לקטגוריה הראשית עם טווח של 24 שעות.",
+          "inPageDescription": "This line chart shows the sum of the views for the files thats belong to the main category with a 24hspan.<br>Generally is quite visible the difference of visits between workdays and weekends. Sometimes some spikescould leadto a popular event. A growing trend is not always equals to a growing popularity of the category because offile additions.<br>This statistic is updated every day (max lag time 24h). The data collected here are taken from<a  href=\"https://dumps.wikimedia.org/other/mediacounts/daily/\">https://dumps.wikimedia.org/other/mediacounts/daily/</a>.A visit is recorded every time a device download a specific file from Wikimedia server. So it counts both actual visits, both visits on pages where the file is present (but only if loaded on the device). Actually this is the most precise statistic released by Wikimedia servers.<br><br><h5>How to read it</h5>On the horizontal axis we have time, with one day precision. On the vertical axis the total views performed by all files in the category. This axis has logarithmic scale.<br><br><h5>How to use it</h5>On the right menu you can order files by views, by median or by name.<br>On the top bar you can also drill-down to a chosen subdirectory or select your preferred time dimension.",
+          "viewsChart": "גרף צפיות",
+          "byViews": "לפי צפיות",
+          "byMedian": "לפי חציון",
+          "byName": "לפי שם",
+          "annotationEditMode": "מצב עריכת אנוטציה",
+          "addNewAnnotation": "הוספת אנוטציה חדשה"
         },
         "suggestions": {
           "title": "הצעות",

@@ -2,6 +2,7 @@ const { Pool } = require('pg');
 const AWS = require("aws-sdk");
 const fs = require('fs');
 const SQL = require('@nearform/sql');
+process.env.ENV = "production";
 const config = JSON.parse(fs.readFileSync(`${__dirname}/config.${process.env.ENV}.json`));
 
 
