@@ -197,7 +197,7 @@ module.exports = function (app) {
     app.get('/:id/usage/:name?', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.sendFile(__dirname + '/pages/views/usage/index.html');
+            res.render(__dirname + '/pages/views/usage/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
         } else {
             res.sendStatus(400);
         }
