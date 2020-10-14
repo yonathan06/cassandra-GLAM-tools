@@ -25,6 +25,7 @@
   "bottom": "Bottom",
   "cancel": "Cancel",
   "confirm": "Confirm",
+  "loadMore": "LOAD MORE",
   "views": {
     "index": {
       "institutions": "INSTITUTION",
@@ -72,7 +73,9 @@
         },
         "suggestions": {
           "title": "SUGGESTIONS",
-          "description": "This page shows some unused files with links to wikidata and wikipedia pages where they can be used."
+          "description": "This page shows some unused files with links to wikidata and wikipedia pages where they can be used.",
+          "inPageDescription": "This page shows some unused files belonging to the selected category with links to Wikidata and Wikipedia pages where they can be possibly used. <br><br> <h5>Recommendation approaches</h5> This tool follows two recommendation approaches. The first one is based on the Commons categories of the target file. Wikipedia articles connected on Wikidata with the categories of the target file are selected with the highest confidence. The second approach is based on the description of the file on Commons. Additional Wikipedia articles connected with the Wikidata entities having a textual description similar to the one of the target file are also selected. <br><br> <h5>How to read it</h5> In the column Wikidata suggestion there are the links to Wikidata pages where you can use the selected image. <br> In the Wikipedia pages column there are the links to the Wikipedia pages corresponding to the Wikidata entity on the same row, divided by language.",
+          "unusedFilesSuggestions": "UNUSED FILES SUGGESTIONS"
         }
       },
       "searchFile": "Search files"

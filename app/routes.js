@@ -179,7 +179,7 @@ module.exports = function (app) {
     app.get('/:id/recommender/:name?', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.sendFile(__dirname + '/pages/views/recommender-page/index.html');
+            res.render(__dirname + '/pages/views/recommender-page/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
         } else {
             res.sendStatus(400);
         }
