@@ -42,7 +42,6 @@ async function getAllGlams() {
 exports.getAllGlams = getAllGlams;
 
 async function getGlamByName(name) {
-  console.log("getGlamByName -> name", name)
   const query = SQL`SELECT * FROM glams WHERE name=${name}`;
   const result = await config.cassandraPgPool.query(query);
   const element = result.rows[0];

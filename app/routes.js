@@ -222,7 +222,6 @@ module.exports = function (app) {
     });
 
     app.get('/api/glams', async function (req, res) {
-        console.log('/api/glams');
         try {
             const glams = await getAllGlams();
             api.glams(req, res, glams);
