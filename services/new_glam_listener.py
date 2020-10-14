@@ -15,6 +15,7 @@ def process_new_glam_views(glam_name):
     today = date.today()
     while date_val < today:
         process_mediacounts([glam], date_val)
+        date_val = date_val + timedelta(days = 1)
 
 
 def initialize_new_glam(glam_name):
