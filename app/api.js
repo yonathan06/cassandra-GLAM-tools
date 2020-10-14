@@ -1,4 +1,5 @@
 const stringify = require('csv-stringify');
+const { getGlamByName } = require('./lib/db');
 
 Date.prototype.toISODateString = function () {
     let offset = this.getTimezoneOffset() * 60 * 1000;
@@ -6,34 +7,12 @@ Date.prototype.toISODateString = function () {
     return local.toISOString().slice(0, 10);
 }
 
-function glamToJson(glam) {
-    return {
-        'name': glam['name'],
-        'fullname': glam['fullname'],
-        'category': "Category:" + glam['category'],
-        'image': glam['image']
-    };
-}
-
 // ADMIN
-var glams = function (req, res, glams, admin) {
-    let result = [];
-
-    for (var name in glams) {
-
-        json = glamToJson(glams[name]);
-
-        if (admin) {
-            json['lastrun'] = glams[name]['lastrun'];
-            json['status'] = glams[name]['status'];
-        } else {
-            if (glams[name]['status'] !== 'running') {
-                continue;
-            }
-        }
-
-        result.push(json);
-    }
+function glams(req, res, glams, admin) {
+    let result = glams.map(glam => {
+        glam.category = `Category:${glam.category}`
+        return glam;
+    });
 
     if (admin) {
         // Sort by decreasing timestamp
@@ -55,17 +34,14 @@ var glams = function (req, res, glams, admin) {
 }
 
 var getAdminGlam = function (req, res, glam) {
-    let result = glamToJson(glam);
-    result['lastrun'] = glam['lastrun'];
-    result['status'] = glam['status'];
-    res.json(result);
+    glam.category = `Category:${glam.category}`
+    res.json(glam);
 }
 
-var createGlam = function (req, res, config) {
+var createGlam = async function (req, res, config) {
     let glam = {};
-
     let name = req.body['name'];
-    if (name === undefined || name === '' || name in config.glams || name.includes(' ')) {
+    if (name === undefined || name === '' || name.includes(' ')) {
         res.status(400).send("Bad name");
         return;
     }
@@ -107,13 +83,18 @@ var createGlam = function (req, res, config) {
     //         'password': password
     //     };
     // }
-
-    config.insertGlam(glam).then(() => {
+    try {
+        const existingGlam = await getGlamByName(name);
+        if (existingGlam) {
+            res.status(400).send("Glam already exists with name");
+            return;
+        }
+        await config.insertGlam(glam)
         res.sendStatus(200);
-    }).catch(err => {
+    } catch (err) {
         res.sendStatus(500);
         console.error(err);
-    });
+    }
 }
 
 var updateGlam = function (req, res, config) {
@@ -202,9 +183,11 @@ var getAnnotations = function (req, res, next, glam) {
         if (!err) {
             let result = [];
             dbres.rows.forEach((row => {
-                result.push({'date': row['annotation_date'].toISODateString(),
-                             'annotation': row['annotation_value'],
-                             'position': row['annotation_position']});
+                result.push({
+                    'date': row['annotation_date'].toISODateString(),
+                    'annotation': row['annotation_value'],
+                    'position': row['annotation_position']
+                });
             }));
             res.json(result);
         } else {
@@ -218,9 +201,11 @@ var getAnnotation = function (req, res, next, glam) {
         if (!err) {
             if (dbres.rows.length == 1) {
                 let row = dbres.rows[0];
-                let result = {'date': row['annotation_date'].toISODateString(),
-                              'annotation': row['annotation_value'],
-                              'position': row['annotation_position']};
+                let result = {
+                    'date': row['annotation_date'].toISODateString(),
+                    'annotation': row['annotation_value'],
+                    'position': row['annotation_position']
+                };
                 res.json(result);
             } else {
                 res.sendStatus(404);
@@ -393,7 +378,7 @@ var categoryGraphDataset = function (req, res, next, db) {
     db.query(categoryGraphQuery(req.query.unused), (err, dbres) => {
         if (!err) {
             res.set('Content-Type', 'text/csv');
-            let stringifier = stringify({'delimiter': ';', 'record_delimiter': 'windows'});
+            let stringifier = stringify({ 'delimiter': ';', 'record_delimiter': 'windows' });
             stringifier.pipe(res);
             stringifier.write(["Category", "Files", "Level"]);
             dbres.rows.forEach(function (row) {
@@ -461,12 +446,12 @@ var categoryFiles = function (req, res, next, db) {
 // for USER CONTRIBUTIONS and VIEWS
 function parseGroupBy(groupby, defaultGroupBy) {
     var parseGroupByWhitelist = [
-      'day',
-      'week',
-      'month',
-      'quarter',
-      'year',
-      'decade'  // available for future implementation
+        'day',
+        'week',
+        'month',
+        'quarter',
+        'year',
+        'decade'  // available for future implementation
     ];
     if (parseGroupByWhitelist.indexOf(groupby) !== -1) {
         return groupby;
@@ -505,7 +490,7 @@ var uploadDate = function (req, res, next, db) {
         with recursive subcategories as (
         select page_title, cl_to
         from categories
-        where page_title = $` + param_index +`
+        where page_title = $` + param_index + `
         union
         select c.page_title, c.cl_to
         from categories c
@@ -603,7 +588,7 @@ var uploadDateDataset = function (req, res, next, db) {
     db.query(query, parameters, (err, dbres) => {
         if (!err) {
             res.set('Content-Type', 'text/csv');
-            let stringifier = stringify({'delimiter': ';', 'record_delimiter': 'windows'});
+            let stringifier = stringify({ 'delimiter': ';', 'record_delimiter': 'windows' });
             stringifier.pipe(res);
             stringifier.write(["User", "Date", "Count"]);
             dbres.rows.forEach(function (row) {
@@ -637,7 +622,7 @@ var uploadDateAll = function (req, res, next, db) {
                 date_counts as (
                     select count(*) as count_value, date_trunc('` + groupby + `', img_timestamp) as date_count
                     from images`;
-    
+
     let parameters = [];
     let param_index = 1;
 
@@ -655,8 +640,8 @@ var uploadDateAll = function (req, res, next, db) {
         from subcategories)`;
         parameters.push(req.query.cat);
         param_index++;
-    }              
-                    
+    }
+
     query += ` group by date_count)
                 select coalesce(count_value, 0) as count, date_value as date
                 from date_range
@@ -684,8 +669,10 @@ var uploadDateAll = function (req, res, next, db) {
         if (!err) {
             let result = [];
             dbres.rows.forEach(function (row) {
-                let date = {"count": parseInt(row.count),
-                            "date": row.date.toISODateString()};
+                let date = {
+                    "count": parseInt(row.count),
+                    "date": row.date.toISODateString()
+                };
                 result.push(date);
             });
             res.json(result);
@@ -818,7 +805,7 @@ var usageDataset = function (req, res, next, db) {
     db.query(query, parameters, (err, dbres) => {
         if (!err) {
             res.set('Content-Type', 'text/csv');
-            let stringifier = stringify({'delimiter': ';', 'record_delimiter': 'windows'});
+            let stringifier = stringify({ 'delimiter': ';', 'record_delimiter': 'windows' });
             stringifier.pipe(res);
             stringifier.write(["File", "Project", "Page"]);
             dbres.rows.forEach(function (row) {
@@ -933,7 +920,7 @@ var usageTop = function (req, res, next, db) {
                 union all
                 select 'others' as wiki, count(*) as usage
                 from usages`;
-                
+
     if (req.query.cat !== undefined) {
         query += ` left join images on gil_to = img_name
                     where cl_to && array( 
@@ -1071,7 +1058,7 @@ GROUP BY
     db.query(query, (err, dbres) => {
         if (!err) {
             res.set('Content-Type', 'text/csv');
-            let stringifier = stringify({'delimiter': ';', 'record_delimiter': 'windows'});
+            let stringifier = stringify({ 'delimiter': ';', 'record_delimiter': 'windows' });
             stringifier.pipe(res);
             stringifier.write(["Date", "Views"]);
             dbres.rows.forEach(function (row) {
@@ -1098,8 +1085,8 @@ var viewsByFile = function (req, res, next, db) {
                     and img_name = $2`;
 
     let parameters = [
-      groupby,
-      req.params.file
+        groupby,
+        req.params.file
     ];
 
     if (req.query.start !== undefined) {
@@ -1251,7 +1238,7 @@ var fileDetails = function (req, res, next, db) {
                 row.categories.forEach(function (cat) {
                     uniq_cats.add(cat.replace(/^[^=]*=/, ''));
                 });
-                result['categories']= Array.from(uniq_cats);
+                result['categories'] = Array.from(uniq_cats);
 
                 res.json(result);
             } else {
@@ -1271,7 +1258,7 @@ var search = function (req, res, next, db) {
                 WHERE img_name ILIKE $1
                 AND is_alive = TRUE
                 ORDER BY img_name`;
-    
+
     let page = 0;
     if (req.query.page !== undefined) {
         page = parseInt(req.query.page);
@@ -1293,7 +1280,7 @@ var search = function (req, res, next, db) {
             dbres.rows.forEach(function (row) {
                 result.push(row['img_name']);
             });
-            
+
             res.json(result);
         } else {
             next(new Error(err));
