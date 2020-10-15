@@ -94,13 +94,13 @@ function drawHorizBars(data, div, totalPages) {
      .attr("text-anchor", "end")
      .attr("y", -15)
      .attr("x", -1)
-     .text("Projects")
+     .text(langDict.projects)
 
   svg.append("text")
      .attr("text-anchor", "end")
      .attr("x", width)
      .attr("y", height + margin.top + 10)
-     .text("Pages");
+     .text(langDict.pages);
 
   // append the rectangles for the bar chart
   var bars = svg.selectAll(".bar")

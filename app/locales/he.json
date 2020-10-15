@@ -26,6 +26,14 @@
   "cancel": "ביטול",
   "confirm": "אישור",
   "loadMore": "טען עוד",
+  "viewInCommons": "תצוגה ב-Commons",
+  "viewDetails": "הצגת פירוט",
+  "usage":  "שימוש",
+  "projects": "פרויקטים",
+  "totalPagesEnhanced": "סך כל הדפים המשופרים",
+  "totalProjectsInvolved": "סך כל הפרויקטים המעורבים",
+  "distinctMediaUsed": "שימוש מובחן בפריטי מדיה",
+  "pages": "דפים",
   "views": {
     "index": {
       "institutions": "מוסד",

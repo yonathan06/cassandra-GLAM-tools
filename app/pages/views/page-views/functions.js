@@ -249,11 +249,11 @@ function statDraw() {
     d3.json(getUrlAll(), function (error, data) {
 	if (error) { window.location.href('/500'); }
 	$("#usage_stat").append("<br><br>");
-	$("#usage_stat").append("Distinct media used: <b>" + data.totalImagesUsed + "</b>");
+	$("#usage_stat").append(langDict.distinctMediaUsed + ": <b>" + data.totalImagesUsed + "</b>");
 	$("#usage_stat").append("<br><br>");
-	$("#usage_stat").append("Total projects touched: <b>" + data.totalProjects + "</b>");
+	$("#usage_stat").append(langDict.totalProjectsInvolved + ": <b>" + data.totalProjects + "</b>");
 	$("#usage_stat").append("<br><br>");
-	$("#usage_stat").append("Total pages enhanced: <b>" + data.totalPages + "</b>");
+	$("#usage_stat").append(langDict.totalPagesEnhanced + ": <b>" + data.totalPages + "</b>");
     });
 }
 

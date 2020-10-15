@@ -162,7 +162,7 @@ function renderImageListItems(tpl, data, append) {
 	// increment number of items rendered
 	IMAGES_RENDERED += data.length;
 	// compile template
-	const obj = {};
+	const obj = { langDict: langDict };
 	obj.files = data;
 	const template = Handlebars.compile(tpl);
 	// append existing content or replace html
@@ -298,9 +298,9 @@ function drawUsageDataViz() {
 }
 
 function drawStats(stats_data) {
-	$("#usage_stat #distinct-media").append("<p>Distinct media used</p> <div><b>" + formatter(stats_data.totalImagesUsed) + "</b> / <span id='totalMediaNum'></span></div>");
-	$("#usage_stat #total-projects").append("<p>Total projects involved</p> <b>" + formatter(stats_data.totalProjects) + "</b>");
-	$("#usage_stat #total-pages").append("<p>Total pages enhanced</p> <b>" + formatter(stats_data.totalPages) + "</b>");
+	$("#usage_stat #distinct-media").append("<p>" + langDict.distinctMediaUsed + "</p> <div><b>" + formatter(stats_data.totalImagesUsed) + "</b> / <span id='totalMediaNum'></span></div>");
+	$("#usage_stat #total-projects").append("<p>" + langDict.totalProjectsInvolved + "</p> <b>" + formatter(stats_data.totalProjects) + "</b>");
+	$("#usage_stat #total-pages").append("<p>" + langDict.totalPagesEnhanced + "</p> <b>" + formatter(stats_data.totalPages) + "</b>");
 }
 
 $(function() {

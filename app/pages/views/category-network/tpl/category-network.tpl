@@ -10,7 +10,7 @@
 						view on Commons <img class="link-out-small" src="/assets/img/link-out.svg" alt="go">
 					</a>
 					{{#unless hideDetails}}
-                    <a class="view-details-link" style="text-decoration:underline; margin-left:1rem;" href="{{url}}" title="{{name}}">
+                    <a class="view-details-link" href="{{url}}" title="{{name}}">
 						drilldown
 					</a>
 					{{/unless}}
@@ -37,7 +37,7 @@
 		</div>
         <div id="category{{id_encoded}}" class="list_item_panel"></div>
         <div id="files{{id_encoded}}" class="link" style="display: none">
-            <a class="view-details-link" style="text-decoration:underline; margin-left:1rem;" href="{{urlUnused}}" title="{{name}}">
+            <a class="view-details-link" href="{{urlUnused}}" title="{{name}}">
                 view files
             </a>
         </div>

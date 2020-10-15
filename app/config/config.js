@@ -4,7 +4,6 @@ const fs = require('fs');
 const SQL = require('@nearform/sql');
 const config = JSON.parse(fs.readFileSync(`${__dirname}/config.${process.env.ENV}.json`));
 
-
 AWS.config = {
   ...AWS.config,
   ...config.aws.config

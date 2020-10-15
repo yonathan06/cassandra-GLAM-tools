@@ -657,6 +657,11 @@ footer {
   display:inline;
 }
 
+.view-details-link {
+  text-decoration:underline; 
+  margin-left:1rem;
+}
+
 @media screen and (max-width: 768px) {
   .glam-title-section {
     margin: .5rem 0;

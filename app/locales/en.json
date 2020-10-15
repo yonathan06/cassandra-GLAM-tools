@@ -26,6 +26,14 @@
   "cancel": "Cancel",
   "confirm": "Confirm",
   "loadMore": "LOAD MORE",
+  "viewInCommons": "view on Commons",
+  "viewDetails": "view details",
+  "usage":  "usage",
+  "projects": "projects",
+  "totalPagesEnhanced": "TOTAL PAGES ENHANCED",
+  "totalProjectsInvolved": "Total projects involved",
+  "distinctMediaUsed": "Distinct media used",
+  "pages": "pages",
   "views": {
     "index": {
       "institutions": "INSTITUTION",
