@@ -22,7 +22,7 @@ function search(append) {
 			let temp = [];
 			if (d.length === 0){
 				// show "no more elements"
-				$('#resultsSearch').append('<h3 class="col-12 text-center">No more elements to load</h3>');
+				$('#resultsSearch').append('<h3 class="col-12 text-center">' + langDict.views.index.cards.suggestions.noElements + '</h3>');
 				limit = true;
 				// remove handler
 				$('#resultsSearch').off('scroll', loadMoreOnScroll);
@@ -35,9 +35,9 @@ function search(append) {
 					});
 				});
 				if (append){
-					$(target).append(template({files : temp}));
+					$(target).append(template({files: temp, langDict}));
 				} else {
-					$(target).html(template({files : temp}));
+					$(target).html(template({files: temp, langDict}));
 				}
 			}
 		});

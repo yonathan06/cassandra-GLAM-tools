@@ -8,7 +8,7 @@
 		<h1><a style="color: var(--main)" href="https://commons.wikimedia.org/wiki/File:{{image}}" target="_blank">{{image_name}}<a></h1>
 	</div>
 	<div class="file_details_projects file_details_section">
-		<h2>PART OF <span>{{cat_number}}</span> {{cat_title}}</h2>
+		<h2>{{langDict.views.fileView.partOf}} <span>{{cat_number}}</span> {{cat_title}}</h2>
 		<table>
 			<tbody>
 				{{#each cats}}
@@ -23,7 +23,7 @@
 	</div>
 	{{#if usage}}
 	<div class="file_details_projects file_details_section">
-		<h2>USED IN <span>{{usage}}</span> PAGES OF <span>{{projects}}</span> PROJECTS</h2>
+		<h2>{{langDict.views.fileView.usedIn}} <span>{{usage}}</span> {{langDict.views.fileView.pagesOf}} <span>{{projects}}</span> {{langDict.views.fileView.projects}}</h2>
 		<table>
 			<tbody>
 				{{#each wikis}}
@@ -44,7 +44,7 @@
 	{{else}}
 	{{#if recommender.length}}
 	<div class="file_details_projects file_details_section">
-		<h2>RELATED WIKIDATA ENTITIES</h2>
+		<h2>{{langDict.views.fileView.relatedWikidataEntities}}</h2>
 		<table>
 			<tbody>
 			{{#each recommender}}
@@ -65,19 +65,19 @@
 	{{/if}}
 	{{/if}}
 	<div class="file_details_views file_details_section">
-		<h2>VIEWS STATS</h2>
+		<h2>{{langDict.views.fileView.viewsStats}}</h2>
 		<table>
 			<tbody>
 				<tr>
-					<td>TOTAL VIEWS</td>
+					<td>{{langDict.views.fileView.totalViews}}</td>
 					<td style="padding-left:2em"><span>{{tot}}</span></td>
 				</tr>
 				<tr>
-					<td>DAILY AVERAGE</td>
+					<td>{{langDict.views.fileView.dailyAvg}}</td>
 					<td style="padding-left:2em"><span>{{av}}</span></td>
 				</tr>
 				<tr>
-					<td>DAILY MEDIAN</td>
+					<td>{{langDict.views.fileView.dailyMedian}}</td>
 					<td style="padding-left:2em"><span>{{median}}</span></td>
 				</tr>
 			</tbody>

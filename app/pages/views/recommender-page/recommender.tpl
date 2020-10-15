@@ -1,12 +1,12 @@
 <div class="row list_item" id="{{md5 img_name}}">
   <div class="row">
     <span class="col-1">
-    File:
+    {{langDict.file}}:
     </span>
     <a class="col-10 itemUnused" href="https://commons.wikimedia.org/wiki/File:{{img_name}}" target="_blank">
       <h2>{{image_name}}</h2>
     </a>
-    <div class="col-1"><button id="ignoreSuggestion" type="submit" class="btn float-right" onclick="ignoreSuggestion('{{btoa img_name}}')">DISMISS</button></div>
+    <div class="col-1"><button id="ignoreSuggestion" type="submit" class="btn float-right" onclick="ignoreSuggestion('{{btoa img_name}}')">{{langDict.dismiss}}</button></div>
   </div>
   <div class="w-100">
     <div class="row">
@@ -17,8 +17,8 @@
       </div>
       <div class="col-9 wikis">
         <div class="row">
-          <h6 class="col-3">Wikidata suggestion</h6>
-          <h6 class="col-4">Wikipedia pages</h6>
+          <h6 class="col-3">{{langDict.views.index.cards.suggestions.wikidataSuggestion}}</h6>
+          <h6 class="col-4">{{langDict.views.index.cards.suggestions.wikidataPage}}</h6>
         </div>
           {{#each wikis}}
         <div class="row">

@@ -7,14 +7,14 @@
 				</span>
 				<div class="link" style="font-size:0.6em;">
 					<a style="text-decoration:underline" href="https://commons.wikimedia.org/wiki/User:{{user}}" title="{{user}}" target="_blank">
-						view on Commons <img class="link-out-small" src="/assets/img/link-out.svg" alt="go">
+						{{../langDict.viewInCommons}}  <img class="link-out-small" src="/assets/img/link-out.svg" alt="go">
 					</a>
 				</div>
 			</div>
 			<div class="item col-3">
 				<div class="row">
 					<div class="col-2">
-						<span style="font-size: 0.6em; text-transform: uppercase;">files</span>
+						<span style="font-size: 0.6em; text-transform: uppercase;">{{../langDict.files}}</span>
 					</div>
 					<div class="col-8 item-number">
 						{{total}}

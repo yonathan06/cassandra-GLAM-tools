@@ -278,7 +278,7 @@ function showUnusedFilesItem() {
 					file: cleanImageName(file.replace(/_/g," "))
 				});
 			});
-			$(target).html(template({files : temp}));
+			$(target).html(template({files : temp, langDict}));
 		});
 	});
 }
@@ -369,7 +369,7 @@ function sidebar(order) {
 				return;
 			}
 			sortNodes(d,order);
-			
+			d.langDict = langDict;
 			let template = Handlebars.compile(tpl);
 			$(target).html(template(d));
 			
@@ -421,7 +421,7 @@ $('#showUnused').click( () => {
 						file: cleanImageName(file.replace(/_/g," "))
 					});
 				});
-				$(target).html(template({files : temp}));
+				$(target).html(template({files: temp, langDict}));
 			});
 		});
 		$(target).show();

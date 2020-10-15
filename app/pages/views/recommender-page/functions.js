@@ -50,7 +50,7 @@ function getFiles() {
 	$.get("/views/recommender-page/recommender.tpl", function (tpl) {
 		$.getJSON(getUrl(), function (files) {
 			if (files.length === 0){
-				$('#resultsSearch').append('<h3 class="col-12 text-center">No more elements to load</h3>');
+				$('#resultsSearch').append('<h3 class="col-12 text-center">' + langDict.views.index.cards.suggestions.noElements + '</h3>');
 				$('#loadMore').hide();
 				stopScroll = true;
 				// remove handler
@@ -107,7 +107,7 @@ function getFiles() {
 						}
 						// compile template
 						let template = Handlebars.compile(tpl);
-						$('#resultsSearch').append(template(files[i]));
+						$('#resultsSearch').append(template(Object.assign({}, files[i], { langDict })));
 					});
 				});
 			}

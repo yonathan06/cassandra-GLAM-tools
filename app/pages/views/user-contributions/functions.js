@@ -63,7 +63,7 @@ function sidebar(type) {
 	    });
 	    
 	    let template = Handlebars.compile(tpl);
-	    $(target).html(template({"users": data}));
+	    $(target).html(template({users: data, langDict}));
 	    
 	    highlight();
 	});

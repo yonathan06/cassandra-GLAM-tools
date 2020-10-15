@@ -166,7 +166,8 @@ function renderImageListItems(tpl, data, append) {
 	obj.files = data;
 	const template = Handlebars.compile(tpl);
 	// append existing content or replace html
-	append ? $('#right_sidebar_list').append(template(obj)) : $('#right_sidebar_list').html(template(obj));
+	const html = template(obj)
+	append ? $('#right_sidebar_list').append(html) : $('#right_sidebar_list').html(html);
 	// set tatus to finished rendering
 	RENDERING = false;
 	// Prevent defaul when click on "view details"
@@ -195,7 +196,7 @@ function loadMoreOnScroll(sort_type) {
 			});
 		} else {
 			// show "no more elements"
-			$('#right_sidebar_list').append('<div class="mt-4 text-center">No more elements to load</div>');
+			$('#right_sidebar_list').append('<div class="mt-4 text-center">' + langDict.views.index.cards.suggestions.noElements + '</div>');
 			// remove handler
 			$('#right_sidebar_list').off('scroll', loadMoreOnScroll);
 		}

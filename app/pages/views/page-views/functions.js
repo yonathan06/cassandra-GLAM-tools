@@ -121,9 +121,9 @@ function renderSidebarItems(tpl, data, append) {
 	var template = Handlebars.compile(tpl);
 	// append existing content or replace html
 	if (append){
-		$('#right_sidebar_list').append(template(obj));
+		$('#right_sidebar_list').append(template(Object.assign({}, obj, { langDict })));
 	} else {
-		$('#right_sidebar_list').html(template(obj));
+		$('#right_sidebar_list').html(template(Object.assign({}, obj, { langDict })));
 	}
 	// set tatus to finished rendering
 	RENDERING = false;
@@ -153,7 +153,7 @@ function loadMoreOnScroll(sort_type) {
 	    });
 	} else {
 	    // show "no more elements"
-	    $('#right_sidebar_list').append('<div class="mt-4 text-center">No more elements to load</div>');
+	    $('#right_sidebar_list').append('<div class="mt-4 text-center">' + langDict.views.index.cards.suggestions.noElements + '</div>');
 	    // remove handler
 	    $('#right_sidebar_list').off('scroll', loadMoreOnScroll);
 	}

@@ -183,7 +183,7 @@ function populateSidebar() {
 								// compile template
 								let template = Handlebars.compile(tpl);
 								
-								$('#right-column').html(template(file));
+								$('#right-column').html(template(Object.assign({}, file, { langDict })));
 								
 								// draw data viz
 								usageDataViz(WIKI_ARRAY);
@@ -194,7 +194,7 @@ function populateSidebar() {
 							// compile template
 							const template = Handlebars.compile(tpl);
 							
-							$('#right-column').html(template(file));
+							$('#right-column').html(template(Object.assign({}, file, { langDict })));
 							
 							// draw data viz
 							usageDataViz(WIKI_ARRAY);

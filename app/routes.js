@@ -143,7 +143,7 @@ module.exports = function (app) {
     app.get('/:id/file/:file', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.sendFile(__dirname + '/pages/views/file-page/index.html');
+            res.render(__dirname + '/pages/views/file-page/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
         } else {
             res.sendStatus(400);
         }
@@ -152,7 +152,7 @@ module.exports = function (app) {
     app.get('/:id/search/:query', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.sendFile(__dirname + '/pages/views/search-page/index.html');
+            res.render(__dirname + '/pages/views/search-page/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
         } else {
             res.sendStatus(400);
         }

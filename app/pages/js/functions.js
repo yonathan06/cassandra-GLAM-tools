@@ -15,15 +15,15 @@ $(document).ready(function() {
           switch (idx % 3) {
             case 0:
               // console.log(idx, ' first col');
-              $('#photos-1').append(template(obj));
+              $('#photos-1').append(template(Object.assign({}, obj, { langDict })));
               break;
             case 1:
               // console.log(idx, ' snd col');
-              $('#photos-2').append(template(obj));
+              $('#photos-2').append(template(Object.assign({}, obj, { langDict })));
               break;
             case 2:
               // console.log(idx, ' thirs col');
-              $('#photos-3').append(template(obj));
+              $('#photos-3').append(template(Object.assign({}, obj, { langDict })));
               break;
           }
         });

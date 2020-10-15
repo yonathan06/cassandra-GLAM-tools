@@ -86,7 +86,7 @@ function getFiles(id,target,templateSource,total) {
 				});
 			});
 			
-				$(target).html(template({files : temp}));
+				$(target).html(template({files: temp, langDict}));
 				
 		});
 	});
@@ -121,7 +121,7 @@ function getCategories(order){
 			let template_source = "/views/unused-files-page/categories.tpl";
 			$.get( template_source , function(tpl) {
 				let template = Handlebars.compile(tpl);
-				$(target).html(template(d));
+				$(target).html(Object.assign({}, d, { langDict }));
 				sorting_table();
 				highlight();
 			});

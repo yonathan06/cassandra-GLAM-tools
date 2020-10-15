@@ -47,12 +47,7 @@ $(function() {
               obj.paused = true;
               break;
           }
-          // if (isEven(idx)) {
-          //   $('#glams-list-left').append(template(obj));
-          // } else {
-          //   $('#glams-list-right').append(template(obj));
-          // }
-          $('#glams-list-unique').append(template(obj));
+          $('#glams-list-unique').append(template(Object.assign(obj, { langDict })));
         });
         // Display counts
         $('#total-glams').html(items.length);
