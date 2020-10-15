@@ -21,7 +21,7 @@
 					<div class="col-2">
 					  <span style="font-size: 0.6em; text-transform: uppercase;">level</span>
 					</div>
-					<div class="col-8" style="font-family: 'Lato', sans-serif; text-align:right; display:inline">
+					<div class="col-8 item-number">
 						{{group}}
 					</div>
 				</div>
@@ -29,7 +29,7 @@
 					<div class="col-2">
 						<span style="font-size: 0.6em; text-transform: uppercase;">files</span>
 					</div>
-					<div class="col-8" style="font-family: 'Lato', sans-serif; text-align:right; display:inline">
+					<div class="col-8 item-number">
 						{{files}}
 					</div>
 				</div>

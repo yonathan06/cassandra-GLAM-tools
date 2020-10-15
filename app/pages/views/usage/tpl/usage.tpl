@@ -19,7 +19,7 @@
 					<div class="col-2">
 						<span style="font-size: 0.6em; text-transform: uppercase;">usage</span>
 					</div>
-					<div class="col-8" style="font-family: 'Lato', sans-serif; text-align:right; display:inline">
+					<div class="col-8 item-number">
 						{{usage}}
 					</div>
 				</div>
@@ -27,7 +27,7 @@
 					<div class="col-2">
 						<span style="font-size: 0.6em; text-transform: uppercase;">projects</span>
 					</div>
-					<div class="col-8" style="font-family: 'Lato', sans-serif; text-align:right; display:inline">
+					<div class="col-8 item-number">
 						{{projects}}
 					</div>
 				</div>

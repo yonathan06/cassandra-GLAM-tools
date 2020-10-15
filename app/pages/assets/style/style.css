@@ -651,6 +651,12 @@ footer {
   width: 90% !important;
 }
 
+.item-number {
+  font-family: 'Lato', sans-serif; 
+  text-align:right; 
+  display:inline;
+}
+
 @media screen and (max-width: 768px) {
   .glam-title-section {
     margin: .5rem 0;
