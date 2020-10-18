@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html html={{ langDict.lang }}>
 
 <head>
 	<title>GLAM stat tool (Cassandra)</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta charset="utf-8">
 	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
-	<link rel="stylesheet" href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.css" />
+	<link rel="stylesheet"
+		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+	<link rel="stylesheet"
+		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.css" />
 	<link rel="stylesheet" href="/assets/style/style.css" />
 	<link rel="stylesheet" href="/assets/style/admin-panel.css" />
+	<script>
+		langDict = {{ json langDict }}
+	</script>
+	{{#if langDict.isRtl}}
+	<link rel="stylesheet" href="/assets/style/rtl.css">
+	{{/if}}
 </head>
 
 <body>
@@ -40,11 +48,16 @@
 								<h1>List of Glams available in the system</h1>
 								<h6 class="glams-count mt-2">
 									<ul>
-										<li id="total-btn" class="filt-btn active-btn">All (<span class="glam-filter" id="total-glams"></span>)</li> |
-										<li id="running-btn" class="filt-btn">Running (<span class="glam-filter" id="running-glams"></span>)</li> |
-										<li id="pending-btn" class="filt-btn">Pending (<span class="glam-filter" id="pending-glams"></span>)</li> |
-										<li id="paused-btn" class="filt-btn">Paused (<span class="glam-filter" id="paused-glams"></span>)</li> |
-										<li id="failed-btn" class="filt-btn">Failed (<span class="glam-filter" id="failed-glams"></span>)</li>
+										<li id="total-btn" class="filt-btn active-btn">All (<span class="glam-filter"
+												id="total-glams"></span>)</li> |
+										<li id="running-btn" class="filt-btn">Running (<span class="glam-filter" id="running-glams"></span>)
+										</li> |
+										<li id="pending-btn" class="filt-btn">Pending (<span class="glam-filter" id="pending-glams"></span>)
+										</li> |
+										<li id="paused-btn" class="filt-btn">Paused (<span class="glam-filter" id="paused-glams"></span>)
+										</li> |
+										<li id="failed-btn" class="filt-btn">Failed (<span class="glam-filter" id="failed-glams"></span>)
+										</li>
 									</ul>
 									<span id="admin-help">&#63;</span>
 								</h6>
@@ -71,11 +84,16 @@
 			</section>
 		</main>
 	</div>
-	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.js"></script>
-	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+	<script type="text/javascript"
+		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript"
+		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.js"></script>
+	<script type="text/javascript"
+		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+	<script type="text/javascript"
+		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 	<script type="text/javascript" src="/js/loader.js"></script>
 	<script type="text/javascript" src="/js/admin-panel.js"></script>
 </body>

@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html html={{ langDict.lang }}>
 
 <head>
 	<title>GLAM stat tool (Cassandra)</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta charset="utf-8">
 	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
-	<link rel="stylesheet" href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.css" />
+	<link rel="stylesheet"
+		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+	<link rel="stylesheet"
+		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.css" />
 	<link rel="stylesheet" href="/assets/style/style.css" />
 	<link rel="stylesheet" href="/assets/style/homepage.css" />
+	<script>
+		langDict = {{ json langDict }}
+	</script>
+	{{#if langDict.isRtl}}
+	<link rel="stylesheet" href="/assets/style/rtl.css">
+	{{/if}}
 </head>
+
 <body>
 	<!-- Mobile sidebar -->
 	<div id="mobile-sidebar" class="ui left sidebar"></div>
@@ -53,15 +62,18 @@
 						<form id="edit-glam-form" name="new-glam" autocomplete="off">
 							<div class="form-group">
 								<label for="glamID">Unique GLAM ID*</label>
-								<input type="text" class="form-control" id="glamID" aria-describedby="emailHelp" placeholder="e.g. ZU, ETH or SNL" disabled required />
+								<input type="text" class="form-control" id="glamID" aria-describedby="emailHelp"
+									placeholder="e.g. ZU, ETH or SNL" disabled required />
 							</div>
 							<div class="form-group">
 								<label for="glamFullName">Full Name*</label>
-								<input type="text" class="form-control" id="glamFullName" placeholder="e.g. Canton of Zürich, ETH Library of Zurich or Swiss National Library" required />
+								<input type="text" class="form-control" id="glamFullName"
+									placeholder="e.g. Canton of Zürich, ETH Library of Zurich or Swiss National Library" required />
 							</div>
 							<div class="form-group">
 								<label for="glamCategory">Category*</label>
-								<input type="text" class="form-control" id="glamCategory" placeholder="e.g. Historical images of buildings in the canton of Zürich" required />
+								<input type="text" class="form-control" id="glamCategory"
+									placeholder="e.g. Historical images of buildings in the canton of Zürich" required />
 							</div>
 							<div class="form-group">
 								<label for="featuredImageURL">Featured image URL*</label>
@@ -69,7 +81,8 @@
 							</div>
 							<div class="form-group" id="password-field">
 								<label for="glamPassword">New password (leave blank for public GLAMs)</label>
-								<input type="password" class="form-control" id="glamPassword" placeholder="Password" autocomplete="new-password">
+								<input type="password" class="form-control" id="glamPassword" placeholder="Password"
+									autocomplete="new-password">
 							</div>
 							<div class="form-group d-flex">
 								<button id="edit-glam-button" class="btn btn-primary mr-auto">SUBMIT</button>
@@ -81,9 +94,12 @@
 			</section>
 		</main>
 	</div>
-	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.js"></script>
+	<script type="text/javascript"
+		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript"
+		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.js"></script>
 	<script type="text/javascript" src="/js/loader.js"></script>
 	<script type="text/javascript" src="/js/edit-glam-panel.js"></script>
 </body>

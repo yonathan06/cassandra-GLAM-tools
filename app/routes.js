@@ -114,17 +114,17 @@ module.exports = function (app) {
 
     // ADMIN PANEL
     app.get('/admin/panel', async function (req, res) {
-        res.sendFile(__dirname + '/pages/views/admin-panel.html');
+        res.render(__dirname + `/pages/views/admin-panel.hbs`, { langDict: req.localesDicts[req.cookies.lang] });
     });
 
     app.get('/admin/new-glam', async function (req, res) {
-        res.sendFile(__dirname + '/pages/views/new-glam.html');
+        res.render(__dirname + `/pages/views/new-glam.hbs`, { langDict: req.localesDicts[req.cookies.lang] });
     });
 
     app.get('/admin/edit-glam/:id', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (glam !== undefined) {
-            res.sendFile(__dirname + '/pages/views/edit-glam.html');
+            res.render(__dirname + `/pages/views/edit-glam.hbs`, { langDict: req.localesDicts[req.cookies.lang] });
         } else {
             res.sendStatus(400);
         }
@@ -170,7 +170,7 @@ module.exports = function (app) {
     app.get('/:id/category-network/:name/unused', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.sendFile(__dirname + '/pages/views/unused-files-page/index.html');
+            res.render(__dirname + `/pages/views/unused-files-page/index.hbs`, { langDict: req.localesDicts[req.cookies.lang] });
         } else {
             res.sendStatus(400);
         }
