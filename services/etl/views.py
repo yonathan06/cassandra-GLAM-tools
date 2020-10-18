@@ -116,15 +116,20 @@ def load_images(conn):
 
 
 def process_mediacounts(glams: [dict], process_date: date, **kwargs) -> None:
-    filepath = kwargs.get('filepath', None)
-    remove_file_after_process = kwargs.get('remove_file_after_process', True)
-    if filepath == None:
-        filepath = get_mediacount_file_by_date(process_date)
+    try:
+        filepath = kwargs.get('filepath', None)
+        remove_file_after_process = kwargs.get(
+            'remove_file_after_process', True)
+        if filepath == None:
+            filepath = get_mediacount_file_by_date(process_date)
 
-    for glam in glams:
-        conn = get_glam_database_connection(glam["database"])
-        glam_images = load_images(conn)
-        _process(conn, process_date, filepath, glam_images)
-        conn.close()
-    if remove_file_after_process:
-        os.remove(filepath)
+        for glam in glams:
+            conn = get_glam_database_connection(glam["database"])
+            glam_images = load_images(conn)
+            _process(conn, process_date, filepath, glam_images)
+            conn.close()
+        if remove_file_after_process:
+            os.remove(filepath)
+    except Exception as error:
+        logging.error(
+            f'Error processing mediacount for date {process_date.strftime("%Y-%m-%d")}', error)
