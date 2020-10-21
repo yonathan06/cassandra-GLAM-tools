@@ -4,6 +4,7 @@ mwclient
 mwparserfromhell
 unidecode
 langid
+botocore
 gensim
 requests
 boto3
