@@ -8,7 +8,7 @@ const fs = require('fs');
 const cookieParser = require('cookie-parser');
 var config = require('./config/config');
 
-const locales = ['en', 'he']
+const locales = ['en', 'he', 'se']
 const localesDir = __dirname + '/locales';
 const localesDicts = locales.reduce((map, locale) => {
     const localJson = JSON.parse(fs.readFileSync(`${localesDir}/${locale}.json`).toString());
