@@ -1,9 +1,9 @@
 {
   "isRtl": false,
   "lang": "se",
-  "title": "Cassandra - GLAM-statistik)",
+  "title": "Cassandra - GLAM-statistik",
   "index": {
-    "title": "Ett bevaknings- och utvärderingssstöd för kulturarvsorganisationer som samarbetar med Wikimediarörelsen."
+    "title": "Ett statistik- och analysverktyg för kulturarvsorganisationer som samarbetar med Wikimediarörelsen."
   },
   "sidebar": {
     "institutions": "ORGANISATIONER"
@@ -26,19 +26,19 @@
   "cancel": "Avbryt",
   "confirm": "Bekräfta",
   "loadMore": "LADDA MER",
-  "viewInCommons": "se på Commons",
-  "viewDetails": "se detaljer",
+  "viewInCommons": "Se på Commons",
+  "viewDetails": "Se detaljer",
   "usage":  "användning",
-  "projects": "projekt",
-  "totalPagesEnhanced": "TOTALT ANTAL FÖRBÄTTRADE SIDOR",
-  "totalProjectsInvolved": "Total projects involved",
-  "distinctMediaUsed": "använda unika mediefiler",
-  "pages": "sidor",
+  "projects": "Projekt",
+  "totalPagesEnhanced": "ANTAL FÖRBÄTTRADE SIDOR",
+  "totalProjectsInvolved": "ANTAL WIKIMEDIATJÄNSTER",
+  "distinctMediaUsed": "ANTAL ANVÄNDA MEDIEFILER",
+  "pages": "Sidor",
   "total": "totalt",
   "avgday": "medel/dag",
   "median": "median",
-  "drilldown": "drilldown",
-  "viewFiles": "se filer",
+  "drilldown": "Öka detaljnivån",
+  "viewFiles": "Se filer",
   "level": "nivå",
   "files": "filer",
   "file": "Fil",
@@ -54,34 +54,34 @@
         "categoryNetwork": {
           "title": "KATEGORINÄTVERK",
           "description": "<i>Kategorinätverk</i> är en <b>graf</b> som visar underkategoriers relation till varandra och till huvudkategorin. Varje nod representerar en kategori och linjer dem emellan relationerna.",
-          "inPageDescription": "This graph chart shows the subcategories' topology belonging to the main category.<br>Having just one category (or level) is a bad practice on Wikimedia Commons because makes difficult to the community to find and use files. Instead a multilevel and articulated categorization permits better reuse of the uploaded media.<br>This statistic is updated every day (max lag time 24h) and represents the actual scenario.<br><br><h5>How to read it</h5>Each node represents a category, while the edges are the relations. Categories at the same level share the color.The bubble size is proportional to the amount of files within every category.<br><br><h5>How to use it</h5>On the right menu you can order categories by level or by number of files. If you click into a category name the correspondent node will highlight (and vice versa).<br>On the top bar you can also drill-down to a chosen subdirectory.<br><br><h5>Use case</h5>With this graph you can understand if the media files of your interest are divided in a useful way. Probablya category with more then one hundred files needs to be splitted in two or more subcategories. In fact, the better a media is categorized on Wikimedia Commons, the more is probable to be viewed or used inside a Wikipedia page.<br>More info available on: <a href=\"https://commons.wikimedia.org/wiki/Commons:Categories\">https://commons.wikimedia.org/wiki/Commons:Categories</a>.",
+          "inPageDescription": "Den här grafen visar underkategoriernas relation till huvudkategorin.<br>Att ha endast en kategori eller nivå av kategorier gör det svårare för användare att hitta och använda mediefilerna. Flera och meningsfullt strukturerade kategorier gör detta enklare för användarna.<br>Grafen uppdateras en gång per dygn.<br><br><h5>Så förstår du grafen</h5>Varje nod motsvarar en kategori och linjerna relationerna dem emellan. Kategorier på samma nivå har samma färg. Nodernas storlek står i proportion till antalet filer som ingår i kategorin. <br><br><h5>Så funkar det</h5>I den högra panelen kan du sortera kategorierna per nivå eller antal ingående filer. Om du klickar på en kategoris namn markeras den motsvarande noden (och vice versa).<br>I den övre menyraden kan du välja att visa enbart filerna i en viss kategori<br><br><h5>Syfte</h5>Med hjälp av den här grafen kan du förstå om en organisations mediefiler är kategorindelade på ett bra sätt. Kategorier med ett stort antal ingående filer kan försvåra för användare att hitta filerna och därmed också använda dem, på Wikipedia eller andra webbplatser.<br>Mer om kategorier: <a href=\"https://commons.wikimedia.org/wiki/Commons:Categories\">https://commons.wikimedia.org/wiki/Commons:Categories</a>.",
           "byLevel": "sorterat per nivå",
           "byTotal": "sorterat efter antal",
           "unusedMediaOnly": "ENBART OANVÄNDA MEDIEFILER",
-          "categoryNetworkChart": "KATEGORINÄTVERKSGRAF"
+          "categoryNetworkChart": "KATEGORINÄTVERK"
         },
         "userContribution": {
           "title": "ANVÄNDARBIDRAG",
           "description": "<i>Användarbidrag</i> är ett <b>stapeldiagram</b> som visar antalet uppladdningar över tid.",
-          "inPageDescription": "This bar chart shows the number of user contributions during time.<br>Here you can study if the contribution pattern is well distributed or if it's composed by spikes.<br>This statistic is updated every day (max lag time 24h).<br><br><h5>How to read it</h5>On the horizontal axis we have time, with one month precision. On the vertical axis the total uploaded files in the category during a month.<br><br><h5>How to use it</h5>On the right menu you can order users by name or by number of contributions. If you click into a user name the correspondent graph of contributions will show up.<br>On the top bar you can also drill-down to a chosen subdirectory.<br><br><h5>Use case</h5>Here you can find the community around this category!",
+          "inPageDescription": "Det här stapeldiagrammet visar antalet användarbidrag över tid.<br>Du kan ser om bidragen är jämnt utspridda över tid eller har tydliga toppar och dalar.<br>Diagrammet uppdateras en gång per dygn.<br><br><h5>Så förstår du diagrammet</h5>På den horisontella axeln visas tid, indelad i månader. På den vertikala axeln visas antalet filer som laddats upp i kategorin under en viss månad.<br><br><h5>Så använder du sidan</h5>I listan till höger kan du sortera användare efter deras namn eller antal bidrag. Om du klickar på ett användarnamn i panelen till höger markeras dennes bidrag i diagrammet.<br>I den övre menyraden kan du välja att visa enbart filerna i en viss kategori.<br><br><h5>Syfte</h5>Med hjälp av detta diagram kan du identifiera användare med ett intresse av filerna i en viss kategori.",
           "byName": "sorterat per nivå",
           "byTotal": "sorterat efter antal",
-          "userContributionChart": "DIAGRAM ÖVER ANVÄNDARBIDRAG"
+          "userContributionChart": "ANVÄNDARBIDRAG"
         },
         "usage": {
           "title": "ANVÄNDNING",
-          "description": "Detta diagram visar mediefilernas <i>användning</i> på olika Wikimediatjänster.",
-          "inPageDescription": "This section show the usage of the media of the main category in Wikimedia projects.<br>Every time a media is used in a Wikipedia article in any language or in any other sister projects likeWikidata, Wiki source, etc. it counts 1 here. In this page you can investigate about how many files are really used, in which projects and which are the most popular ones.<br>This statistic is updated every day (max lag time 24h) and represents the actual scenario.<br><br><h5>How to read it</h5>On the left a bar chart show the top ten projects that are currently using these files. On the right instead each file is detailed with a link to each page in which is used.<br><br><h5>How to use it</h5>On the right menu you can order files by usage or by number of distinct projects or by name.If you click into a file name the correspondent detail will scroll up.<br>On the top bar you can also drill-down to a chosen subdirectory or select your preferred time dimension.<br><br><h5>Use case</h5>At first glance you can understand which linguistic community has used the major part of this files and,maybe, better knows this collection. Moreover you can try to spread some useful files also in other versions of Wikipedia where, today, the usage is smaller.",
+          "description": "Detta diagram visar mediefilernas <i>användning</i> i olika Wikimediatjänster.",
+          "inPageDescription": "Den hör sidan visar hur mycket mediefilerna används i de olika Wikimediatjänsterna.<br>Varjer gång en fil ingår i en Wikipediaartikel eller i en annan Wikimediatjänst som Wikidata eller Wikisource räknas det som en användning av en fil. På den här sidan kan du också undersöka hur många av filerna från en organisation som används, i vilka av Wikimediatjänsterna samt hur många visningar de har.<br>Diagrammet uppdateras en gång per dygn.<br><br><h5>Så förstår du diagrammet</h5>Till vänster visas ett liggande stapeldiagram som visar (max tio) Wikimediatjänster som använder filerna. Till höger visas de använda filerna.<br><br><h5>Så använder du sidan</h5>I listan till höger kan du sortera filerna efter användning, Wikimediatjänst eller filnamn. Om du klickar på ett filnamn i listan markeras de Wikimediatjänster i vilken filen används i i stapeldiagrammet.<br>I den övre menyraden kan du välja att visa enbart filerna i en viss kategori.<br><br><h5>Syfte</h5>Med hjälp av denna rapport kan du se vilka Wikimediatjänster användargemenskaper har använt filerna mest och minst. Det kan ge dig ett underlag för att välja vilka användargemenskaper att rikta kommunikationsinsatser mot.",
           "byUsage": "nivå",
           "byProjects": "tjänst",
           "byName": "namn",
-          "usageChart": "DIAGRAM ÖVER FILANVÄNDNING"
+          "usageChart": "FILERNAS ANVÄNDNING"
         },
         "views": {
           "title": "VISNINGAR",
           "description": "<i>Visningar</i> är ett <b>linjediagram</b> som visar antalet visinigar av filerna i huvudkategorin de senaste 24 timmarna.",
-          "inPageDescription": "This line chart shows the sum of the views for the files thats belong to the main category with a 24h span.<br>Generally is quite visible the difference of visits between workdays and weekends. Sometimes some spikes could lead to a popular event. A growing trend is not always equals to a growing popularity of the category because of file additions.<br>This statistic is updated every day (max lag time 24h). The data collected here are taken from<a  href=\"https://dumps.wikimedia.org/other/mediacounts/daily/\">https://dumps.wikimedia.org/other/mediacounts/daily/</a>.A visit is recorded every time a device download a specific file from Wikimedia server. So it counts both actual visits, both visits on pages where the file is present (but only if loaded on the device). Actually this is the most precise statistic released by Wikimedia servers.<br><br><h5>How to read it</h5>On the horizontal axis we have time, with one day precision. On the vertical axis the total views performed by all files in the category. This axis has logarithmic scale.<br><br><h5>How to use it</h5>On the right menu you can order files by views, by median or by name.<br>On the top bar you can also drill-down to a chosen subdirectory or select your preferred time dimension.",
-          "viewsChart": "VISNINGSDIAGRAM",
+          "inPageDescription": "This line chart shows the sum of the views for the files thats belong to the main category with a 24h span.<br>Generally is quite visible the difference of visits between workdays and weekends. Sometimes some spikes could lead to a popular event. A growing trend is not always equals to a growing popularity of the category because of file additions.<br>This statistic is updated every day (max lag time 24h). The data collected here are taken from<a  href=\"https://dumps.wikimedia.org/other/mediacounts/daily/\">https://dumps.wikimedia.org/other/mediacounts/daily/</a>.A visit is recorded every time a device download a specific file from Wikimedia server. So it counts both actual visits, both visits on pages where the file is present (but only if loaded on the device). Actually this is the most precise statistic released by Wikimedia servers.<br><br><h5>Så förstår du diagrammet</h5>On the horizontal axis we have time, with one day precision. On the vertical axis the total views performed by all files in the category. This axis has logarithmic scale.<br><br><h5>How to use it</h5>On the right menu you can order files by views, by median or by name.<br>On the top bar you can also drill-down to a chosen subdirectory or select your preferred time dimension.",
+          "viewsChart": "VISNINGAR",
           "byViews": "antal visningar",
           "byMedian": "median",
           "byName": "namn",
@@ -91,11 +91,11 @@
         "suggestions": {
           "title": "FÖRSLAG",
           "description": "Denna sida visar oanvända filer med förslag på sidor på wikidata och Wikipedia där de kanske passar att lägga till.",
-          "inPageDescription": "This page shows some unused files belonging to the selected category with links to Wikidata and Wikipedia pages where they can be possibly used. <br><br> <h5>Recommendation approaches</h5> This tool follows two recommendation approaches. The first one is based on the Commons categories of the target file. Wikipedia articles connected on Wikidata with the categories of the target file are selected with the highest confidence. The second approach is based on the description of the file on Commons. Additional Wikipedia articles connected with the Wikidata entities having a textual description similar to the one of the target file are also selected. <br><br> <h5>How to read it</h5> In the column Wikidata suggestion there are the links to Wikidata pages where you can use the selected image. <br> In the Wikipedia pages column there are the links to the Wikipedia pages corresponding to the Wikidata entity on the same row, divided by language.",
+          "inPageDescription": "This page shows some unused files belonging to the selected category with links to Wikidata and Wikipedia pages where they can be possibly used. <br><br> <h5>Recommendation approaches</h5> This tool follows two recommendation approaches. The first one is based on the Commons categories of the target file. Wikipedia articles connected on Wikidata with the categories of the target file are selected with the highest confidence. The second approach is based on the description of the file on Commons. Additional Wikipedia articles connected with the Wikidata entities having a textual description similar to the one of the target file are also selected. <br><br> <h5>Så förstår du sidan</h5> In the column Wikidata suggestion there are the links to Wikidata pages where you can use the selected image. <br> In the Wikipedia pages column there are the links to the Wikipedia pages corresponding to the Wikidata entity on the same row, divided by language.",
           "unusedFilesSuggestions": "FÖRSLAG TILL OANVÄNDA FILER",
           "wikidataSuggestion": "Wikidataförslag",
           "wikidataPage": "Wikidataobjekt",
-          "noElements": "Inga fler förslag"
+          "noElements": "Det finns inga fler förslag"
         }
       },
       "searchFile": "Sök filer"
@@ -107,7 +107,7 @@
       "fileDetails": "Fildetaljer",
       "partOf": "DEL AV",
       "usedIn": "ANVÄND I",
-      "pagesOf": "SIDOR AV",
+      "pagesOf": "SIDOR I",
       "projects": "PROJEKT",
       "relatedWikidataEntities": "RELATERADE WIKIDATAOBJEKT",
       "viewsStats": "VISNINGSSTATISTIK",
