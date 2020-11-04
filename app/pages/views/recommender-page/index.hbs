@@ -23,6 +23,15 @@
   {{#if langDict.isRtl}}
   <link rel="stylesheet" href="/assets/style/rtl.css">
   {{/if}}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PWBL363J70"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-PWBL363J70');
+  </script>
 </head>
 
 <body class="overflow_hidden">
@@ -74,7 +83,8 @@
     <footer id="chart-page-footer">
       <div>
         <div class="chart-title">
-          <img src="/assets/img/category-network.svg" alt="{{langDict.views.index.cards.suggestions.unusedFilesSuggestions}}">
+          <img src="/assets/img/category-network.svg"
+            alt="{{langDict.views.index.cards.suggestions.unusedFilesSuggestions}}">
           <h5>{{langDict.views.index.cards.suggestions.unusedFilesSuggestions}}</h5>
         </div>
         <div class="commons-category">
