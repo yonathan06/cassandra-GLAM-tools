@@ -44,9 +44,13 @@
 </div>
 <div class="sidebar-links">
   <ul>
-    <!-- <li><a href="https://www.wikimedia.ch/" target="blank" title="Wikimedia CH">Wikimedia CH</a></li> -->
-    <!-- <li><a href="http://www.supsi.ch/lcv" target="blank" title="SUPSI Laboratory of visual culture">SUPSI Laboratory of visual culture</a></li> -->
-    <!-- <li><a href="https://synapta.it/" target="blank" title="Synapta">Synapta</a></li> -->
+    {{#if langDict.signup}}
+      <li>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd3y26g9LuCld1uYu2SgIVwflnRsTDwmbTjhvidfBYWkHy3Hg/viewform?usp=sf_link" target="blank">
+          {{langDict.signup}}
+        </a>
+      </li>
+    {{/if}}
     <li><a id="github" href="https://github.com/yonathan06/cassandra-GLAM-tools" target="blank"
         title="GitHub repository">GitHub repository</a></li>
   </ul>
