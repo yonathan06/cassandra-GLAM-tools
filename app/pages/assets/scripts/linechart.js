@@ -501,7 +501,7 @@ function lineChart(div, data) {
 
     if (isInsideGraph(mousePoint)) {
       // MOVE VERTICAL LINE
-      let mouseX = mousePoint.x - margin.left * 2 - 15;
+      let mouseX = mousePoint.x - $(event.target).position().left;
       verticalLine.select('line').remove();
       verticalLine.append("line")
                   .attr("x1", mouseX).attr("x2", mouseX)
@@ -740,17 +740,17 @@ function lineChart(div, data) {
     return xValue;
   }
 
-  // invert y values
-  function getValueForPositionYFromData(yPosition) {
-    var yValue = y.invert(yPosition);
-    return yValue;
-  }
-
   // check if point is inside graph
   function isInsideGraph(point) {
-    return point.x > (margin.left * 2 + 15) && point.x < (width + margin.left * 2 + 15) &&
-        point.y > ($('#svg-graph').offset().top + margin.top) &&
-        point.y < (height + $('#svg-graph').offset().top + margin.top);
+    const graphPosition = $('#svg-graph').position();
+    const graphX = graphPosition.left;
+    const graphY = graphPosition.top;
+    const graphWidth = $('#svg-graph').width();
+    const graphHeight = $('#svg-graph').height();
+    return point.x > graphX 
+          && point.x < graphX + graphWidth 
+          && point.y > graphY 
+          && point.y < graphY + graphHeight;
   }
 
   // zoom behavior handler
