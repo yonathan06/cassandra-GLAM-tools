@@ -43,6 +43,7 @@
   "files": "filer",
   "file": "Fil",
   "dismiss": "AVFÄRDA",
+  "lv": "lv",
   "views": {
     "index": {
       "institutions": "ORGANISATION",

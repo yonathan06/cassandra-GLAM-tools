@@ -108,7 +108,7 @@ function dataviz() {
 		
 		legendRow.append("div")
 			.style("opacity", function(d, i) { if (data.nodes.length > 100 && i > MAX_LEVEL - 1) return "0.2"; else return "1"; })
-			.html(d=> "lv. " + d);
+			.html(d=> `${langDict.lv}. ` + d);
 		
 		let nodi = [];
 		let archi = [];

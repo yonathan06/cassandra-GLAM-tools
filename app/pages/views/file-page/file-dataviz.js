@@ -52,7 +52,7 @@ function networkDataviz() {
 
 				legendRow.append("div")
 				    .style("opacity", function(d, i) { if (data.nodes.length > 100 && i > MAX_LEVEL) return "0.2"; else return "1"; })
-				    .html(d=> "lv. " + d);
+				    .html(d=> `${langDict.lv}. ` + d);
 
 				//This code is for reduce graph size when too big
 				if (data.nodes.length > 100) {
@@ -304,8 +304,8 @@ function drawHorizBars(data, div, totalPages, wiki_array) {
      .attr("id", d => d.wiki)
      .style("transition", "width 1s ease-in-out, stroke .3s")
      .attr("width", (d) => 0 )
-     .attr('fill', '#080d5a')
-     .attr('stroke', '#080d5a')
+     .attr('fill', '#113700')
+     .attr('stroke', '#113700')
      .attr('stroke-width', '3')
      .attr("x", function(d) { return 3 })
      .attr("y", function(d) { return y(d.wiki); })

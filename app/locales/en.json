@@ -43,6 +43,7 @@
   "files": "files",
   "file": "File",
   "dismiss": "DISMISS",
+  "lv": "lv",
   "views": {
     "index": {
       "institutions": "INSTITUTION",
