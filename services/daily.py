@@ -2,7 +2,6 @@ import logging
 import bz2
 import os
 from datetime import date, timedelta
-from config import config
 from lib.sentry import with_sentry
 from etl.glams_table import get_running_glams, get_glam_database_connection, get_glam_images
 from etl.views import update_glam_mediacounts_from_file
