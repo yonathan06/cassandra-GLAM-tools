@@ -26,9 +26,10 @@ i18n.configure({
 
 var app = express();
 
-if (typeof config.raven !== 'undefined') {
-    Sentry.init({ dsn: config.raven.glamtoolsweb.DSN });
+if (config.sentry) {
+    Sentry.init({ dsn: config.sentry.DSN });
     app.use(Sentry.Handlers.requestHandler());
+    app.use(Sentry.Handlers.errorHandler());
 }
 
 app.use(morgan('common'));
@@ -43,17 +44,14 @@ app.use((req, res, next) => {
     req.localesDicts = localesDicts;
     next();
 })
-hbs.registerHelper('json', function(object){
-	return new hbs.SafeString(JSON.stringify(object));
+hbs.registerHelper('json', function (object) {
+    return new hbs.SafeString(JSON.stringify(object));
 });
 app.set('view engine', 'hbs');
 app.engine('hbs', hbs.__express);
 
 require('./routes.js')(app, apicache);
 
-if (typeof config.raven !== 'undefined') {
-    app.use(Sentry.Handlers.errorHandler());
-}
 
 var port = +process.env.PORT || 8081;
 
