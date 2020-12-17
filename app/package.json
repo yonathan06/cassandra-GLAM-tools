@@ -22,7 +22,8 @@
   "scripts": {
     "dev": "nodemon",
     "start": "node server.js",
-    "init:db": "node initdb.js"
+    "init:db": "node initdb.js",
+    "docker:build": "docker build -t cassandra-app ."
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
