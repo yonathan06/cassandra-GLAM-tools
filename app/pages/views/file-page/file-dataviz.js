@@ -124,17 +124,6 @@ function networkDataviz() {
 						.on("end", dragended)
 					)
 
-				var node_circle = nodes.append("circle")
-					.attr("r", function(d,i){
-						return Math.min(100, 3 + (d.files  * circle_size));
-					})
-					.attr("fill", function(d) {
-						return  color(d.group);
-					})
-					.attr("class", function (d,i){
-						return "circle " + d.files
-					})
-
 				simulation
 					.nodes(data.nodes)
 					.on("tick", ticked);
@@ -158,9 +147,6 @@ function networkDataviz() {
 							return "translate(" + (d.x * x) + "," + (d.y* x) + ")"
 						})
 
-					var q = d3.quadtree(nodes),
-						i = 0,
-						n = nodes.length;
 				}
 
 				function dragstarted(d) {
@@ -394,7 +380,6 @@ function lineChart(div, data, image_data) {
 
 	let margin = {};
 	let margin2 = {};
-	let kH;
 	let availH;
 	let xTicksNum = 8;
 	let yTicksNum = 20;
@@ -654,9 +639,15 @@ function lineChart(div, data, image_data) {
 
 	// check if point is inside graph
 	function isInsideGraph(point) {
-		return point.x > (margin.left * 2 + 30) && point.x < (width + margin.left * 2 + 30) &&
-				point.y > ($('#svg-graph').offset().top + margin.top) &&
-				point.y < (height + $('#svg-graph').offset().top + margin.top);
+		const graphPosition = $('#svg-graph').position();
+    const graphX = graphPosition.left;
+    const graphY = graphPosition.top;
+    const graphWidth = $('#svg-graph').width();
+    const graphHeight = $('#svg-graph').height();
+    return point.x > graphX 
+          && point.x < graphX + graphWidth 
+          && point.y > graphY 
+          && point.y < graphY + graphHeight;
 	}
 
 	// zoom behavior handler
@@ -697,13 +688,13 @@ function lineChart(div, data, image_data) {
 
 		if (isInsideGraph(mousePoint)) {
 			// MOVE VERTICAL LINE
-			let mouseX = mousePoint.x - margin.left * 2 - 30;
-			verticalLine.select('line').remove();
-			verticalLine.append("line")
-						.attr("x1", mouseX).attr("x2", mouseX)
-						.attr("y1", 5).attr("y2", height - 5)
-						.style("stroke", "DarkViolet")
-						.style("stroke-width", 0.5);
+			let mouseX = mousePoint.x - $(event.target).position().left;
+      verticalLine.select('line').remove();
+      verticalLine.append("line")
+                  .attr("x1", mouseX).attr("x2", mouseX)
+                  .attr("y1", 5).attr("y2", height - 5)
+                  .style("stroke", "DarkViolet")
+                  .style("stroke-width", 0.5);
 
 			// DISPLAY DATA
 			displayDetails(getValueForPositionXFromData(mouseX));
