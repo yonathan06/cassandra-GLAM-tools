@@ -1216,38 +1216,39 @@ var viewsStats = function (req, res, next, db) {
 
 // FILE
 var fileDetails = function (req, res, next, db) {
-    let query = `select i.img_name, sum(v.accesses) as tot, avg(v.accesses) as avg,
+    let query = `SELECT i.img_name, sum(v.accesses) as tot, avg(v.accesses) as avg,
                 PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER by v.accesses) as median,
                 i.cl_to as categories
-                from images as i, visualizations as v
-                where i.media_id = v.media_id
-                and i.img_name = $1
-                group by i.img_name, categories`;
+                FROM images as i
+                LEFT OUTER JOIN visualizations as v
+                ON i.media_id = v.media_id
+                WHERE i.img_name = $1
+                GROUP BY i.img_name, categories`;
 
     db.query(query, [req.params.file], (err, dbres) => {
-        if (!err) {
-            if (dbres.rows.length > 0) {
-                let result = {};
-                let row = dbres.rows[0];
-
-                result['tot'] = parseInt(row.tot);
-                result['avg'] = parseFloat(row.avg);
-                result['median'] = parseFloat(row.median);
-
-                let uniq_cats = new Set();
-                row.categories.forEach(function (cat) {
-                    uniq_cats.add(cat.replace(/^[^=]*=/, ''));
-                });
-                result['categories'] = Array.from(uniq_cats);
-
-                res.json(result);
-            } else {
-                res.sendStatus(404);
-            }
-
-        } else {
+        if (err) {
             next(new Error(err));
+            return;
         }
+        let result = {
+            tot: 0,
+            avg: 0,
+            media: 0,
+            categories: []
+        };
+        let row = dbres.rows[0];
+        if (row) {
+            result.tot = parseInt(row.tot || 0);
+            result.avg = parseFloat(row.avg || 0);
+            result.median = parseFloat(row.median || 0);
+
+            let uniq_cats = new Set();
+            row.categories.forEach(function (cat) {
+                uniq_cats.add(cat.replace(/^[^=]*=/, ''));
+            });
+            result.categories = Array.from(uniq_cats);
+        }
+        res.json(result);
     });
 }
 

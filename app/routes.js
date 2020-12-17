@@ -6,13 +6,9 @@ var auth = require('http-auth');
 var config = require('./config/config.js');
 const { getGlamByName, getAllGlams } = require('./lib/db.js');
 
-// Reload configuration every hour
-async function loadGlams() {
-    await config.loadGlams();
-    setTimeout(loadGlams, 3600000);
+function isValidGlam(glam) {
+    return glam !== undefined && glam['status'] === 'running' && glam['lastrun'] !== null;
 }
-
-loadGlams();
 
 module.exports = function (app) {
 
@@ -34,19 +30,8 @@ module.exports = function (app) {
         res.send("ok");
     })
 
-    app.get('/docs', async function (req, res) {
-        res.sendFile(__dirname + '/pages/docs.html');
-    });
-
-    app.get('/404', async function (req, res) {
-        res.sendStatus(404);
-    });
-
-    app.get('/500', async function (req, res) {
-        res.sendStatus(500);
-    });
-
     app.use(async function (req, res, next) {
+
         function getId(path) {
             let exploded = path.split('/');
             if (path.startsWith('/api/')) {
@@ -103,14 +88,10 @@ module.exports = function (app) {
                     authenticateAdmin(glam['http-auth']);
                 }
             } catch (err) {
-                throw new Error(err)
+                next(err);
             }
         }
     });
-
-    function isValidGlam(glam) {
-        return glam !== undefined && glam['status'] === 'running' && glam['lastrun'] !== null;
-    }
 
     // ADMIN PANEL
     app.get('/admin/panel', async function (req, res) {
