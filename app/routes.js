@@ -14,7 +14,7 @@ module.exports = function (app) {
 
     app.use('/views/templates/:file', function (req, res) {
         if (req.params.file.endsWith('hbs')) {
-            res.render(__dirname + `/pages/views/templates/${req.params.file}`, { langDict: req.localesDicts[req.cookies.lang] });
+            res.renderWithLocal(`/pages/views/templates/${req.params.file}`);
         } else {
             res.sendFile(__dirname + `/pages/views/templates/${req.params.file}`);
         }
@@ -23,7 +23,8 @@ module.exports = function (app) {
     app.use('/', express.static(__dirname + '/pages'));
 
     app.get('/', async function (req, res) {
-        res.render(__dirname + '/pages/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
+        const glams = await getAllGlams();
+        res.renderWithLocal('/pages/index.hbs', { glams });
     });
 
     app.get('/cassandra-app', (req, res) => { // health check
@@ -95,17 +96,17 @@ module.exports = function (app) {
 
     // ADMIN PANEL
     app.get('/admin/panel', async function (req, res) {
-        res.render(__dirname + `/pages/views/admin-panel.hbs`, { langDict: req.localesDicts[req.cookies.lang] });
+        res.renderWithLocal(`/pages/views/admin-panel.hbs`);
     });
 
     app.get('/admin/new-glam', async function (req, res) {
-        res.render(__dirname + `/pages/views/new-glam.hbs`, { langDict: req.localesDicts[req.cookies.lang] });
+        res.renderWithLocal(`/pages/views/new-glam.hbs`);
     });
 
     app.get('/admin/edit-glam/:id', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (glam !== undefined) {
-            res.render(__dirname + `/pages/views/edit-glam.hbs`, { langDict: req.localesDicts[req.cookies.lang] });
+            res.renderWithLocal(`/pages/views/edit-glam.hbs`);
         } else {
             res.sendStatus(400);
         }
@@ -115,7 +116,7 @@ module.exports = function (app) {
     app.get('/:id', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.render(__dirname + '/pages/views/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
+            res.renderWithLocal('/pages/views/index.hbs');
         } else {
             res.sendStatus(400);
         }
@@ -124,7 +125,7 @@ module.exports = function (app) {
     app.get('/:id/file/:file', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.render(__dirname + '/pages/views/file-page/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
+            res.renderWithLocal('/pages/views/file-page/index.hbs');
         } else {
             res.sendStatus(400);
         }
@@ -133,7 +134,7 @@ module.exports = function (app) {
     app.get('/:id/search/:query', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.render(__dirname + '/pages/views/search-page/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
+            res.renderWithLocal('/pages/views/search-page/index.hbs');
         } else {
             res.sendStatus(400);
         }
@@ -142,7 +143,7 @@ module.exports = function (app) {
     app.get('/:id/category-network/:name?', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.render(__dirname + '/pages/views/category-network/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
+            res.renderWithLocal('/pages/views/category-network/index.hbs');
         } else {
             res.sendStatus(400);
         }
@@ -151,7 +152,7 @@ module.exports = function (app) {
     app.get('/:id/category-network/:name/unused', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.render(__dirname + `/pages/views/unused-files-page/index.hbs`, { langDict: req.localesDicts[req.cookies.lang] });
+            res.renderWithLocal(`/pages/views/unused-files-page/index.hbs`);
         } else {
             res.sendStatus(400);
         }
@@ -160,7 +161,7 @@ module.exports = function (app) {
     app.get('/:id/recommender/:name?', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.render(__dirname + '/pages/views/recommender-page/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
+            res.renderWithLocal('/pages/views/recommender-page/index.hbs');
         } else {
             res.sendStatus(400);
         }
@@ -169,7 +170,7 @@ module.exports = function (app) {
     app.get('/:id/user-contributions/:name?', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.render(__dirname + '/pages/views/user-contributions/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
+            res.renderWithLocal('/pages/views/user-contributions/index.hbs');
         } else {
             res.sendStatus(400);
         }
@@ -178,7 +179,7 @@ module.exports = function (app) {
     app.get('/:id/usage/:name?', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.render(__dirname + '/pages/views/usage/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
+            res.renderWithLocal('/pages/views/usage/index.hbs');
         } else {
             res.sendStatus(400);
         }
@@ -187,7 +188,7 @@ module.exports = function (app) {
     app.get('/:id/page-views/:name?', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (isValidGlam(glam)) {
-            res.render(__dirname + '/pages/views/page-views/index.hbs', { langDict: req.localesDicts[req.cookies.lang] });
+            res.renderWithLocal('/pages/views/page-views/index.hbs');
         } else {
             res.sendStatus(400);
         }

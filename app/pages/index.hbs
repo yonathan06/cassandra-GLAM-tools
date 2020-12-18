@@ -1,68 +1,34 @@
-<!DOCTYPE html>
-<html lang={{ langDict.lang }}>
-
-<head>
-	<title>{{ langDict.title }}</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta charset="utf-8">
-	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
-	<link rel="stylesheet"
-		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
-	<link rel="stylesheet"
-		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.css" />
-	<link rel="stylesheet" href="/assets/style/style.css" />
-	<link rel="stylesheet" href="/assets/style/homepage.css" />
-	<script>
-		langDict = {{ json langDict }}
-	</script>
-	{{#if langDict.isRtl}}
-	<link rel="stylesheet" href="/assets/style/rtl.css">
-	{{/if}}
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PWBL363J70"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
-
-		gtag('config', 'G-PWBL363J70');
-	</script>
-</head>
-
-<body>
-	<div id="mobile-sidebar" class="ui left sidebar"></div>
-	<div class="pusher">
-		<header id="mobile-header-bar"></header>
-		<aside id="main-sidebar"></aside>
-		<aside id="secondary-sidebar"></aside>
-		<!-- Title -->
-		<section id="home-cover" class="cover">
+{{#> mainWrapper}}
+<div id="mobile-sidebar" class="ui left sidebar"></div>
+<div class="pusher">
+	<header id="mobile-header-bar"></header>
+	{{> sidebar}}
+	<section id="home-cover" class="cover">
+		<div class="row">
+			<div class="col-12 col-xl-7">
+				<h2>{{ langDict.index.title }}</h2>
+			</div>
+		</div>
+	</section>
+	<main id="main-container">
+		<section>
 			<div class="row">
-				<div class="col-12 col-xl-7">
-					<h2>{{ langDict.index.title }}</h2>
-				</div>
+				{{#*inline "glamLink"}}
+				<a href="/{{glam.name}}" alt="{{glam.category}}">
+					<div class="glam-container">
+						<img style="width:100%;" src="{{glam.image}}">
+						<div class="text-block">
+							<h4>{{glam.fullname}}</h4>
+						</div>
+					</div>
+				</a>
+				{{/inline}}
+
+				{{#each glams}}
+				{{> glamLink glam=this}}
+				{{/each}}
 			</div>
 		</section>
-		<main id="main-container">
-			<!-- Main Content -->
-			<section>
-				<div class="row">
-					<div id="photos-1" class="col-12 col-xl-4"></div>
-					<div id="photos-2" class="col-12 col-xl-4"></div>
-					<div id="photos-3" class="col-12 col-xl-4"></div>
-				</div>
-			</section>
-		</main>
-	</div>
-	<script type="text/javascript"
-		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script type="text/javascript"
-		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.js"></script>
-	<script type="text/javascript"
-		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-	<script type="text/javascript" src="/js/loader.js"></script>
-	<script type="text/javascript" src="/js/functions.js"></script>
-</body>
-
-</html>
+	</main>
+</div>
+{{/mainWrapper}}

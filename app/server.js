@@ -42,6 +42,9 @@ app.use((req, res, next) => {
         req.cookies.lang = 'en';
     }
     req.localesDicts = localesDicts;
+    res.renderWithLocal = function (relativeFilePath, additionalData) {
+        res.render(__dirname + relativeFilePath, { langDict: req.localesDicts[req.cookies.lang], ...additionalData });
+    }
     next();
 })
 hbs.registerHelper('json', function (object) {
@@ -49,7 +52,9 @@ hbs.registerHelper('json', function (object) {
 });
 app.set('view engine', 'hbs');
 app.engine('hbs', hbs.__express);
-
+hbs.registerPartial('mainWrapper', fs.readFileSync(__dirname + '/pages/views/templates/main-wrapper.hbs', { encoding: 'utf-8' }))
+hbs.registerPartial('sidebar', fs.readFileSync(__dirname + '/pages/views/templates/sidebar.hbs', { encoding: 'utf-8' }))
+hbs.registerPartial('langSelect', fs.readFileSync(__dirname + '/pages/views/templates/lang-select.hbs', { encoding: 'utf-8' }))
 require('./routes.js')(app, apicache);
 
 

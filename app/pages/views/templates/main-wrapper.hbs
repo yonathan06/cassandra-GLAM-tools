@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang={{ langDict.lang }}>
+
+<head>
+  <title>{{ langDict.title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+  <link rel="stylesheet"
+    href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.css" />
+  <link rel="stylesheet" href="/assets/style/style.css" />
+  <link rel="stylesheet" href="/assets/style/homepage.css" />
+  <script>
+    langDict = {{ json langDict }}
+  </script>
+  {{#if langDict.isRtl}}
+    <link rel="stylesheet" href="/assets/style/rtl.css">
+  {{/if}}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PWBL363J70"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-PWBL363J70');
+  </script>
+</head>
+
+<body>
+  {{> @partial-block }}
+</body>
+
+</html>

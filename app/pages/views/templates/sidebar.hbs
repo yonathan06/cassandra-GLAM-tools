@@ -1,60 +1,66 @@
-<select name="lang" id="langSelect" style="visibility: hidden;">
-  <option value="en">English</option>
-  <option value="he">עברית</option>
-  <option value="sv">Swedish</option>
-</select>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-<script defer>
-  function wait() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve()
-      }, 1000);
-    })
-  }
-  function getCookiesLib() {
-    return new Promise((resolve) => {
-      if (typeof Cookies !== "undefined") {
-        resolve(Cookies);
-      } else {
-        wait().then(() => getCookiesLib().then(resolve));
-      }
-    })
-  }
-  $(function() {
-    getCookiesLib().then((Cookies) => {
-      const langSelect = document.querySelector("#langSelect");
-      langSelect.value = Cookies.get('lang') || 'en';
-      langSelect.style.visibility = "visible";
-      langSelect.addEventListener('change', event => {
-        Cookies.set('lang', event.target.value);
-        location.reload();
-      });
-    })
-  })
-  {{!-- window.onload = () => main(); --}}
-</script>
-<div id="sidebar-logo">
-  <a href="/">
-    <img src="/assets/img/glam-logo.svg" alt="GLAM stat tool">
-  </a>
-</div>
-<div class="institutions-menu">
-  <h6>{{ langDict.sidebar.institutions }}</h6>
-</div>
-<div class="sidebar-links">
-  <ul>
-    {{#if langDict.signup}}
+<aside id="main-sidebar">
+  {{> langSelect}}
+  <div id="sidebar-logo">
+    <a href="/">
+      <img src="/assets/img/glam-logo.svg" alt="GLAM stat tool">
+    </a>
+  </div>
+  <div class="institutions-menu" id="glamsMenu">
+    <h6>{{ langDict.sidebar.institutions }}</h6>
+  </div>
+  <div class="sidebar-links">
+    <ul>
+      {{#if langDict.signup}}
       <li>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd3y26g9LuCld1uYu2SgIVwflnRsTDwmbTjhvidfBYWkHy3Hg/viewform?usp=sf_link" target="blank">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd3y26g9LuCld1uYu2SgIVwflnRsTDwmbTjhvidfBYWkHy3Hg/viewform?usp=sf_link"
+          target="blank">
           {{langDict.signup}}
         </a>
       </li>
-    {{/if}}
-    <li><a id="github" href="https://github.com/yonathan06/cassandra-GLAM-tools" target="blank"
-        title="GitHub repository">GitHub repository</a></li>
-  </ul>
-</div>
-<div class="admin-panel">
-  <a id="admin-panel-link" href="/admin/panel">CONTROL PANEL</a>
-</div>
+      {{/if}}
+      <li><a id="github" href="https://github.com/yonathan06/cassandra-GLAM-tools" target="blank"
+          title="GitHub repository">GitHub repository</a></li>
+    </ul>
+  </div>
+  <div class="admin-panel">
+    <a id="admin-panel-link" href="/admin/panel">CONTROL PANEL</a>
+  </div>
+</aside>
+<aside id="secondary-sidebar">
+  {{#*inline "glamLink"}}
+  <li>
+    <a href="/{{glam.name}}">{{glam.fullname}}</a>
+  </li>
+  {{/inline}}
+  <div id="secondary-sidebar">
+    <ul class="institutions-list">
+      {{#each glams}}
+      {{> glamLink glam=this}}
+      {{/each}}
+    </ul>
+  </div>
+</aside>
+<script>
+  const direction = langDict.isRtl ? 'right' : 'left';
+  const glamsMenu = document.querySelector('#glamsMenu');
+  const secondSidebar = document.querySelector('#secondary-sidebar');
+  glamsMenu.addEventListener('mouseenter', function () {
+    secondSidebar.style[direction] = 'var(--sidebar-width)';
+    glamsMenu.style.opacity = '0.4';
+  });
+  function hideSideBar() {
+    secondSidebar.style[direction] = 0;
+    glamsMenu.style.opacity = 1;
+    isHover = false;
+  }
+  glamsMenu.addEventListener('mouseleave', function () {
+    if (!document.querySelector('#secondary-sidebar:hover')) {
+      hideSideBar();
+    }
+  });
+  secondSidebar.addEventListener('mouseleave', function () {
+    if (!document.querySelector('#glamsMenu:hover')) {
+      hideSideBar();
+    }
+  });
+</script>

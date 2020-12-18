@@ -1,20 +1,20 @@
-$(function() {
+$(function () {
   // Help
-  $('#admin-help').mouseenter(function() {
+  $('#admin-help').mouseenter(function () {
     $('#glam-legend').stop().fadeIn(200);
-  }).mouseleave(function() {
+  }).mouseleave(function () {
     $('#glam-legend').stop().fadeOut(200);
   });
   // Get data
-  $.getJSON('/api/admin/glams', function(items) {
+  $.getJSON('/api/admin/glams', function (items) {
     if (items.length > 0) {
       let running = 0;
       let paused = 0;
       let failed = 0;
       let pending = 0;
-      $.get('/views/templates/glam-preview.tpl', function(tpl) {
+      $.get('/views/templates/glam-preview.tpl', function (tpl) {
         var template = Handlebars.compile(tpl);
-        items.forEach(function(el, idx) {
+        items.forEach(function (el, idx) {
           // create object
           let obj = {};
           obj.glamID = el.name;
@@ -55,29 +55,26 @@ $(function() {
         $('#pending-glams').html(pending);
         $('#paused-glams').html(paused);
         $('#failed-glams').html(failed);
-        if (is_touch_device()) {
-          // show always
-          $('.glam-controls').fadeIn();
-        } else {
-          // show on hover
-          $('.glam-block').mouseenter( function() {
-            $(this).find('.glam-controls').fadeIn(200);
-          }).mouseleave( function() {
-            $(this).find('.glam-controls').fadeOut(100);
-          });
-        }
+        // show always
+        $('.glam-controls').fadeIn();
+        // show on hover
+        $('.glam-block').mouseenter(function () {
+          $(this).find('.glam-controls').fadeIn(200);
+        }).mouseleave(function () {
+          $(this).find('.glam-controls').fadeOut(100);
+        });
         // on click pause/unpause
-        $('.glam-block .glam-controls.command').click(function() {
+        $('.glam-block .glam-controls.command').click(function () {
           let pause = !$(this).data('glampaused');
           $.ajax({
             type: "PUT",
-            url:'/api/admin/glams/' + $(this).data('glamid'),
+            url: '/api/admin/glams/' + $(this).data('glamid'),
             headers: { "Content-Type": "application/json" },
-            data: JSON.stringify({paused: pause}),
-            success: function(data) {
+            data: JSON.stringify({ paused: pause }),
+            success: function (data) {
               location.reload();
             },
-            error: function(err) {
+            error: function (err) {
               alert('Something went wrong!');
               $(this).removeClass('disabled');
             }
@@ -90,7 +87,7 @@ $(function() {
     }
   });
   // filter functions
-  $('.glam-filter').click(function() {
+  $('.glam-filter').click(function () {
     let id = this.id.replace('-glams', '');
     filterGlams(id);
   });
@@ -108,28 +105,28 @@ function filterGlams(id) {
       $('.glam-block').fadeIn();
       break;
     case 'running':
-      $('.glam-block.pending').fadeOut(500, function() {
+      $('.glam-block.pending').fadeOut(500, function () {
         $('.glam-block.running').fadeIn(300);
       });
       $('.glam-block.paused').fadeOut(400);
       $('.glam-block.failed').fadeOut(400);
       break;
     case 'pending':
-      $('.glam-block.running').fadeOut(500, function() {
+      $('.glam-block.running').fadeOut(500, function () {
         $('.glam-block.pending').fadeIn(300);
       });
       $('.glam-block.paused').fadeOut(400);
       $('.glam-block.failed').fadeOut(400);
       break;
     case 'paused':
-      $('.glam-block.running').fadeOut(500, function() {
+      $('.glam-block.running').fadeOut(500, function () {
         $('.glam-block.paused').fadeIn(300);
       });
       $('.glam-block.pending').fadeOut(400);
       $('.glam-block.failed').fadeOut(400);
       break;
     case 'failed':
-      $('.glam-block.running').fadeOut(500, function() {
+      $('.glam-block.running').fadeOut(500, function () {
         $('.glam-block.failed').fadeIn(300);
       });
       $('.glam-block.pending').fadeOut(400);

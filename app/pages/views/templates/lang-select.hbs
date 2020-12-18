@@ -1,0 +1,33 @@
+<select name="lang" id="langSelect" style="visibility: hidden;">
+  <option value="en">English</option>
+  <option value="he">עברית</option>
+  <option value="sv">Swedish</option>
+</select>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script defer>
+  function wait() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve()
+      }, 1000);
+    })
+  }
+  function getCookiesLib() {
+    return new Promise((resolve) => {
+      if (typeof Cookies !== "undefined") {
+        resolve(Cookies);
+      } else {
+        wait().then(() => getCookiesLib().then(resolve));
+      }
+    })
+  }
+  getCookiesLib().then((Cookies) => {
+    const langSelect = document.querySelector("#langSelect");
+    langSelect.value = Cookies.get('lang') || 'en';
+    langSelect.style.visibility = "visible";
+    langSelect.addEventListener('change', event => {
+      Cookies.set('lang', event.target.value);
+      location.reload();
+    });
+  })
+</script>
