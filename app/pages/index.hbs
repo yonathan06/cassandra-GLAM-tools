@@ -1,27 +1,25 @@
 {{#> mainWrapper}}
+<link rel="stylesheet" href="/assets/style/homepage.css" />
+
 <div id="mobile-sidebar" class="ui left sidebar"></div>
 <div class="pusher">
 	<header id="mobile-header-bar"></header>
 	{{> sidebar}}
 	<section id="home-cover" class="cover">
-		<div class="row">
-			<div class="col-12 col-xl-7">
-				<h2>{{ langDict.index.title }}</h2>
-			</div>
-		</div>
+	
 	</section>
 	<main id="main-container">
 		<section>
-			<div class="row">
+			<div class="glams-boxes">
 				{{#*inline "glamLink"}}
-				<a href="/{{glam.name}}" alt="{{glam.category}}">
-					<div class="glam-container">
-						<img style="width:100%;" src="{{glam.image}}">
-						<div class="text-block">
+				<div class="glam-container">
+					<img src="{{glam.image}}">
+					<div class="text-block">
+						<a class="glam-link" href="/{{glam.name}}" alt="{{glam.category}}">
 							<h4>{{glam.fullname}}</h4>
-						</div>
+						</a>
 					</div>
-				</a>
+				</div>
 				{{/inline}}
 
 				{{#each glams}}

@@ -1,86 +1,58 @@
-#photos {
-   /* Prevent vertical gaps */
-   line-height: 0;
-   /* background-color: #E0E0E0; */
-
-   -webkit-column-count: 5;
-   -webkit-column-gap:   0px;
-   -moz-column-count:    5;
-   -moz-column-gap:      0px;
-   column-count:         5;
-   column-gap:           0px;
+.glams-boxes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 20px;
+  column-gap: 20px;
 }
 
-#photos img {
-  /* Just in case there are inline attributes */
-  width: 100% !important;
-  height: auto !important;
-}
-
-#photos {
-  -moz-column-count:    4;
-  -webkit-column-count: 4;
-  column-count:         4;
-}
-
-@media (max-width: 1000px) {
-  #photos {
-  -moz-column-count:    3;
-  -webkit-column-count: 3;
-  column-count:         3;
-  }
-}
-@media (max-width: 800px) {
-  #photos {
-  -moz-column-count:    2;
-  -webkit-column-count: 2;
-  column-count:         2;
-  }
-}
-@media (max-width: 400px) {
-  #photos {
-  -moz-column-count:    1;
-  -webkit-column-count: 1;
-  column-count:         1;
-  }
-}
-/* Container holding the image and the text */
 .glam-container {
-   position: relative;
-   margin: 0;
-   padding: 0;
-   margin-bottom: 30px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.glam-container > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* Bottom right text */
 .text-block {
-  /* position: absolute;
-  bottom: 20px;
-  right: 30px;
-  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-align: center;
   color: white;
-  padding: 10px; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  transition: all 0.6s;
+  opacity: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  padding: 0 1em;
+}
+
+.glam-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.glam-link::before {
+  content: ' ';
   position: absolute;
   top: 0;
   left: 0;
-  background-color: var(--main-tt);
-  color: white;
-  display: flex;
-  width: 100%;
   height: 100%;
-  justify-content: center;
-  align-items: center;
-  transition: all .6s;
-  opacity: 1;
-}
-.glam-container .text-block {
-  padding: 0 1em;
-}
-.text-block:hover {
-  opacity: 0;
+  width: 100%;
 }
 
-.text-block h4 {
-  margin: 0;
-  font-size: 1.3rem !important;
+.text-block > a > h4 {
+  font-weight: 500;
+  margin-bottom: 16px;
+  text-align: left;
 }
