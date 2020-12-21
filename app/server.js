@@ -8,7 +8,12 @@ const fs = require('fs');
 const cookieParser = require('cookie-parser');
 var config = require('./config/config');
 
-const locales = ['en', 'he', 'sv']
+const localesMap = [
+    { lang: 'en', label: 'English' },
+    { lang: 'he', label: 'עברית' },
+    { lang: 'sv', label: 'Swedish' },
+]
+const locales = localesMap.map(l => l.lang);
 const localesDir = __dirname + '/locales';
 const localesDicts = locales.reduce((map, locale) => {
     const localJson = JSON.parse(fs.readFileSync(`${localesDir}/${locale}.json`).toString());
@@ -43,7 +48,10 @@ app.use((req, res, next) => {
     }
     req.localesDicts = localesDicts;
     res.renderWithLocal = function (relativeFilePath, additionalData) {
-        res.render(__dirname + relativeFilePath, { langDict: req.localesDicts[req.cookies.lang], ...additionalData });
+        res.render(
+            __dirname + relativeFilePath, 
+            { langDict: req.localesDicts[req.cookies.lang], localesMap, ...additionalData }
+        );
     }
     next();
 })

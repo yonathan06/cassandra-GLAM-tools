@@ -1,8 +1,25 @@
-<select name="lang" id="langSelect" style="visibility: hidden;">
-  <option value="en">English</option>
-  <option value="he">עברית</option>
-  <option value="sv">Swedish</option>
-</select>
+<style>
+  .lang-select-wrapper {
+    position: relative;
+  }
+  #langSelect {
+    appearance: none;
+    background-color: white;
+    border: none;
+    padding: 0 1rem;
+    width: 180px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+</style>
+<div class="lang-select-wrapper">
+  <select name="lang" id="langSelect" style="visibility: hidden;">
+    {{#each localesMap}}
+    <option value="{{this.lang}}">{{this.label}}</option>
+    {{/each}}
+  </select>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 <script defer>
   function wait() {

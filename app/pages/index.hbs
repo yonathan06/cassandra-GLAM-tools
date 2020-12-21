@@ -1,12 +1,73 @@
 {{#> mainWrapper}}
-<link rel="stylesheet" href="/assets/style/homepage.css" />
+<style>
+	.cover {
+		display: flex;
+		justify-content: flex-end;
+	}
 
-<div id="mobile-sidebar" class="ui left sidebar"></div>
+	.glams-boxes {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		row-gap: 20px;
+		column-gap: 20px;
+	}
+
+	.glam-container {
+		border-radius: 8px;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.glam-container>img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.text-block {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		text-align: center;
+		color: white;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column-reverse;
+		transition: all 0.6s;
+		opacity: 1;
+		background: linear-gradient(180deg,
+				rgba(0, 0, 0, 0) 0%,
+				rgba(0, 0, 0, 0) 50%,
+				rgba(0, 0, 0, 0.5) 100%);
+		padding: 0 1em;
+	}
+
+	.glam-link {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.glam-link::before {
+		content: ' ';
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+	}
+
+	.text-block>a>h4 {
+		font-weight: 500;
+		margin-bottom: 16px;
+		text-align: left;
+	}
+</style>
 <div class="pusher">
 	<header id="mobile-header-bar"></header>
 	{{> sidebar}}
 	<section id="home-cover" class="cover">
-	
+		{{> langSelect}}
 	</section>
 	<main id="main-container">
 		<section>

@@ -1,29 +1,139 @@
-<aside id="main-sidebar">
-  {{> langSelect}}
-  <div id="sidebar-logo">
+<style>
+  .main-sidebar {
+    padding: 40px 0;
+    background-color: var(--main);
+    position: fixed;
+    height: 100%;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    color: white;
+    width: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    --space-side: 30px;
+  }
+
+  .main-sidebar a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .sidebar-logo {
+    margin-inline-start: var(--space-side);
+    flex: auto 0 0;
+    margin-bottom: 40px;
+  }
+
+  .sidebar-logo>a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .glam-title {
+    font-size: 48px;
+  }
+
+  .glam-subtitle {
+    font-size: 18px;
+  }
+
+  .institutions {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    align-self: stretch;
+  }
+
+  .institution-item {
+    display: flex;
+    align-items: center;
+    height: 54px;
+    padding-inline-start: var(--space-side);
+  }
+
+  .institution-item:hover {
+    background-color: var(--secondary);
+  }
+
+  .sidebar-links {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-links>a {
+    padding-inline-start: var(--space-side);
+  }
+
+  #secondary-sidebar {
+    background-color: var(--secondary);
+    position: absolute;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    transition: all .5s;
+  }
+
+  #secondary-sidebar>.institutions-list {
+    position: relative;
+    top: 15rem;
+    list-style-type: none;
+    padding: 0 2rem;
+  }
+
+  #secondary-sidebar>.institutions-list>li {
+    padding: .9rem 0;
+    font-size: .9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+  }
+
+  #secondary-sidebar>.institutions-list>li>a {
+    color: #fff;
+  }
+</style>
+{{#if langDict.isRtl}}
+<style>
+  /* SIDEBAR */
+  .main-sidebar {
+    left: auto;
+    right: 0;
+  }
+
+  .main-sidebar>#sidebar-logo {
+    text-align: center;
+  }
+
+  /* SECONDAY SIDEBAR */
+  #secondary-sidebar {
+    left: auto;
+    right: 0;
+  }
+</style>
+{{/if}}
+<aside class="main-sidebar">
+  <div class="sidebar-logo">
     <a href="/">
-      <img src="/assets/img/glam-logo.svg" alt="GLAM stat tool">
+      <div class="glam-title">GLAM</div>
+      <div class="glam-subtitle">WIKIDashboard</div>
     </a>
   </div>
-  <div class="institutions-menu" id="glamsMenu">
-    <h6>{{ langDict.sidebar.institutions }}</h6>
+  <div class="institutions">
+    <div class="institution-item" id="glamsButton">{{ langDict.sidebar.institutions }}</div>
   </div>
   <div class="sidebar-links">
-    <ul>
-      {{#if langDict.signup}}
-      <li>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd3y26g9LuCld1uYu2SgIVwflnRsTDwmbTjhvidfBYWkHy3Hg/viewform?usp=sf_link"
-          target="blank">
-          {{langDict.signup}}
-        </a>
-      </li>
-      {{/if}}
-      <li><a id="github" href="https://github.com/yonathan06/cassandra-GLAM-tools" target="blank"
-          title="GitHub repository">GitHub repository</a></li>
-    </ul>
-  </div>
-  <div class="admin-panel">
-    <a id="admin-panel-link" href="/admin/panel">CONTROL PANEL</a>
+    {{#if langDict.signup}}
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSd3y26g9LuCld1uYu2SgIVwflnRsTDwmbTjhvidfBYWkHy3Hg/viewform?usp=sf_link"
+      target="blank">
+      {{langDict.signup}}
+    </a>
+    {{/if}}
+    <a href="https://github.com/yonathan06/cassandra-GLAM-tools" target="blank" title="GitHub repository">GitHub
+      repository</a>
+    <a href="/admin/panel">Control panel</a>
   </div>
 </aside>
 <aside id="secondary-sidebar">
@@ -42,15 +152,13 @@
 </aside>
 <script>
   const direction = langDict.isRtl ? 'right' : 'left';
-  const glamsMenu = document.querySelector('#glamsMenu');
+  const glamsMenu = document.querySelector('#glamsButton');
   const secondSidebar = document.querySelector('#secondary-sidebar');
   glamsMenu.addEventListener('mouseenter', function () {
     secondSidebar.style[direction] = 'var(--sidebar-width)';
-    glamsMenu.style.opacity = '0.4';
   });
   function hideSideBar() {
     secondSidebar.style[direction] = 0;
-    glamsMenu.style.opacity = 1;
     isHover = false;
   }
   glamsMenu.addEventListener('mouseleave', function () {

@@ -1,9 +1,9 @@
-@import url(https://tools-static.wmflabs.org/fontcdn/css?family=Chivo:300,400,400italic,700&subset=latin,latin-ext);
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
 
 /*  GENERAL */
 :root {
-  --main: #080d5a;
-  --secondary: #6373f7;
+  --main: #0E6EFD;
+  --secondary: #013B90;
   --main-dark: #060a40;
   --main-t: #080d5ac8;
   --main-tt: #080d5aa0;
@@ -50,7 +50,7 @@ html {
 }
 
 body {
-  font-family: 'Chivo', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #fdfdfd;
@@ -136,148 +136,6 @@ h2 {
 .link-out-small {
   width: 8px;
   margin-left: .1rem;
-}
-
-/* MOBILE HEADER AND SIDEBAR */
-#mobile-header-bar {
-  display: none;
-}
-
-#mobile-sidebar > .mobile-sidebar-links > ul {
-  list-style-type: none;
-  padding: 1rem 0 0;
-}
-
-#mobile-sidebar > .mobile-sidebar-links > ul > li {
-  padding: 1.5rem 1rem;
-}
-
-#mobile-sidebar > .mobile-sidebar-links > ul > li a {
-  color: var(--main);
-}
-
-#mobile-sidebar > .mobile-sidebar-links #admin-panel-link {
-  font-size: 1rem;
-}
-
-#mobile-sidebar > .mobile-sidebar-links #github {
-  font-weight: 100;
-}
-
-#main-sidebar > #langSelect{
-  display: block;
-  margin: 20px auto 0 auto;
-}
-
-/* SIDEBAR */
-#main-sidebar {
-  background-color: var(--bg-gray);
-  position: fixed;
-  height: 100%;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: var(--sidebar-width);
-}
-
-#main-sidebar > #sidebar-logo {
-  text-align: center;
-}
-
-#main-sidebar > .institutions-menu {
-  position: absolute;
-  top: 15rem;
-  left: 0;
-  width: 100%;
-  border-width: 2px 0;
-  border-style: solid;
-  border-color: #fff;
-  transition: opacity .5s;
-}
-
-#main-sidebar > .institutions-menu > h6 {
-  margin: 0;
-  padding: .5rem 0 .5rem var(--sidebar-items-left);
-  font-weight: 600;
-  color: var(--main);
-  cursor: pointer;
-}
-
-#main-sidebar > #sidebar-logo img {
-  width: 120px;
-  height: auto;
-}
-
-#main-sidebar > .sidebar-links {
-  position: absolute;
-  bottom: 4rem;
-  left: var(--sidebar-items-left);
-}
-
-#main-sidebar > .sidebar-links a {
-  color: var(--main);
-}
-
-#main-sidebar > .sidebar-links > ul {
-  list-style-type: none;
-  padding: 0 5rem 0 0;
-  font-size: .9rem;
-}
-
-#main-sidebar > .sidebar-links > ul > li {
-  padding: 1rem 0 0;
-}
-
-#main-sidebar > .sidebar-links #github {
-  font-weight: 100;
-}
-
-#main-sidebar > .admin-panel {
-  position: absolute;
-  left: var(--sidebar-items-left);
-  bottom: 2rem;
-}
-
-#admin-panel-link {
-  padding: .3rem .8rem;
-  font-size: .7rem;
-  color: var(--main);
-  border: 1px solid;
-  border-radius: 3px;
-  transition: all .5s;
-}
-
-#admin-panel-link:hover {
-  background-color: rgba(6, 69, 173, 0.7);
-}
-
-/* SECONDAY SIDEBAR */
-#secondary-sidebar {
-  background-color: var(--main);
-  position: absolute;
-  height: 100%;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  width: var(--sidebar-width);
-  transition: all .5s;
-}
-
-#secondary-sidebar > .institutions-list {
-  position: relative;
-  top: 15rem;
-  list-style-type: none;
-  padding: 0 2rem;
-}
-
-#secondary-sidebar > .institutions-list > li {
-  padding: .9rem 0;
-  font-size: .9rem;
-  border-bottom: 1px solid rgba(255, 255, 255, .2);
-}
-
-#secondary-sidebar > .institutions-list > li > a {
-  color: #fff;
 }
 
 /* MAIN CONTAINER */

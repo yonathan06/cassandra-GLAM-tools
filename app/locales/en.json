@@ -6,7 +6,7 @@
     "title": "Support GLAMs (Galleries, Libraries, Archives, Museums) in monitoring and evaluating their cooperation with Wikimedia projects"
   },
   "sidebar": {
-    "institutions": "INSTITUTIONS"
+    "institutions": "Institutions"
   },
   "description": "Description",
   "help": "Help",
@@ -46,7 +46,7 @@
   "lv": "lv",
   "views": {
     "index": {
-      "institutions": "INSTITUTION",
+      "institutions": "Institutions",
       "categoryTitle": "Category in Commons",
       "totalMedia": "Total media",
       "view": "VIEW",
