@@ -1,279 +1,205 @@
-<!DOCTYPE html>
-<html html={{ langDict.lang }}>
+{{#> mainWrapper}}
+<link rel="stylesheet"
+	href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/assets/style/style.css" />
+<link rel="stylesheet" href="/assets/style/chart-page.css" />
 
-<head>
-	<title>{{ langDict.title }}</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta charset="utf-8">
-	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
-	<link rel="stylesheet"
-		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
-	<link rel="stylesheet"
-		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.css" />
-	<link rel="stylesheet" href="/assets/style/style.css" />
-	<link rel="stylesheet" href="/assets/style/linechart.css" />
-	<link rel="stylesheet" href="/assets/style/chart-page.css" />
+<div class="pusher">
+	{{> sidebar}}
 
-	<script>
-		langDict = {{ json langDict }}
-	</script>
-	{{#if langDict.isRtl}}
-	<link rel="stylesheet" href="/assets/style/rtl.css">
-	{{/if}}
-	<base id="basebase" href="" />
-	<style>
-		body {
-			height: 100%;
-			flex-direction: column;
-			min-height: 100vh;
-			display: flex;
-		}
-	</style>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PWBL363J70"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
-
-		gtag('config', 'G-PWBL363J70');
-	</script>
-</head>
-
-<body>
-	<!-- Mobile sidebar -->
-	<div id="mobile-sidebar" class="ui left sidebar"></div>
-	<div class="pusher">
-		<!-- Sidebar -->
-		<aside id="main-sidebar"></aside>
-		<aside id="secondary-sidebar"></aside>
-		<!-- MAIN -->
-		<!-- Title -->
-		<section id="cover" class="cover">
-			<div id="cover-overlay"></div>
-			<div class="row w-100 py-4 glam-title-container">
-				<div class="col-12 col-lg-7 glam-title-section">
-					<h5>{{langDict.views.index.institutions}}</h5>
-					<div class="glam-title-desc">
-						<h1 class="glamName"></h1>
-					</div>
+	<section id="cover" class="cover">
+		<div id="cover-overlay"></div>
+		<div class="row w-100 py-4 glam-title-container">
+			<div class="col-12 col-lg-7 glam-title-section">
+				<h5>{{langDict.views.index.institutions}}</h5>
+				<div class="glam-title-desc">
+					<h1 class="glamName"></h1>
 				</div>
-				<div class="col-12 col-lg-3 glam-title-section">
-					<h5>{{langDict.views.index.categoryTitle}}</h5>
-					<div class="glam-title-desc">
-						<a id="cat_url" target="_blank"></a>
-					</div>
+			</div>
+			<div class="col-12 col-lg-3 glam-title-section">
+				<h5>{{langDict.views.index.categoryTitle}}</h5>
+				<div class="glam-title-desc">
+					<a id="cat_url" target="_blank"></a>
 				</div>
-				<div class="col-12 col-lg-2 glam-title-section">
-					<h5>{{langDict.views.index.totalMedia}}</h5>
-					<div class="glam-title-desc">
-						<h2 id="totalMediaNum"></h2>
+			</div>
+			<div class="col-12 col-lg-2 glam-title-section">
+				<h5>{{langDict.views.index.totalMedia}}</h5>
+				<div class="glam-title-desc">
+					<h2 id="totalMediaNum"></h2>
+				</div>
+			</div>
+		</div>
+	</section>
+	<main id="main-container">
+		<section>
+			<div class="row">
+				<div class="col-12">
+					<div class="row">
+						<div class="col-12 w-20">
+							<div class="chart-preview">
+								<div class="chart-preview-inner">
+									<div class="chart-preview-front">
+										<a style="width:80px;" href="category-network"><img class="chart-logo"
+												src="/assets/img/category-network.svg" alt="Categroy Network"></a>
+										<div class="chart-separator">
+											<hr>
+											<h5>{{langDict.views.index.chart}}</h5>
+										</div>
+										<h1 class="chart-name">{{langDict.views.index.cards.categoryNetwork.title}}</h1>
+										<div class="chart-buttons">
+											<a class="chart-link" href="category-network">{{langDict.views.index.view}}</a>
+											<span class="get-chart-info">&#8505;</span>
+										</div>
+									</div>
+									<div class="chart-preview-back">
+										<span class="close-chart-info">&times</span>
+										<div class="chart-info">
+											<p>{{{langDict.views.index.cards.categoryNetwork.description}}}</p>
+											<a style="color:#fff" class="chart-link" href="category-network">{{langDict.views.index.view}}</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 w-20">
+							<div class="chart-preview">
+								<div class="chart-preview-inner">
+									<div class="chart-preview-front">
+										<a style="width:80px;" href="user-contributions"><img class="chart-logo"
+												src="/assets/img/user-contribution.svg" alt="User Contribution"></a>
+										<div class="chart-separator">
+											<hr>
+											<h5>{{langDict.views.index.chart}}</h5>
+										</div>
+										<h1 class="chart-name">{{langDict.views.index.cards.userContribution.title}}</h1>
+										<div class="chart-buttons">
+											<a class="chart-link" href="user-contributions">{{langDict.views.index.view}}</a>
+											<span class="get-chart-info">&#8505;</span>
+										</div>
+									</div>
+									<div class="chart-preview-back">
+										<span class="close-chart-info">&times</span>
+										<div class="chart-info">
+											<p>{{{langDict.views.index.cards.userContribution.description}}}</p>
+											<a style="color:#fff" class="chart-link"
+												href="user-contributions">{{langDict.views.index.view}}</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 w-20">
+							<div class="chart-preview">
+								<div class="chart-preview-inner">
+									<div class="chart-preview-front">
+										<a style="width:80px;" href="usage"><img class="chart-logo" src="/assets/img/usage.svg"
+												alt="Usage"></a>
+										<div class="chart-separator">
+											<hr>
+											<h5>{{langDict.views.index.chart}}</h5>
+										</div>
+										<h1 class="chart-name">{{langDict.views.index.cards.usage.title}}</h1>
+										<div class="chart-buttons">
+											<a class="chart-link" href="usage">{{langDict.views.index.view}}</a>
+											<span class="get-chart-info">&#8505;</span>
+										</div>
+									</div>
+									<div class="chart-preview-back">
+										<span class="close-chart-info">&times</span>
+										<div class="chart-info">
+											<p>{{{langDict.views.index.cards.usage.description}}}</p>
+											<a style="color:#fff" class="chart-link" href="usage">{{langDict.views.index.view}}</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 w-20">
+							<div class="chart-preview">
+								<div class="chart-preview-inner">
+									<div class="chart-preview-front">
+										<a style="width:80px;" href="page-views"><img class="chart-logo" src="/assets/img/page-views.svg"
+												alt="Page Views"></a>
+										<div class="chart-separator">
+											<hr>
+											<h5>{{langDict.views.index.chart}}</h5>
+										</div>
+										<h1 class="chart-name">{{langDict.views.index.cards.views.title}}</h1>
+										<div class="chart-buttons">
+											<a class="chart-link" href="page-views">{{langDict.views.index.view}}</a>
+											<span class="get-chart-info">&#8505;</span>
+										</div>
+									</div>
+									<div class="chart-preview-back">
+										<span class="close-chart-info">&times</span>
+										<div class="chart-info">
+											<p>{{{langDict.views.index.cards.views.description}}}</p>
+											<a style="color:#fff" class="chart-link" href="page-views">{{langDict.views.index.view}}</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 w-20">
+							<div class="chart-preview">
+								<div class="chart-preview-inner">
+									<div class="chart-preview-front">
+										<a style="width:80px;" href="recommender"><img class="chart-logo" src="/assets/img/suggestion.svg"
+												alt="SUGGESTIONS"></a>
+										<div class="chart-separator">
+											<hr>
+											<h5>{{langDict.views.index.chart}}</h5>
+										</div>
+										<h1 class="chart-name">{{langDict.views.index.cards.suggestions.title}}</h1>
+										<div class="chart-buttons">
+											<a class="chart-link" href="recommender">{{langDict.views.index.view}}</a>
+											<span class="get-chart-info">&#8505;</span>
+										</div>
+									</div>
+									<div class="chart-preview-back">
+										<span class="close-chart-info">&times</span>
+										<div class="chart-info">
+											<p>{{{langDict.views.index.cards.suggestions.description}}}</p>
+											<a style="color:#fff" class="chart-link" href="recommender">{{langDict.views.index.view}}</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-xl-3 mt-5"></div>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div id="searchFilesInputForm" class="search-form" data-container="body" data-toggle="popover"
+				data-placement="top" data-content="Enter at least 3 characters">
+				<label for="searchFilesInput">{{langDict.views.index.searchFile}}</label>
+				<input id="searchFilesInput" class="form-control" type="text" placeholder="Search" aria-label="Search"
+					onkeypress="searchFiles()">
+				<button class="btn btn-rounded search-btn" type="submit" onclick="searchFiles(true)">
+					<img src="/assets/img/search-24px.svg" />
+				</button>
+			</div>
 		</section>
-		<!-- Content -->
-		<main id="main-container">
-			<section>
-				<div class="row">
-					<div class="col-12">
-						<div class="row">
-							<div class="col-12 w-20">
-								<div class="chart-preview">
-									<div class="chart-preview-inner">
-										<div class="chart-preview-front">
-											<a style="width:80px;" href="category-network"><img class="chart-logo"
-													src="/assets/img/category-network.svg" alt="Categroy Network"></a>
-											<div class="chart-separator">
-												<hr>
-												<h5>{{langDict.views.index.chart}}</h5>
-											</div>
-											<h1 class="chart-name">{{langDict.views.index.cards.categoryNetwork.title}}</h1>
-											<div class="chart-buttons">
-												<a class="chart-link" href="category-network">{{langDict.views.index.view}}</a>
-												<span class="get-chart-info">&#8505;</span>
-											</div>
-										</div>
-										<div class="chart-preview-back">
-											<span class="close-chart-info">&times</span>
-											<div class="chart-info">
-												<p>{{{langDict.views.index.cards.categoryNetwork.description}}}</p>
-												<a style="color:#fff" class="chart-link"
-													href="category-network">{{langDict.views.index.view}}</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 w-20">
-								<div class="chart-preview">
-									<div class="chart-preview-inner">
-										<div class="chart-preview-front">
-											<a style="width:80px;" href="user-contributions"><img class="chart-logo"
-													src="/assets/img/user-contribution.svg" alt="User Contribution"></a>
-											<div class="chart-separator">
-												<hr>
-												<h5>{{langDict.views.index.chart}}</h5>
-											</div>
-											<h1 class="chart-name">{{langDict.views.index.cards.userContribution.title}}</h1>
-											<div class="chart-buttons">
-												<a class="chart-link" href="user-contributions">{{langDict.views.index.view}}</a>
-												<span class="get-chart-info">&#8505;</span>
-											</div>
-										</div>
-										<div class="chart-preview-back">
-											<span class="close-chart-info">&times</span>
-											<div class="chart-info">
-												<p>{{{langDict.views.index.cards.userContribution.description}}}</p>
-												<a style="color:#fff" class="chart-link"
-													href="user-contributions">{{langDict.views.index.view}}</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 w-20">
-								<div class="chart-preview">
-									<div class="chart-preview-inner">
-										<div class="chart-preview-front">
-											<a style="width:80px;" href="usage"><img class="chart-logo" src="/assets/img/usage.svg"
-													alt="Usage"></a>
-											<div class="chart-separator">
-												<hr>
-												<h5>{{langDict.views.index.chart}}</h5>
-											</div>
-											<h1 class="chart-name">{{langDict.views.index.cards.usage.title}}</h1>
-											<div class="chart-buttons">
-												<a class="chart-link" href="usage">{{langDict.views.index.view}}</a>
-												<span class="get-chart-info">&#8505;</span>
-											</div>
-										</div>
-										<div class="chart-preview-back">
-											<span class="close-chart-info">&times</span>
-											<div class="chart-info">
-												<p>{{{langDict.views.index.cards.usage.description}}}</p>
-												<a style="color:#fff" class="chart-link" href="usage">{{langDict.views.index.view}}</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 w-20">
-								<div class="chart-preview">
-									<div class="chart-preview-inner">
-										<div class="chart-preview-front">
-											<a style="width:80px;" href="page-views"><img class="chart-logo" src="/assets/img/page-views.svg"
-													alt="Page Views"></a>
-											<div class="chart-separator">
-												<hr>
-												<h5>{{langDict.views.index.chart}}</h5>
-											</div>
-											<h1 class="chart-name">{{langDict.views.index.cards.views.title}}</h1>
-											<div class="chart-buttons">
-												<a class="chart-link" href="page-views">{{langDict.views.index.view}}</a>
-												<span class="get-chart-info">&#8505;</span>
-											</div>
-										</div>
-										<div class="chart-preview-back">
-											<span class="close-chart-info">&times</span>
-											<div class="chart-info">
-												<p>{{{langDict.views.index.cards.views.description}}}</p>
-												<a style="color:#fff" class="chart-link" href="page-views">{{langDict.views.index.view}}</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 w-20">
-								<div class="chart-preview">
-									<div class="chart-preview-inner">
-										<div class="chart-preview-front">
-											<a style="width:80px;" href="recommender"><img class="chart-logo" src="/assets/img/suggestion.svg"
-													alt="SUGGESTIONS"></a>
-											<div class="chart-separator">
-												<hr>
-												<h5>{{langDict.views.index.chart}}</h5>
-											</div>
-											<h1 class="chart-name">{{langDict.views.index.cards.suggestions.title}}</h1>
-											<div class="chart-buttons">
-												<a class="chart-link" href="recommender">{{langDict.views.index.view}}</a>
-												<span class="get-chart-info">&#8505;</span>
-											</div>
-										</div>
-										<div class="chart-preview-back">
-											<span class="close-chart-info">&times</span>
-											<div class="chart-info">
-												<p>{{{langDict.views.index.cards.suggestions.description}}}</p>
-												<a style="color:#fff" class="chart-link" href="recommender">{{langDict.views.index.view}}</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-12 col-xl-3 mt-5"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!--				<form class="form-inline search-form" onsubmit="searchFiles()">-->
-				<div id="searchFilesInputForm" class="search-form" data-container="body" data-toggle="popover"
-					data-placement="top" data-content="Enter at least 3 characters">
-					<label for="searchFilesInput">{{langDict.views.index.searchFile}}</label>
-					<input id="searchFilesInput" class="form-control" type="text" placeholder="Search" aria-label="Search"
-						onkeypress="searchFiles()">
-					<button class="btn btn-rounded search-btn" type="submit" onclick="searchFiles(true)">
-						<img src="/assets/img/search-24px.svg" />
-					</button>
-				</div>
-				<div id="main_views_container" style="margin-top: 40px">
-					<div class="groupby_container">
-						<div id="groupby_options">
-							{{langDict.selectView}}
-							<select id="groupby-select">
-								<option value="day">{{langDict.day}}</option>
-								<option selected value="week">{{langDict.week}}</option>
-								<option value="month">{{langDict.month}}</option>
-								<option value="quarter">{{langDict.quarter}}</option>
-								<option value="year">{{langDict.year}}</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</section>
-		</main>
-	</div>
-	<div class="futovac"></div>
-	<script type="text/javascript"
-		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script type="text/javascript"
-		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.js"></script>
-	<script type="text/javascript"
-		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript" src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/d3/4.4.0/d3.min.js"></script>
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.2/d3-annotation.min.js"></script>
-	<script type="text/javascript"
-		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-	<script type="text/javascript" src="/js/loader.js"></script>
-	<script type="text/javascript" src="/assets/scripts/utils.js"></script>
-	<script type="text/javascript" src="/assets/scripts/linechart.js"></script>
-
-	<script>
-		function getUrlAll() {
-			const db = window.location.href.toString().split('/')[3];
-			const groupby = $('#groupby-select').val();
-			const subcat = window.location.href.toString().split('/')[5];
-			const subcatQ = subcat ? "&cat=" + subcat : "";
-			return "/api/" + db + "/views?groupby=" + groupby + subcatQ;
-		}
-		setCategory();
-		fixBaseUrl();
-		$(document).ready(() => {
-			lineChartDraw("main_views_container", getUrlAll());
-			$('#groupby-select').change(function () {
-				lineChartDraw("main_views_container", getUrlAll());
-			});
-		})
-	</script>
-</body>
-
-</html>
+	</main>
+</div>
+<div class="futovac"></div>
+<script type="text/javascript"
+	src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"
+	src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="/js/loader.js"></script>
+<script type="text/javascript" src="/assets/scripts/utils.js"></script>
+<script>
+	function getUrlAll() {
+		const db = window.location.href.toString().split('/')[3];
+		const groupby = $('#groupby-select').val();
+		const subcat = window.location.href.toString().split('/')[5];
+		const subcatQ = subcat ? "&cat=" + subcat : "";
+		return "/api/" + db + "/views?groupby=" + groupby + subcatQ;
+	}
+	setCategory();
+	fixBaseUrl();
+</script>
+{{/mainWrapper}}

@@ -1,4 +1,9 @@
 <style>
+  :root {
+    --link-space-side: 30px;
+    --sidebar-border-radius: 100px;
+  }
+
   .main-sidebar {
     padding: 40px 0;
     background-color: var(--main);
@@ -12,7 +17,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    --space-side: 30px;
+    border-bottom-right-radius: var(--sidebar-border-radius);
+    font-size: 16px;
   }
 
   .main-sidebar a {
@@ -21,7 +27,7 @@
   }
 
   .sidebar-logo {
-    margin-inline-start: var(--space-side);
+    margin-inline-start: var(--link-space-side);
     flex: auto 0 0;
     margin-bottom: 40px;
   }
@@ -47,70 +53,94 @@
     align-self: stretch;
   }
 
-  .institution-item {
+  .sidebar-link {
     display: flex;
     align-items: center;
     height: 54px;
-    padding-inline-start: var(--space-side);
+    padding-inline-start: var(--link-space-side);
   }
 
-  .institution-item:hover {
+  .sidebar-link:hover {
     background-color: var(--secondary);
   }
 
   .sidebar-links {
     display: flex;
     flex-direction: column;
+    align-self: stretch;
   }
 
   .sidebar-links>a {
-    padding-inline-start: var(--space-side);
+    padding-inline-start: var(--link-space-side);
+  }
+
+  .sidebar-wikiil-logo {
+    padding-inline-start: var(--link-space-side);
+    margin-top: 66px;
+  }
+
+  .sidebar-wikiil-logo>img {
+    height: 64px;
+    object-fit: contain;
   }
 
   #secondary-sidebar {
     background-color: var(--secondary);
-    position: absolute;
+    position: fixed;
     height: 100%;
     z-index: 1;
     top: 0;
     left: 0;
-    width: var(--sidebar-width);
+    transform: translateX(calc(-1 * var(--sidebar-border-radius)));
+    width: calc(var(--sidebar-width) + var(--sidebar-border-radius));
+    padding-inline-start: var(--sidebar-border-radius);
     transition: all .5s;
+    border-bottom-right-radius: var(--sidebar-border-radius);
+    font-size: 16px;
   }
 
-  #secondary-sidebar>.institutions-list {
+  #secondary-sidebar .institutions-list {
     position: relative;
-    top: 15rem;
+    top: 10rem;
     list-style-type: none;
-    padding: 0 2rem;
+    padding: 0;
   }
 
-  #secondary-sidebar>.institutions-list>li {
-    padding: .9rem 0;
-    font-size: .9rem;
-    border-bottom: 1px solid rgba(255, 255, 255, .2);
+  #secondary-sidebar .institutions-list>li {
+    height: 58px;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
   }
 
-  #secondary-sidebar>.institutions-list>li>a {
-    color: #fff;
+  #secondary-sidebar .institutions-list>li:hover {
+    background-color: var(--main);
+  } 
+
+  #secondary-sidebar .institutions-list>li>a {
+    color: white;
+    text-decoration: none;
   }
 </style>
 {{#if langDict.isRtl}}
 <style>
-  /* SIDEBAR */
   .main-sidebar {
     left: auto;
     right: 0;
+    border-bottom-left-radius: var(--sidebar-border-radius);
+    border-bottom-right-radius: 0;
   }
 
   .main-sidebar>#sidebar-logo {
     text-align: center;
   }
 
-  /* SECONDAY SIDEBAR */
   #secondary-sidebar {
     left: auto;
     right: 0;
+    border-bottom-left-radius: var(--sidebar-border-radius);
+    border-bottom-right-radius: 0;
+    transform: translateX(calc(var(--sidebar-border-radius)));
   }
 </style>
 {{/if}}
@@ -122,18 +152,21 @@
     </a>
   </div>
   <div class="institutions">
-    <div class="institution-item" id="glamsButton">{{ langDict.sidebar.institutions }}</div>
+    <div class="sidebar-link institution-item" id="glamsButton">{{ langDict.sidebar.institutions }}</div>
   </div>
   <div class="sidebar-links">
     {{#if langDict.signup}}
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSd3y26g9LuCld1uYu2SgIVwflnRsTDwmbTjhvidfBYWkHy3Hg/viewform?usp=sf_link"
+    <a class="sidebar-link" href="https://docs.google.com/forms/d/e/1FAIpQLSd3y26g9LuCld1uYu2SgIVwflnRsTDwmbTjhvidfBYWkHy3Hg/viewform?usp=sf_link"
       target="blank">
       {{langDict.signup}}
     </a>
     {{/if}}
-    <a href="https://github.com/yonathan06/cassandra-GLAM-tools" target="blank" title="GitHub repository">GitHub
+    <a class="sidebar-link" href="https://github.com/yonathan06/cassandra-GLAM-tools" target="blank" title="GitHub repository">GitHub
       repository</a>
-    <a href="/admin/panel">Control panel</a>
+    <a class="sidebar-link" href="/admin/panel">Control panel</a>
+  </div>
+  <div class="sidebar-wikiil-logo">
+    <img src="/assets/img/logo_footer_inverted.png" alt="logo white">
   </div>
 </aside>
 <aside id="secondary-sidebar">
@@ -142,7 +175,7 @@
     <a href="/{{glam.name}}">{{glam.fullname}}</a>
   </li>
   {{/inline}}
-  <div id="secondary-sidebar">
+  <div>
     <ul class="institutions-list">
       {{#each glams}}
       {{> glamLink glam=this}}
@@ -152,23 +185,30 @@
 </aside>
 <script>
   const direction = langDict.isRtl ? 'right' : 'left';
-  const glamsMenu = document.querySelector('#glamsButton');
+  const glamsButton = document.querySelector('#glamsButton');
   const secondSidebar = document.querySelector('#secondary-sidebar');
-  glamsMenu.addEventListener('mouseenter', function () {
+  let isOpen = false;
+  function showSideBar() {
     secondSidebar.style[direction] = 'var(--sidebar-width)';
-  });
+    isOpen = true;
+  }
   function hideSideBar() {
     secondSidebar.style[direction] = 0;
-    isHover = false;
+    isOpen = false;
   }
-  glamsMenu.addEventListener('mouseleave', function () {
-    if (!document.querySelector('#secondary-sidebar:hover')) {
+  glamsButton.addEventListener('click', () => {
+    if (isOpen) {
       hideSideBar();
+    } else {
+      showSideBar();
     }
   });
-  secondSidebar.addEventListener('mouseleave', function () {
-    if (!document.querySelector('#glamsMenu:hover')) {
-      hideSideBar();
+
+  window.addEventListener('click', (e) => {
+    if (isOpen) {
+      if (e.target.id !== 'secondary-sidebar' && e.target.id !== 'glamsButton') {
+        hideSideBar();
+      }
     }
   });
 </script>
