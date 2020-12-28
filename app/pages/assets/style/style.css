@@ -2,8 +2,8 @@
 
 /*  GENERAL */
 :root {
-  --main: #0E6EFD;
-  --secondary: #013B90;
+  --main: #0079c4;
+  --secondary: #00578c;
   --main-dark: #060a40;
   --main-t: #0e6efd79;
   --main-tt: #0E6EFDa0;
@@ -53,7 +53,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #fdfdfd;
+  background-color: #f8f8f8;
   color: black;
   line-height: 1.2;
 }

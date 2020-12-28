@@ -1,11 +1,11 @@
 <style>
   :root {
     --link-space-side: 30px;
-    --sidebar-border-radius: 100px;
+    --sidebar-border-radius: 40px;
   }
 
   .main-sidebar {
-    padding: 40px 0;
+    padding: 22px 0;
     background-color: var(--main);
     position: fixed;
     height: 100%;
@@ -56,8 +56,9 @@
   .sidebar-link {
     display: flex;
     align-items: center;
-    height: 54px;
-    padding-inline-start: var(--link-space-side);
+    height: 58px;
+    padding: 0 var(--link-space-side);
+    margin-bottom: 4px;
   }
 
   .sidebar-link:hover {
@@ -70,6 +71,16 @@
     align-self: stretch;
   }
 
+  .sidebar-link-img {
+    margin-inline-end: 1rem;
+  }
+
+  .sidebar-chevron {
+    margin-inline-start: auto;
+    transform: rotate(-90deg);
+    transition: transform 0.2s;
+  }
+
   .sidebar-links>a {
     padding-inline-start: var(--link-space-side);
   }
@@ -77,11 +88,6 @@
   .sidebar-wikiil-logo {
     padding-inline-start: var(--link-space-side);
     margin-top: 66px;
-  }
-
-  .sidebar-wikiil-logo>img {
-    height: 64px;
-    object-fit: contain;
   }
 
   #secondary-sidebar {
@@ -101,9 +107,10 @@
 
   #secondary-sidebar .institutions-list {
     position: relative;
-    top: 10rem;
+    top: 141px;
     list-style-type: none;
     padding: 0;
+    margin: 0;
   }
 
   #secondary-sidebar .institutions-list>li {
@@ -115,7 +122,7 @@
 
   #secondary-sidebar .institutions-list>li:hover {
     background-color: var(--main);
-  } 
+  }
 
   #secondary-sidebar .institutions-list>li>a {
     color: white;
@@ -152,21 +159,58 @@
     </a>
   </div>
   <div class="institutions">
-    <div class="sidebar-link institution-item" id="glamsButton">{{ langDict.sidebar.institutions }}</div>
+    <div class="sidebar-link institution-item" id="glamsButton">
+      <img class="sidebar-link-img" src="/assets/icons/institutions-icon.svg" alt="{{ langDict.sidebar.institutions }}">
+      <span>{{ langDict.sidebar.institutions }}</span>
+      <svg class="sidebar-chevron" id="glamsChevron" xmlns="http://www.w3.org/2000/svg" width="7" height="4"
+        viewBox="0 0 7 4">
+        <g fill="none" fill-rule="evenodd">
+          <g fill="#ffffff">
+            <g>
+              <g>
+                <path d="M3.5 0L7 4 0 4z"
+                  transform="translate(-1376 -51) translate(1223 33) translate(153 18) matrix(1 0 0 -1 0 4)" />
+              </g>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="sidebar-link">
+      <img class="sidebar-link-img" src="/assets/icons/introduction-icon.svg" alt="{{ langDict.sidebar.institutions }}">
+      <span>{{ langDict.sidebar.institutions }}</span>
+    </div>
+    <div class="sidebar-link">
+      <img class="sidebar-link-img" src="/assets/icons/join-us-icon.svg" alt="{{ langDict.sidebar.institutions }}">
+      <span>{{ langDict.sidebar.institutions }}</span>
+    </div>
+    <div class="sidebar-link">
+      <img class="sidebar-link-img" src="/assets/icons/contact-us-icon.svg" alt="{{ langDict.sidebar.institutions }}">
+      <span>{{ langDict.sidebar.institutions }}</span>
+    </div>
   </div>
   <div class="sidebar-links">
     {{#if langDict.signup}}
-    <a class="sidebar-link" href="https://docs.google.com/forms/d/e/1FAIpQLSd3y26g9LuCld1uYu2SgIVwflnRsTDwmbTjhvidfBYWkHy3Hg/viewform?usp=sf_link"
+    <a class="sidebar-link"
+      href="https://docs.google.com/forms/d/e/1FAIpQLSd3y26g9LuCld1uYu2SgIVwflnRsTDwmbTjhvidfBYWkHy3Hg/viewform?usp=sf_link"
       target="blank">
       {{langDict.signup}}
     </a>
     {{/if}}
-    <a class="sidebar-link" href="https://github.com/yonathan06/cassandra-GLAM-tools" target="blank" title="GitHub repository">GitHub
-      repository</a>
-    <a class="sidebar-link" href="/admin/panel">Control panel</a>
+    <a class="sidebar-link" href="/admin/panel">
+      <img class="sidebar-link-img" src="/assets/icons/control-panel-icon.svg" alt="">
+      <span>Control panel</span>
+    </a>
+    <a class="sidebar-link" href="https://github.com/yonathan06/cassandra-GLAM-tools" target="blank"
+      title="GitHub repository">
+      <img class="sidebar-link-img" src="/assets/icons/github-icon.svg" alt="">
+      <span>GitHub repository</span>
+    </a>
   </div>
   <div class="sidebar-wikiil-logo">
-    <img src="/assets/img/logo_footer_inverted.png" alt="logo white">
+    <a href="https://wikimedia.org.il/about-us/" target="blank">
+      <img src="/assets/img/logo-wikimedia.png" alt="logo white">
+    </a>
   </div>
 </aside>
 <aside id="secondary-sidebar">
@@ -175,25 +219,26 @@
     <a href="/{{glam.name}}">{{glam.fullname}}</a>
   </li>
   {{/inline}}
-  <div>
-    <ul class="institutions-list">
-      {{#each glams}}
-      {{> glamLink glam=this}}
-      {{/each}}
-    </ul>
-  </div>
+  <ul class="institutions-list">
+    {{#each glams}}
+    {{> glamLink glam=this}}
+    {{/each}}
+  </ul>
 </aside>
 <script>
   const direction = langDict.isRtl ? 'right' : 'left';
   const glamsButton = document.querySelector('#glamsButton');
   const secondSidebar = document.querySelector('#secondary-sidebar');
+  const glamsChevron = document.querySelector('#glamsChevron');
   let isOpen = false;
   function showSideBar() {
     secondSidebar.style[direction] = 'var(--sidebar-width)';
+    glamsChevron.style.transform = "rotate(0deg)";
     isOpen = true;
   }
   function hideSideBar() {
     secondSidebar.style[direction] = 0;
+    glamsChevron.style.transform = "rotate(-90deg)";
     isOpen = false;
   }
   glamsButton.addEventListener('click', () => {
