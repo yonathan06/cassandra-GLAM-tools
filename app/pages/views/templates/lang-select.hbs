@@ -1,6 +1,14 @@
 <style>
   .lang-select-wrapper {
     position: relative;
+    display: inline-block;
+  }
+
+  .lang-select-wrapper img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 18px;
   }
   #langSelect {
     appearance: none;
@@ -19,6 +27,7 @@
     <option value="{{this.lang}}">{{this.label}}</option>
     {{/each}}
   </select>
+  <img src="/assets/icons/icon-dropdown.svg" alt="">
 </div>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 <script defer>

@@ -33,6 +33,7 @@
 
 *, *::after, *::before {
   box-sizing: inherit;
+  font-family: 'Montserrat', sans-serif;
 }
 
 html, body {
@@ -50,7 +51,6 @@ html {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f8f8f8;
@@ -60,10 +60,6 @@ body {
 
 body.pushable {
   background: var(--bg-gray) !important;
-}
-
-a {
-  color: #0645AD;
 }
 
 h1 {

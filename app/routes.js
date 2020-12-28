@@ -115,9 +115,9 @@ module.exports = function (app) {
     // VIEWS
     app.get('/:id', async function (req, res) {
         const glams = await getAllGlams();
-        const glam = await getGlamByName(req.params.id);
+        const glam = glams.find(glam => glam.name === req.params.id);
         if (isValidGlam(glam)) {
-            res.renderWithLocal('/pages/views/index.hbs', { glams });
+            res.renderWithLocal('/pages/views/index.hbs', { glams, glam });
         } else {
             res.sendStatus(400);
         }
