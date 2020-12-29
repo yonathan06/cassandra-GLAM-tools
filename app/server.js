@@ -49,7 +49,7 @@ app.use((req, res, next) => {
     req.localesDicts = localesDicts;
     res.renderWithLocal = function (relativeFilePath, additionalData) {
         res.render(
-            __dirname + relativeFilePath, 
+            __dirname + relativeFilePath,
             { langDict: req.localesDicts[req.cookies.lang], localesMap, ...additionalData }
         );
     }
@@ -58,6 +58,9 @@ app.use((req, res, next) => {
 hbs.registerHelper('json', function (object) {
     return new hbs.SafeString(JSON.stringify(object));
 });
+hbs.registerHelper('toLocaleString', function (number) {
+    return new hbs.SafeString((+number).toLocaleString());
+})
 app.set('view engine', 'hbs');
 app.engine('hbs', hbs.__express);
 hbs.registerPartial('mainWrapper', fs.readFileSync(__dirname + '/pages/views/templates/main-wrapper.hbs', { encoding: 'utf-8' }))

@@ -2,6 +2,7 @@ var express = require('express');
 var request = require('request');
 var api = require('./api.js');
 var auth = require('http-auth');
+const dateFns = require('date-fns');
 
 var config = require('./config/config.js');
 const { getGlamByName, getAllGlams } = require('./lib/db.js');
@@ -116,8 +117,22 @@ module.exports = function (app) {
     app.get('/:id', async function (req, res) {
         const glams = await getAllGlams();
         const glam = glams.find(glam => glam.name === req.params.id);
+        const now = new Date();
+        const startOfWeek = dateFns.startOfWeek(now);
+        const formatDateForPg = date => dateFns.format(date, 'yyyy-LL-dd')
         if (isValidGlam(glam)) {
-            res.renderWithLocal('/pages/views/index.hbs', { glams, glam });
+            const queryWeekMediacounts = `SELECT SUM(accesses_sum) AS accesses_sum_total
+                           FROM visualizations_sum
+                           WHERE access_date BETWEEN '${formatDateForPg(startOfWeek)}'
+                                                 and '${formatDateForPg(now)}'`;
+            const queryImgNum = 'SELECT COUNT(*) as value from images';
+            const { rows: [mediacountResult] } = await glam.connection.query(queryWeekMediacounts);
+            const { rows: [imgNumResult] } = await glam.connection.query(queryImgNum);
+            const data = {
+                thisWeekMediacount: mediacountResult.accesses_sum_total || 0,
+                totalImgNum: imgNumResult.value || 0
+            }
+            res.renderWithLocal('/pages/views/index.hbs', { glams, glam, data });
         } else {
             res.sendStatus(400);
         }

@@ -186,8 +186,8 @@
 		</form>
 
 		<div class="data-card">
-			<div class="data-card-title">Number of values created</div>
-			<div class="data-card-number">1</div>
+			<div class="data-card-title">{{langDict.views.index.thisWeekMediacounts}}</div>
+			<div class="data-card-number">{{toLocaleString data.thisWeekMediacount}}</div>
 		</div>
 		<div class="data-card">
 			<div class="data-card-title">Number of values created</div>
@@ -213,7 +213,7 @@
 			<h4 class="page-card-title">{{langDict.views.index.cards.views.title}}</h4>
 			<img src="/assets/img/main-glam-page/views-chart.png" alt="{{langDict.views.index.cards.views.title}}">
 			<div class="page-card-btns">
-				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
+				<a href="{{glam.name}}/page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
 				<button class="btn btn-primary" data-open-modal data-modal-title="{{langDict.views.index.cards.views.title}}"
 					data-modal-content="{{langDict.views.index.cards.views.inPageDescription}}">{{langDict.views.index.learnMore}}</button>
 			</div>
@@ -223,7 +223,7 @@
 			<img src="/assets/img/main-glam-page/users-contribution-chart.png"
 				alt="{{langDict.views.index.cards.userContribution.title}}">
 			<div class="page-card-btns">
-				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
+				<a href="{{glam.name}}/usage" class="btn btn-secondary">{{langDict.views.index.view}}</a>
 				<button class="btn btn-primary" data-open-modal
 					data-modal-title="{{langDict.views.index.cards.userContribution.title}}"
 					data-modal-content="{{langDict.views.index.cards.userContribution.inPageDescription}}">{{langDict.views.index.learnMore}}</button>
@@ -232,7 +232,7 @@
 		<div class="large-card glam-card">
 			<div class="glam-card-data">
 				<h4>{{langDict.views.index.totalMedia}}</h4>
-				<div class="glam-card-media-num">2,541</div>
+				<div class="glam-card-media-num">{{toLocaleString data.totalImgNum}}</div>
 			</div>
 			<div class="glam-card-img">
 				<img src="{{glam.image}}" alt="{{glam.fullname}}">
@@ -242,7 +242,7 @@
 			<h4 class="page-card-title">{{langDict.views.index.cards.usage.title}}</h4>
 			<img src="/assets/img/main-glam-page/usage-chart.png" alt="{{langDict.views.index.cards.usage.title}}">
 			<div class="page-card-btns">
-				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
+				<a href="{{glam.name}}/usage" class="btn btn-secondary">{{langDict.views.index.view}}</a>
 				<button class="btn btn-primary" data-open-modal data-modal-title="{{langDict.views.index.cards.usage.title}}"
 					data-modal-content="{{langDict.views.index.cards.usage.inPageDescription}}">{{langDict.views.index.learnMore}}</button>
 			</div>
@@ -252,7 +252,7 @@
 			<img src="/assets/img/main-glam-page/category-network-chart.png"
 				alt="{{langDict.views.index.cards.categoryNetwork.title}}">
 			<div class="page-card-btns">
-				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
+				<a href="{{glam.name}}/category-network" class="btn btn-secondary">{{langDict.views.index.view}}</a>
 				<button class="btn btn-primary" data-open-modal
 					data-modal-title="{{langDict.views.index.cards.categoryNetwork.title}}"
 					data-modal-content="{{langDict.views.index.cards.categoryNetwork.inPageDescription}}">{{langDict.views.index.learnMore}}</button>

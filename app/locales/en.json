@@ -6,7 +6,10 @@
     "title": "Support GLAMs (Galleries, Libraries, Archives, Museums) in monitoring and evaluating their cooperation with Wikimedia projects"
   },
   "sidebar": {
-    "institutions": "Institutions"
+    "institutions": "Institutions",
+    "introduction": "Introduction",
+    "joinUs": "Join Us",
+    "contactUs": "Contact Us"
   },
   "description": "Description",
   "help": "Help",
@@ -28,7 +31,7 @@
   "loadMore": "Load More",
   "viewInCommons": "view on Commons",
   "viewDetails": "view details",
-  "usage":  "usage",
+  "usage": "usage",
   "projects": "projects",
   "totalPagesEnhanced": "TOTAL PAGES ENHANCED",
   "totalProjectsInvolved": "Total projects involved",
@@ -52,6 +55,7 @@
       "view": "View",
       "learnMore": "Learn More",
       "chart": "CHART",
+      "thisWeekMediacounts": "This week mediacounts",
       "cards": {
         "categoryNetwork": {
           "title": "Category Network",
