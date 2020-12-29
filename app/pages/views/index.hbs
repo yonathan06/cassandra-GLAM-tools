@@ -214,7 +214,8 @@
 			<img src="/assets/img/main-glam-page/views-chart.png" alt="{{langDict.views.index.cards.views.title}}">
 			<div class="page-card-btns">
 				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
-				<button href="page-views" class="btn btn-primary">{{langDict.views.index.learnMore}}</button>
+				<button class="btn btn-primary" data-open-modal data-modal-title="{{langDict.views.index.cards.views.title}}"
+					data-modal-content="{{langDict.views.index.cards.views.inPageDescription}}">{{langDict.views.index.learnMore}}</button>
 			</div>
 		</div>
 		<div class="large-card page-card contribution-card">
@@ -223,7 +224,9 @@
 				alt="{{langDict.views.index.cards.userContribution.title}}">
 			<div class="page-card-btns">
 				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
-				<button href="page-views" class="btn btn-primary">{{langDict.views.index.learnMore}}</button>
+				<button class="btn btn-primary" data-open-modal
+					data-modal-title="{{langDict.views.index.cards.userContribution.title}}"
+					data-modal-content="{{langDict.views.index.cards.userContribution.inPageDescription}}">{{langDict.views.index.learnMore}}</button>
 			</div>
 		</div>
 		<div class="large-card glam-card">
@@ -240,7 +243,8 @@
 			<img src="/assets/img/main-glam-page/usage-chart.png" alt="{{langDict.views.index.cards.usage.title}}">
 			<div class="page-card-btns">
 				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
-				<button href="page-views" class="btn btn-primary">{{langDict.views.index.learnMore}}</button>
+				<button class="btn btn-primary" data-open-modal data-modal-title="{{langDict.views.index.cards.usage.title}}"
+					data-modal-content="{{langDict.views.index.cards.usage.inPageDescription}}">{{langDict.views.index.learnMore}}</button>
 			</div>
 		</div>
 		<div class="large-card page-card categories-card">
@@ -249,7 +253,9 @@
 				alt="{{langDict.views.index.cards.categoryNetwork.title}}">
 			<div class="page-card-btns">
 				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
-				<button href="page-views" class="btn btn-primary">{{langDict.views.index.learnMore}}</button>
+				<button class="btn btn-primary" data-open-modal
+					data-modal-title="{{langDict.views.index.cards.categoryNetwork.title}}"
+					data-modal-content="{{langDict.views.index.cards.categoryNetwork.inPageDescription}}">{{langDict.views.index.learnMore}}</button>
 			</div>
 		</div>
 		<div class="large-card page-card suggestions-card">
@@ -258,13 +264,16 @@
 				alt="{{langDict.views.index.cards.suggestions.title}}">
 			<div class="page-card-btns">
 				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
-				<button href="page-views" class="btn btn-primary">{{langDict.views.index.learnMore}}</button>
+				<button class="btn btn-primary" data-open-modal
+					data-modal-title="{{langDict.views.index.cards.suggestions.title}}"
+					data-modal-content="{{langDict.views.index.cards.suggestions.inPageDescription}}">{{langDict.views.index.learnMore}}</button>
 			</div>
 		</div>
 	</main>
 </div>
 <style>
 	.modal-container {
+		display: none;
 		position: fixed;
 		background-color: rgba(0, 0, 0, 0.65);
 		top: 0;
@@ -272,10 +281,11 @@
 		width: 100vw;
 		height: 100vh;
 		z-index: 100;
-		display: none;
 	}
 
 	.modal {
+		display: flex;
+		flex-direction: column;
 		position: absolute;
 		top: 50%;
 		left: 307px;
@@ -284,15 +294,65 @@
 		height: 100%;
 		max-width: 996px;
 		max-height: 592px;
-		padding: 18px 83px 55px 66px;
+		padding: 18px 24px 55px 66px;
 		border-radius: 10px;
 		background-color: var(--main);
+		color: #fff;
+	}
+
+	.modal-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.modal-title {
+		font-size: 22px;
+		font-weight: 500;
+	}
+
+	.modal-exit {
+		background: none;
+		border: none;
+		color: white;
+		font-size: 40px;
+		cursor: pointer;
+	}
+
+	.modal-content {
+		margin-top: 20px;
+		font-size: 14px;
+		padding-inline-end: 44px;
+		line-height: 1.43;
+	}
+
+	.modal-content h5 {
+		margin-bottom: 0;
+		font-size: inherit;
+	}
+
+	.modal-content a {
+		color: inherit;
+	}
+
+	.modal-button {
+		margin-top: auto;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.modal-button button {
+		width: 140px;
+		height: 50px;
 	}
 </style>
 <div class="modal-container" id="learnMoreModalContainer">
 	<div class="modal">
-		<div class="modal-header"></div>
-		<div class="modal-content"></div>
+		<div class="modal-header">
+			<h2 class="modal-title" id="modalTitle">Category Network</h2>
+			<button class="modal-exit" id="modalExit">&times;</button>
+		</div>
+		<div class="modal-content" id="modalContent"></div>
 		<div class="modal-button">
 			<button class="btn btn-white">View Graph</button>
 		</div>
@@ -300,20 +360,30 @@
 </div>
 <script>
 	const modalContainer = document.querySelector('#learnMoreModalContainer');
+	const modalTitle = document.querySelector('#modalTitle');
+	const modalContent = document.querySelector('#modalContent');
 	const openModalButtons = document.querySelectorAll('[data-open-modal]');
-	function openModal() {
-		document.style.overflow = 'none';
+
+	function openModal(title, content) {
+		document.documentElement.style.overflow = 'none';
 		modalContainer.style.display = 'block';
+		modalTitle.innerText = title;
+		modalContent.innerHTML = content;
 	}
 	function closeModal() {
-		document.style.overflow = 'auto';
+		document.documentElement.style.overflow = 'auto';
 		modalContainer.style.display = 'none';
 	}
-	modalContainer.addEventListener('click', () => {
+	document.querySelector('#modalExit').addEventListener('click', () => {
 		closeModal();
 	})
-	openModalButtons.forEach(button => button.addEventListener('click', () => {
-		openModal();
+	modalContainer.addEventListener('click', (e) => {
+		if (e.target.id === 'learnMoreModalContainer') {
+			closeModal();
+		}
+	})
+	openModalButtons.forEach(button => button.addEventListener('click', (e) => {
+		openModal(e.target.getAttribute('data-modal-title'), e.target.getAttribute('data-modal-content'));
 	}));
 </script>
 <script>
