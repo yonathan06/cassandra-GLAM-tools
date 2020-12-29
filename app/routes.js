@@ -28,6 +28,21 @@ module.exports = function (app) {
         res.renderWithLocal('/pages/index.hbs', { glams });
     });
 
+    app.get('/about', async function (req, res) {
+        const glams = await getAllGlams();
+        res.renderWithLocal('/pages/about.hbs', { glams });
+    });
+
+    app.get('/join', async function (req, res) {
+        const glams = await getAllGlams();
+        res.renderWithLocal('/pages/join.hbs', { glams });
+    });
+
+    app.get('/contact', async function (req, res) {
+        const glams = await getAllGlams();
+        res.renderWithLocal('/pages/contact.hbs', { glams });
+    });
+
     app.get('/cassandra-app', (req, res) => { // health check
         res.send("ok");
     })

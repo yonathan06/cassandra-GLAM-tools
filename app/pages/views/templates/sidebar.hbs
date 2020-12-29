@@ -61,6 +61,7 @@
     padding: 0 var(--link-space-side);
     margin-bottom: 4px;
   }
+
   .sidebar-link::after {
     content: ' ';
     position: absolute;
@@ -70,7 +71,8 @@
     height: 100%;
   }
 
-  .sidebar-link:hover {
+  .sidebar-link:hover,
+  .sidebar-link.active {
     background-color: var(--secondary);
   }
 
@@ -99,11 +101,11 @@
     margin-top: 66px;
   }
 
-  .sidebar-wikiil-logo > a {
+  .sidebar-wikiil-logo>a {
     display: block;
   }
 
-  .sidebar-wikiil-logo > a > img {
+  .sidebar-wikiil-logo>a>img {
     width: 76px;
   }
 
@@ -193,18 +195,18 @@
         </g>
       </svg>
     </div>
-    <div class="sidebar-link">
+    <a class="sidebar-link" href="/about">
       <img class="sidebar-link-img" src="/assets/icons/introduction-icon.svg" alt="{{ langDict.sidebar.introduction }}">
       <span>{{ langDict.sidebar.introduction }}</span>
-    </div>
-    <div class="sidebar-link">
+    </a>
+    <a class="sidebar-link" href="/join">
       <img class="sidebar-link-img" src="/assets/icons/join-us-icon.svg" alt="{{ langDict.sidebar.joinUs }}">
       <span>{{ langDict.sidebar.joinUs }}</span>
-    </div>
-    <div class="sidebar-link">
+    </a>
+    <a class="sidebar-link" href="/contact">
       <img class="sidebar-link-img" src="/assets/icons/contact-us-icon.svg" alt="{{ langDict.sidebar.contactUs }}">
       <span>{{ langDict.sidebar.contactUs }}</span>
-    </div>
+    </a>
   </div>
   <div class="sidebar-links">
     {{#if langDict.signup}}
@@ -242,6 +244,13 @@
     {{/each}}
   </ul>
 </aside>
+<script>
+  document.querySelectorAll('a.sidebar-link').forEach(link => {
+    if (location.href === link.href) {
+      link.classList.add('active');
+    }
+  })
+</script>
 <script>
   const direction = langDict.isRtl ? 'right' : 'left';
   const glamsButton = document.querySelector('#glamsButton');

@@ -1,0 +1,67 @@
+{{#> mainWrapper}}
+<style>
+  .main-container {
+    margin-left: var(--sidebar-width);
+    padding: 38px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    min-height: 100vh;
+  }
+
+  .contact-title {
+    margin-top: 0;
+    font-size: 34px;
+    font-weight: normal;
+  }
+
+  .contact-data {
+    margin-top: 76px;
+  }
+
+  .contact-item {
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+  }
+
+  .contact-item img {
+    margin-inline-end: 28px;
+  }
+
+  .address {
+    align-items: flex-start;
+    line-height: 1.35;
+  }
+</style>
+<div class="pusher">
+  {{> sidebar}}
+  <main class="main-container">
+    <div>
+      {{> langSelect}}
+    </div>
+    <div>
+      <h1 class="contact-title">Contact Us</h1>
+      <div class="contact-data">
+        <div class="contact-item">
+          <img src="/assets/icons/emails-icon.svg" alt="email">
+          <a href="mailto:main.office@wikimedia.org.il">main.office@wikimedia.org.il</a>
+        </div>
+        <div class="contact-item">
+          <img src="/assets/icons/web-icon.svg" alt="web site">
+          <a href="https://www.wikimedia.org.il">www.wikimedia.org.il</a>
+        </div>
+        <div class="contact-item address">
+          <img src="/assets/icons/place-localizer.svg" alt="address">
+          <div>
+            Wikimedia Israel </br>
+            Carlebach 7, P.O.B 51875 </br>
+            Tel aviv, 6713211
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+{{/mainWrapper}}

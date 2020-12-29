@@ -1,0 +1,27 @@
+{{#> mainWrapper}}
+<style>
+  .main-container {
+    margin-left: var(--sidebar-width);
+    padding: 38px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    min-height: 100vh;
+  }
+</style>
+<div class="pusher">
+  {{> sidebar}}
+  <main class="main-container">
+    <div>
+      {{> langSelect}}
+    </div>
+    <div>
+      <div>
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSd3y26g9LuCld1uYu2SgIVwflnRsTDwmbTjhvidfBYWkHy3Hg/viewform?embedded=true"
+          width="640" height="1400" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+      </div>
+    </div>
+  </main>
+</div>
+{{/mainWrapper}}

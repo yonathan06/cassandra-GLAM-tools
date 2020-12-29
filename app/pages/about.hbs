@@ -1,0 +1,91 @@
+{{#> mainWrapper}}
+<style>
+  .main-container {
+    margin-left: var(--sidebar-width);
+    padding: 38px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    min-height: 100vh;
+  }
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 714px;
+  }
+
+  .about-header {
+    text-align: center;
+    line-height: 1.42;
+    margin-bottom: 34px;
+  }
+
+  .about-header h1 {
+    font-weight: normal;
+    font-size: 34px;
+    margin: 0;
+  }
+
+  .about-header h2 {
+    font-weight: normal;
+    font-size: 24px;
+    margin: 0;
+  }
+
+  .about-text {
+    font-size: 14px;
+    line-height: 1.36;
+  }
+  .about-text p {
+    padding-bottom: 34px;
+    text-align: justify;
+  }
+
+  .thanks {
+    margin-top: auto;
+    padding: 12px 14px;
+    text-align: justify;
+    font-weight: 500;
+    border-top: 1px solid var(--main);
+    border-bottom: 1px solid var(--main);
+  }
+</style>
+<div class="pusher">
+  {{> sidebar}}
+  <main class="main-container">
+    <div>
+      {{> langSelect}}
+    </div>
+    <div class="about-content">
+      <div class="about-header">
+        <h1>Welcome to the GLAM Wiki dashboard</h1>
+        <h2>A usage analysis tool for GLAM institutes to follow free contents contributed to Wikimedia projects</h2>
+      </div>
+      <div class="about-text">
+        <p>The GLAM Wiki dashboard is a project of Wikimedia Israel, with support and advice from Wikimedia Sverige,
+          built upon open-source infrastructure originally developed by Wikimedia CH. It is meant to help GLAM
+          institutes (galleries, libraries, archives and museums) follow the usage of their free-content files uploaded
+          to Wikimedia projects. The dashboard visualizes statistical data that reflects the level of exposure and usage
+          of these public-domain files, based on several selected indices and various time frames. The accumulating
+          data, which is presented in various diagrams and graphs, allow the institutes to gain insights, identify
+          trends and preferences, and realize the general influence of these free contents on the public of
+          Wikimedia-project users around the world. Click on this link to <a href="/join">join the GLAM Wiki dashboard.</a></p>
+        <p>Promoting public awareness to the importance of free knowledge and the expansion of the public domain is a
+          major goal of the global Wikimedia movement and an essential component of Wikimedia Israel’s mission. To
+          achieve this goal, we seek to establish meaningful cooperations with content and knowledge institutes and
+          encourage the release of contents to the public domain and their upload to the Internet. The GLAM Wiki
+          dashboard visualizes the benefit of this release to the contributing institutes and the general public.</p>
+        <p><strong>We hope this dashboard will increase awareness of the importance of placing items of human heritage
+            and culture on the global network and encourage more GLAM institutes to open their gates of knowledge
+            through the Internet, free of charge, for the benefit of the general public and in order to promote access
+            to knowledge, education, and open-mindedness.</strong></p>
+      </div>
+      <div class="thanks">
+        We thank our colleagues in Wikimedia CH for their efforts in developing the Casandra platform - the original
+        open-source <a href="http://stats.wikimedia.swiss/" target="_blanc">GLAM Statistical Tool</a>, upon which this GLAM Wiki Dashboard is built.
+      </div>
+    </div>
+  </main>
+</div>
+{{/mainWrapper}}
