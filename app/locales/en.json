@@ -17,15 +17,15 @@
   "quarter": "Quarter",
   "year": "Year",
   "selectView": "Select view",
-  "categoryInCommons": "CATEGORY IN COMMONS",
-  "position": "POSITION",
+  "categoryInCommons": "Category In Commons",
+  "position": "Position",
   "left": "Left",
   "right": "Right",
   "top": "Top",
   "bottom": "Bottom",
   "cancel": "Cancel",
   "confirm": "Confirm",
-  "loadMore": "LOAD MORE",
+  "loadMore": "Load More",
   "viewInCommons": "view on Commons",
   "viewDetails": "view details",
   "usage":  "usage",
@@ -49,11 +49,12 @@
       "institutions": "Institutions",
       "categoryTitle": "Category in Commons",
       "totalMedia": "Total media",
-      "view": "VIEW",
+      "view": "View",
+      "learnMore": "Learn More",
       "chart": "CHART",
       "cards": {
         "categoryNetwork": {
-          "title": "CATEGORY NETWORK",
+          "title": "Category Network",
           "description": "<i>Category network</i> is a <b>GRAPH CHART</b> that shows the subcategories' topology\nbelonging to the main category. Each node represents a\ncategory, while the edges are the relations.",
           "inPageDescription": "This graph chart shows the subcategories' topology belonging to the main category.<br>Having just one category (or level) is a bad practice on Wikimedia Commons because makes difficult to the community to find and use files. Instead a multilevel and articulated categorization permits better reuse of the uploaded media.<br>This statistic is updated every day (max lag time 24h) and represents the actual scenario.<br><br><h5>How to read it</h5>Each node represents a category, while the edges are the relations. Categories at the same level share the color.The bubble size is proportional to the amount of files within every category.<br><br><h5>How to use it</h5>On the right menu you can order categories by level or by number of files. If you click into a category name the correspondent node will highlight (and vice versa).<br>On the top bar you can also drill-down to a chosen subdirectory.<br><br><h5>Use case</h5>With this graph you can understand if the media files of your interest are divided in a useful way. Probablya category with more then one hundred files needs to be splitted in two or more subcategories. In fact, the better a media is categorized on Wikimedia Commons, the more is probable to be viewed or used inside a Wikipedia page.<br>More info available on: <a href=\"https://commons.wikimedia.org/wiki/Commons:Categories\">https://commons.wikimedia.org/wiki/Commons:Categories</a>.",
           "byLevel": "by level",
@@ -62,7 +63,7 @@
           "categoryNetworkChart": "CATEGORY NETWORK CHART"
         },
         "userContribution": {
-          "title": "USER CONTRIBUTION",
+          "title": "User Contribution",
           "description": "<i>Users contribution</i> is a <b>BAR CHART</b> that\nshows the number of uploads during time. Here you can\nstudy if the contribution pattern is well\ndistributed or if it's composed by spikes.",
           "inPageDescription": "This bar chart shows the number of user contributions during time.<br>Here you can study if the contribution pattern is well distributed or if it's composed by spikes.<br>This statistic is updated every day (max lag time 24h).<br><br><h5>How to read it</h5>On the horizontal axis we have time, with one month precision. On the vertical axis the total uploaded files in the category during a month.<br><br><h5>How to use it</h5>On the right menu you can order users by name or by number of contributions. If you click into a user name the correspondent graph of contributions will show up.<br>On the top bar you can also drill-down to a chosen subdirectory.<br><br><h5>Use case</h5>Here you can find the community around this category!",
           "byName": "by name",
@@ -70,7 +71,7 @@
           "userContributionChart": "USERS CONTRIBUTION CHART"
         },
         "usage": {
-          "title": "USAGE",
+          "title": "Usage",
           "description": "This chart shows the <i>usage</i> of the media of the\nmain category in Wikimedia projects.",
           "inPageDescription": "This section show the usage of the media of the main category in Wikimedia projects.<br>Every time a media is used in a Wikipedia article in any language or in any other sister projects likeWikidata, Wiki source, etc. it counts 1 here. In this page you can investigate about how many files are really used, in which projects and which are the most popular ones.<br>This statistic is updated every day (max lag time 24h) and represents the actual scenario.<br><br><h5>How to read it</h5>On the left a bar chart show the top ten projects that are currently using these files. On the right instead each file is detailed with a link to each page in which is used.<br><br><h5>How to use it</h5>On the right menu you can order files by usage or by number of distinct projects or by name.If you click into a file name the correspondent detail will scroll up.<br>On the top bar you can also drill-down to a chosen subdirectory or select your preferred time dimension.<br><br><h5>Use case</h5>At first glance you can understand which linguistic community has used the major part of this files and,maybe, better knows this collection. Moreover you can try to spread some useful files also in other versions of Wikipedia where, today, the usage is smaller.",
           "byUsage": "by usage",
@@ -79,7 +80,7 @@
           "usageChart": "USAGE CHART"
         },
         "views": {
-          "title": "VIEWS",
+          "title": "Views",
           "description": "<i>Views</i> is a <b>LINE CHART</b> that\nshows the sum of the views for the files thats belong\nto the main category with a 24h span.",
           "inPageDescription": "This line chart shows the sum of the views for the files thats belong to the main category with a 24h span.<br>Generally is quite visible the difference of visits between workdays and weekends. Sometimes some spikes could lead to a popular event. A growing trend is not always equals to a growing popularity of the category because of file additions.<br>This statistic is updated every day (max lag time 24h). The data collected here are taken from<a  href=\"https://dumps.wikimedia.org/other/mediacounts/daily/\">https://dumps.wikimedia.org/other/mediacounts/daily/</a>.A visit is recorded every time a device download a specific file from Wikimedia server. So it counts both actual visits, both visits on pages where the file is present (but only if loaded on the device). Actually this is the most precise statistic released by Wikimedia servers.<br><br><h5>How to read it</h5>On the horizontal axis we have time, with one day precision. On the vertical axis the total views performed by all files in the category. This axis has logarithmic scale.<br><br><h5>How to use it</h5>On the right menu you can order files by views, by median or by name.<br>On the top bar you can also drill-down to a chosen subdirectory or select your preferred time dimension.",
           "viewsChart": "VIEWS CHART",
@@ -90,7 +91,7 @@
           "addNewAnnotation": "ADD NEW ANNOTATION"
         },
         "suggestions": {
-          "title": "SUGGESTIONS",
+          "title": "Suggestions",
           "description": "This page shows some unused files with links to wikidata and wikipedia pages where they can be used.",
           "inPageDescription": "This page shows some unused files belonging to the selected category with links to Wikidata and Wikipedia pages where they can be possibly used. <br><br> <h5>Recommendation approaches</h5> This tool follows two recommendation approaches. The first one is based on the Commons categories of the target file. Wikipedia articles connected on Wikidata with the categories of the target file are selected with the highest confidence. The second approach is based on the description of the file on Commons. Additional Wikipedia articles connected with the Wikidata entities having a textual description similar to the one of the target file are also selected. <br><br> <h5>How to read it</h5> In the column Wikidata suggestion there are the links to Wikidata pages where you can use the selected image. <br> In the Wikipedia pages column there are the links to the Wikipedia pages corresponding to the Wikidata entity on the same row, divided by language.",
           "unusedFilesSuggestions": "UNUSED FILES SUGGESTIONS",
@@ -103,8 +104,8 @@
     },
     "fileView": {
       "title": "File Overview",
-      "usage": "USAGE",
-      "views": "VIEWS",
+      "usage": "Usage",
+      "views": "Views",
       "fileDetails": "File Details",
       "partOf": "PART OF",
       "usedIn": "USED IN",

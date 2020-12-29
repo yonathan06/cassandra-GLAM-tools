@@ -76,12 +76,91 @@
 	.large-card {
 		grid-column: span 2;
 		border-radius: 8px;
-		min-height: 200px;
+		height: 288px;
+		overflow: hidden;
 	}
 
 	.page-card {
 		background-color: #fff;
-		
+		padding: 24px;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.page-card>img {
+		object-fit: contain;
+	}
+
+	.page-card-title {
+		font-size: 20px;
+		font-weight: 500;
+		margin: 0;
+	}
+
+	.page-card-btns {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: auto;
+	}
+
+	.page-card-btns>.btn {
+		width: 82px;
+	}
+
+	.views-card>img {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 100%;
+		top: 54px;
+		max-width: 359px;
+	}
+
+	.contribution-card>img {
+		margin-top: 12px;
+	}
+
+	.glam-card-data {
+		background-color: var(--main);
+		padding: 24px 24px 14px 24px;
+		color: #fff;
+		height: 50%;
+	}
+
+	.glam-card-data>h4 {
+		margin: 0;
+		font-size: 20px;
+		font-weight: 500;
+		margin-bottom: 6px;
+	}
+
+	.glam-card-media-num {
+		font-size: 55px;
+		font-weight: 500;
+	}
+
+	.glam-card-img {
+		height: 50%;
+	}
+
+	.glam-card-img>img {
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+	}
+
+	.usage-card>img {
+		margin-top: 35px;
+	}
+
+	.categories-card>img {
+		margin-top: 16px;
+	}
+
+	.suggestions-card>img {
+		margin-top: 43px;
 	}
 </style>
 <div class="pusher">
@@ -130,20 +209,113 @@
 			<div class="data-card-title">Number of values created</div>
 			<div class="data-card-number">1</div>
 		</div>
-		<div class="large-card page-card">
-			<h4>{{langDict.views.index.cards.views.title}}</h4>
+		<div class="large-card page-card views-card">
+			<h4 class="page-card-title">{{langDict.views.index.cards.views.title}}</h4>
 			<img src="/assets/img/main-glam-page/views-chart.png" alt="{{langDict.views.index.cards.views.title}}">
-			<div>
-				<a href="page-views">{{langDict.views.index.view}}</a>
+			<div class="page-card-btns">
+				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
+				<button href="page-views" class="btn btn-primary">{{langDict.views.index.learnMore}}</button>
 			</div>
 		</div>
-		<div class="large-card"></div>
-		<div class="large-card"></div>
-		<div class="large-card"></div>
-		<div class="large-card"></div>
-		<div class="large-card"></div>
+		<div class="large-card page-card contribution-card">
+			<h4 class="page-card-title">{{langDict.views.index.cards.userContribution.title}}</h4>
+			<img src="/assets/img/main-glam-page/users-contribution-chart.png"
+				alt="{{langDict.views.index.cards.userContribution.title}}">
+			<div class="page-card-btns">
+				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
+				<button href="page-views" class="btn btn-primary">{{langDict.views.index.learnMore}}</button>
+			</div>
+		</div>
+		<div class="large-card glam-card">
+			<div class="glam-card-data">
+				<h4>{{langDict.views.index.totalMedia}}</h4>
+				<div class="glam-card-media-num">2,541</div>
+			</div>
+			<div class="glam-card-img">
+				<img src="{{glam.image}}" alt="{{glam.fullname}}">
+			</div>
+		</div>
+		<div class="large-card page-card usage-card">
+			<h4 class="page-card-title">{{langDict.views.index.cards.usage.title}}</h4>
+			<img src="/assets/img/main-glam-page/usage-chart.png" alt="{{langDict.views.index.cards.usage.title}}">
+			<div class="page-card-btns">
+				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
+				<button href="page-views" class="btn btn-primary">{{langDict.views.index.learnMore}}</button>
+			</div>
+		</div>
+		<div class="large-card page-card categories-card">
+			<h4 class="page-card-title">{{langDict.views.index.cards.categoryNetwork.title}}</h4>
+			<img src="/assets/img/main-glam-page/category-network-chart.png"
+				alt="{{langDict.views.index.cards.categoryNetwork.title}}">
+			<div class="page-card-btns">
+				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
+				<button href="page-views" class="btn btn-primary">{{langDict.views.index.learnMore}}</button>
+			</div>
+		</div>
+		<div class="large-card page-card suggestions-card">
+			<h4 class="page-card-title">{{langDict.views.index.cards.suggestions.title}}</h4>
+			<img src="/assets/img/main-glam-page/suggestions-chart.png"
+				alt="{{langDict.views.index.cards.suggestions.title}}">
+			<div class="page-card-btns">
+				<a href="page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
+				<button href="page-views" class="btn btn-primary">{{langDict.views.index.learnMore}}</button>
+			</div>
+		</div>
 	</main>
 </div>
+<style>
+	.modal-container {
+		position: fixed;
+		background-color: rgba(0, 0, 0, 0.65);
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		z-index: 100;
+		display: none;
+	}
+
+	.modal {
+		position: absolute;
+		top: 50%;
+		left: 307px;
+		transform: translateY(-50%);
+		width: 100%;
+		height: 100%;
+		max-width: 996px;
+		max-height: 592px;
+		padding: 18px 83px 55px 66px;
+		border-radius: 10px;
+		background-color: var(--main);
+	}
+</style>
+<div class="modal-container" id="learnMoreModalContainer">
+	<div class="modal">
+		<div class="modal-header"></div>
+		<div class="modal-content"></div>
+		<div class="modal-button">
+			<button class="btn btn-white">View Graph</button>
+		</div>
+	</div>
+</div>
+<script>
+	const modalContainer = document.querySelector('#learnMoreModalContainer');
+	const openModalButtons = document.querySelectorAll('[data-open-modal]');
+	function openModal() {
+		document.style.overflow = 'none';
+		modalContainer.style.display = 'block';
+	}
+	function closeModal() {
+		document.style.overflow = 'auto';
+		modalContainer.style.display = 'none';
+	}
+	modalContainer.addEventListener('click', () => {
+		closeModal();
+	})
+	openModalButtons.forEach(button => button.addEventListener('click', () => {
+		openModal();
+	}));
+</script>
 <script>
 	document.querySelector('#searchFileForm').addEventListener('submit', (e) => {
 		e.preventDefault();
