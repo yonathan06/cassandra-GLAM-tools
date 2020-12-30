@@ -23,6 +23,8 @@
 
 	.glam-category {
 		font-size: 17px;
+		display: flex;
+		align-items: center;
 	}
 
 	.glam-category a {
@@ -169,7 +171,7 @@
 		<div class="glam-header">
 			<div>
 				<h1 class="glam-title">{{ glam.fullname }}</h1>
-				<div class="glam-category">{{langDict.views.index.categoryTitle}} <a
+				<div class="glam-category"><span>{{langDict.views.index.categoryTitle}}</span> <a
 						href="https://commons.wikimedia.org/wiki/Category:{{glam.category}}" target="_blank">{{glam.category}}</a>
 				</div>
 			</div>
@@ -214,7 +216,8 @@
 			<img src="/assets/img/main-glam-page/views-chart.png" alt="{{langDict.views.index.cards.views.title}}">
 			<div class="page-card-btns">
 				<a href="{{glam.name}}/page-views" class="btn btn-secondary">{{langDict.views.index.view}}</a>
-				<button class="btn btn-primary" data-open-modal data-modal-title="{{langDict.views.index.cards.views.title}}"
+				<button class="btn btn-primary" data-open-modal data-modal-href="{{glam.name}}/page-views"
+					data-modal-title="{{langDict.views.index.cards.views.title}}"
 					data-modal-content="{{langDict.views.index.cards.views.inPageDescription}}">{{langDict.views.index.learnMore}}</button>
 			</div>
 		</div>
@@ -223,8 +226,8 @@
 			<img src="/assets/img/main-glam-page/users-contribution-chart.png"
 				alt="{{langDict.views.index.cards.userContribution.title}}">
 			<div class="page-card-btns">
-				<a href="{{glam.name}}/usage" class="btn btn-secondary">{{langDict.views.index.view}}</a>
-				<button class="btn btn-primary" data-open-modal
+				<a href="{{glam.name}}/user-contributions" class="btn btn-secondary">{{langDict.views.index.view}}</a>
+				<button class="btn btn-primary" data-open-modal data-modal-href="{{glam.name}}/user-contributions"
 					data-modal-title="{{langDict.views.index.cards.userContribution.title}}"
 					data-modal-content="{{langDict.views.index.cards.userContribution.inPageDescription}}">{{langDict.views.index.learnMore}}</button>
 			</div>
@@ -243,7 +246,8 @@
 			<img src="/assets/img/main-glam-page/usage-chart.png" alt="{{langDict.views.index.cards.usage.title}}">
 			<div class="page-card-btns">
 				<a href="{{glam.name}}/usage" class="btn btn-secondary">{{langDict.views.index.view}}</a>
-				<button class="btn btn-primary" data-open-modal data-modal-title="{{langDict.views.index.cards.usage.title}}"
+				<button class="btn btn-primary" data-open-modal data-modal-href="{{glam.name}}/usage"
+					data-modal-title="{{langDict.views.index.cards.usage.title}}"
 					data-modal-content="{{langDict.views.index.cards.usage.inPageDescription}}">{{langDict.views.index.learnMore}}</button>
 			</div>
 		</div>
@@ -253,7 +257,7 @@
 				alt="{{langDict.views.index.cards.categoryNetwork.title}}">
 			<div class="page-card-btns">
 				<a href="{{glam.name}}/category-network" class="btn btn-secondary">{{langDict.views.index.view}}</a>
-				<button class="btn btn-primary" data-open-modal
+				<button class="btn btn-primary" data-open-modal data-modal-href="{{glam.name}}/category-network"
 					data-modal-title="{{langDict.views.index.cards.categoryNetwork.title}}"
 					data-modal-content="{{langDict.views.index.cards.categoryNetwork.inPageDescription}}">{{langDict.views.index.learnMore}}</button>
 			</div>
@@ -264,7 +268,7 @@
 				alt="{{langDict.views.index.cards.suggestions.title}}">
 			<div class="page-card-btns">
 				<a href="{{glam.name}}/recommender" class="btn btn-secondary">{{langDict.views.index.view}}</a>
-				<button class="btn btn-primary" data-open-modal
+				<button class="btn btn-primary" data-open-modal data-modal-href="{{glam.name}}/recommender"
 					data-modal-title="{{langDict.views.index.cards.suggestions.title}}"
 					data-modal-content="{{langDict.views.index.cards.suggestions.inPageDescription}}">{{langDict.views.index.learnMore}}</button>
 			</div>
@@ -291,10 +295,10 @@
 		left: 307px;
 		transform: translateY(-50%);
 		width: 100%;
-		height: 100%;
+		height: auto;
 		max-width: 996px;
-		max-height: 592px;
-		padding: 18px 24px 55px 66px;
+		max-height: 700px;
+		padding: 18px 24px 18px 66px;
 		border-radius: 10px;
 		background-color: var(--main);
 		color: #fff;
@@ -341,7 +345,7 @@
 		justify-content: flex-end;
 	}
 
-	.modal-button button {
+	.modal-button .btn {
 		width: 140px;
 		height: 50px;
 	}
@@ -354,7 +358,7 @@
 		</div>
 		<div class="modal-content" id="modalContent"></div>
 		<div class="modal-button">
-			<button class="btn btn-white">View Graph</button>
+			<a class="btn btn-white" id="modalLink">View Graph</a>
 		</div>
 	</div>
 </div>
@@ -362,13 +366,15 @@
 	const modalContainer = document.querySelector('#learnMoreModalContainer');
 	const modalTitle = document.querySelector('#modalTitle');
 	const modalContent = document.querySelector('#modalContent');
+	const modalLink = document.querySelector('#modalLink');
 	const openModalButtons = document.querySelectorAll('[data-open-modal]');
 
-	function openModal(title, content) {
+	function openModal(title, content, href) {
 		document.documentElement.style.overflow = 'none';
 		modalContainer.style.display = 'block';
 		modalTitle.innerText = title;
 		modalContent.innerHTML = content;
+		modalLink.href = href;
 	}
 	function closeModal() {
 		document.documentElement.style.overflow = 'auto';
@@ -383,7 +389,11 @@
 		}
 	})
 	openModalButtons.forEach(button => button.addEventListener('click', (e) => {
-		openModal(e.target.getAttribute('data-modal-title'), e.target.getAttribute('data-modal-content'));
+		openModal(
+			e.target.getAttribute('data-modal-title'), 
+			e.target.getAttribute('data-modal-content'),
+			e.target.getAttribute('data-modal-href'),
+		);
 	}));
 </script>
 <script>

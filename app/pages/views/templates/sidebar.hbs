@@ -86,8 +86,17 @@
     margin-inline-end: 1rem;
   }
 
+  .institution-link {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .institution-link>div {
+    display: flex;
+    align-items: center;
+  }
+
   .sidebar-chevron {
-    margin-inline-start: auto;
     transform: rotate(-90deg);
     transition: transform 0.2s;
   }
@@ -161,6 +170,10 @@
     text-align: center;
   }
 
+  .sidebar-chevron {
+    transform: rotate(90deg);
+  }
+
   .secondary-sidebar {
     left: auto;
     right: 0;
@@ -178,9 +191,12 @@
     </a>
   </div>
   <div class="institutions">
-    <div class="sidebar-link institution-item" id="glamsButton">
-      <img class="sidebar-link-img" src="/assets/icons/institutions-icon.svg" alt="{{ langDict.sidebar.institutions }}">
-      <span>{{ langDict.sidebar.institutions }}</span>
+    <div class="sidebar-link institution-link" id="glamsButton">
+      <div>
+        <img class="sidebar-link-img" src="/assets/icons/institutions-icon.svg"
+          alt="{{ langDict.sidebar.institutions }}">
+        <span>{{ langDict.sidebar.institutions }}</span>
+      </div>
       <svg class="sidebar-chevron" id="glamsChevron" xmlns="http://www.w3.org/2000/svg" width="7" height="4"
         viewBox="0 0 7 4">
         <g fill="none" fill-rule="evenodd">
@@ -209,13 +225,6 @@
     </a>
   </div>
   <div class="sidebar-links">
-    {{#if langDict.signup}}
-    <a class="sidebar-link"
-      href="https://docs.google.com/forms/d/e/1FAIpQLSd3y26g9LuCld1uYu2SgIVwflnRsTDwmbTjhvidfBYWkHy3Hg/viewform?usp=sf_link"
-      target="blank">
-      {{langDict.signup}}
-    </a>
-    {{/if}}
     <a class="sidebar-link" href="/admin/panel">
       <img class="sidebar-link-img" src="/assets/icons/control-panel-icon.svg" alt="">
       <span>Control panel</span>
@@ -257,6 +266,7 @@
   const secondSidebar = document.querySelector('#secondarySidebar');
   const glamsChevron = document.querySelector('#glamsChevron');
   let isOpen = false;
+  let sidebarInitialTransform = glamsChevron.style.transform
   function showSideBar() {
     secondSidebar.style[direction] = 'var(--sidebar-width)';
     glamsChevron.style.transform = "rotate(0deg)";
@@ -264,7 +274,7 @@
   }
   function hideSideBar() {
     secondSidebar.style[direction] = 0;
-    glamsChevron.style.transform = "rotate(-90deg)";
+    glamsChevron.style.transform = sidebarInitialTransform;
     isOpen = false;
   }
   glamsButton.addEventListener('click', () => {

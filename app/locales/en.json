@@ -1,7 +1,7 @@
 {
   "isRtl": false,
   "lang": "en",
-  "title": "GLAM stat tool (Cassandra)",
+  "title": "GLAM Wiki Dashboard",
   "index": {
     "title": "Support GLAMs (Galleries, Libraries, Archives, Museums) in monitoring and evaluating their cooperation with Wikimedia projects"
   },
@@ -47,6 +47,15 @@
   "file": "File",
   "dismiss": "DISMISS",
   "lv": "lv",
+  "aboutPage": {
+    "title": "Welcome to the GLAM Wiki dashboard",
+    "subtitle": "A usage analysis tool for GLAM institutes to follow free contents contributed to Wikimedia projects",
+    "body": "<p>The GLAM Wiki dashboard is a project of Wikimedia Israel, with support and advice from Wikimedia Sverige,built upon open-source infrastructure originally developed by Wikimedia CH. It is meant to help GLAM institutes (galleries, libraries, archives and museums) follow the usage of their free-content files uploaded to Wikimedia projects. The dashboard visualizes statistical data that reflects the level of exposure and usage of these public-domain files, based on several selected indices and various time frames. The accumulating data, which is presented in various diagrams and graphs, allow the institutes to gain insights, identify trends and preferences, and realize the general influence of these free contents on the public of Wikimedia-project users around the world. Click on this link to <a href=\"/join\">join the GLAM Wiki dashboard.</a></p><p>Promoting public awareness to the importance of free knowledge and the expansion of the public domain is a major goal of the global Wikimedia movement and an essential component of Wikimedia Israel’s mission. To achieve this goal, we seek to establish meaningful cooperations with content and knowledge institutes and encourage the release of contents to the public domain and their upload to the Internet. The GLAM Wiki dashboard visualizes the benefit of this release to the contributing institutes and the general public.</p><p><strong>We hope this dashboard will increase awareness of the importance of placing items of human heritage and culture on the global network and encourage more GLAM institutes to open their gates of knowledge through the Internet, free of charge, for the benefit of the general public and in order to promote access to knowledge, education, and open-mindedness.</strong></p>",
+    "thanks": " We thank our colleagues in Wikimedia CH for their efforts in developing the Casandra platform - the original open-source <a href=\"http://stats.wikimedia.swiss/\" target=\"_blanc\">GLAM Statistical Tool</a>, upon which this GLAM Wiki Dashboard is built."
+  },
+  "contactUs": {
+    "address": "Wikimedia Israel </br> Carlebach 7, P.O.B 51875 </br> Tel aviv, 6713211"
+  },
   "views": {
     "index": {
       "institutions": "Institutions",

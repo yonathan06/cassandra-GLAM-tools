@@ -10,8 +10,10 @@
     transform: translateY(-50%);
     right: 18px;
   }
+
   #langSelect {
     appearance: none;
+    -webkit-appearance: unset;
     background-color: white;
     border: none;
     padding: 0 1rem;
@@ -21,6 +23,14 @@
     font-size: 14px;
   }
 </style>
+{{#if langDict.isRtl}}
+<style>
+  .lang-select-wrapper img {
+    right: auto;
+    left: 18px;
+  }
+</style>
+{{/if}}
 <div class="lang-select-wrapper">
   <select name="lang" id="langSelect" style="visibility: hidden;">
     {{#each localesMap}}
