@@ -12,7 +12,7 @@
     "contactUs": "Contact Us"
   },
   "description": "Description",
-  "help": "Help",
+  "learnMore": "Learn More",
   "downloadDataset": "Download dataset",
   "day": "Day",
   "week": "Week",
@@ -62,7 +62,6 @@
       "categoryTitle": "Category in Commons",
       "totalMedia": "Total media",
       "view": "View",
-      "learnMore": "Learn More",
       "chart": "CHART",
       "thisWeekMediacounts": "This week mediacounts",
       "cards": {

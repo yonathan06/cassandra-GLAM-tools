@@ -2,6 +2,7 @@
   .lang-select-wrapper {
     position: relative;
     display: inline-block;
+    background: #fff;
   }
 
   .lang-select-wrapper img {
@@ -12,6 +13,7 @@
   }
 
   #langSelect {
+    position: relative;
     appearance: none;
     -webkit-appearance: unset;
     background-color: white;
@@ -21,6 +23,9 @@
     height: 40px;
     border-radius: 8px;
     font-size: 14px;
+    cursor: pointer;
+    background: transparent;
+    z-index: 2;
   }
 </style>
 {{#if langDict.isRtl}}
