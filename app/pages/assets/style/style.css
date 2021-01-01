@@ -1,4 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+/* hebrew */
+@font-face {
+  font-family: 'Arimo';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/arimo/v16/P5sMzZCDf9_T_10bxCFuj5-v6dg.woff2) format('woff2');
+  unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+@font-face {
+  font-family: 'Arimo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/arimo/v16/P5sMzZCDf9_T_10bxCFuj5-v6dg.woff2) format('woff2');
+  unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+@font-face {
+  font-family: 'Arimo';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/arimo/v16/P5sMzZCDf9_T_10bxCFuj5-v6dg.woff2) format('woff2');
+  unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;
+}
 
 /*  GENERAL */
 :root {
@@ -35,7 +60,7 @@
 *::after,
 *::before {
   box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Arimo", "Montserrat", sans-serif;
 }
 
 html,

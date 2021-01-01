@@ -167,7 +167,7 @@
 </style>
 <div class="pusher">
 	{{> sidebar}}
-	<main class="container">
+	<main id="container" class="container">
 		<div class="glam-header">
 			<div>
 				<h1 class="glam-title">{{ glam.fullname }}</h1>
@@ -292,7 +292,6 @@
 		flex-direction: column;
 		position: absolute;
 		top: 50%;
-		left: 307px;
 		transform: translateY(-50%);
 		width: 100%;
 		height: auto;
@@ -343,6 +342,7 @@
 		margin-top: auto;
 		display: flex;
 		justify-content: flex-end;
+		margin-top: 20px;
 	}
 
 	.modal-button .btn {
@@ -351,7 +351,7 @@
 	}
 </style>
 <div class="modal-container" id="learnMoreModalContainer">
-	<div class="modal">
+	<div class="modal" id="learnMoreModal">
 		<div class="modal-header">
 			<h2 class="modal-title" id="modalTitle">Category Network</h2>
 			<button class="modal-exit" id="modalExit">&times;</button>
@@ -368,6 +368,16 @@
 	const modalContent = document.querySelector('#modalContent');
 	const modalLink = document.querySelector('#modalLink');
 	const openModalButtons = document.querySelectorAll('[data-open-modal]');
+	const mainContainer = document.querySelector('#container');
+	const learnMoreModal = document.querySelector('#learnMoreModal');
+
+	function positionModal() {
+		const containerLeft = mainContainer.offsetLeft;
+		const containerWidth = mainContainer.offsetWidth;
+		const modalWidth = learnMoreModal.offsetWidth;
+		const leftPadding = (containerWidth - modalWidth) / 2;
+		learnMoreModal.style.left = (containerLeft + leftPadding) + 'px';
+	}
 
 	function openModal(title, content, href) {
 		document.documentElement.style.overflow = 'none';
@@ -375,6 +385,7 @@
 		modalTitle.innerText = title;
 		modalContent.innerHTML = content;
 		modalLink.href = href;
+		positionModal();
 	}
 	function closeModal() {
 		document.documentElement.style.overflow = 'auto';
@@ -390,7 +401,7 @@
 	})
 	openModalButtons.forEach(button => button.addEventListener('click', (e) => {
 		openModal(
-			e.target.getAttribute('data-modal-title'), 
+			e.target.getAttribute('data-modal-title'),
 			e.target.getAttribute('data-modal-content'),
 			e.target.getAttribute('data-modal-href'),
 		);
