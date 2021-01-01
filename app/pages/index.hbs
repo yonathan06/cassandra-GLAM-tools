@@ -8,7 +8,29 @@
 	.header {
 		margin-bottom: 30px;
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-between;
+	}
+
+	.glam-search {
+		height: 34px;
+		display: flex;
+		flex-grow: 1;
+		margin-inline-end: 2rem;
+	}
+
+	.glam-search input {
+		background: none;
+		border: none;
+		height: inherit;
+		width: 100%;
+	}
+
+	.glam-search button {
+		height: inherit;
+		display: flex;
+		align-items: center;
+		background: none;
+		border: none;
 	}
 
 	.cover {
@@ -80,9 +102,16 @@
 	{{> sidebar}}
 	<main class="main-container">
 		<div class="header">
+			<form class="glam-search" id="searchGlamForm">
+				<button type="submit">
+					<img src="/assets/icons/icons-search.svg" />
+				</button>
+				<input type="text" name="searchTerm" aria-label="{{langDict.search}}"
+					placeholder="{{langDict.search}}">
+			</form>
 			{{> langSelect}}
 		</div>
-		<div class="glams-boxes">
+		<div class="glams-boxes" id="glamsContainer">
 			{{#*inline "glamLink"}}
 			<div class="glam-container">
 				<img src="{{glam.image}}">
@@ -100,4 +129,46 @@
 		</div>
 	</main>
 </div>
+<script>
+
+	const glams = {{ json glams }};
+
+	const searchGlamForm = document.querySelector('#searchGlamForm');
+	const searchInput = searchGlamForm.querySelector('input[name="searchTerm"]');
+	const glamsContainer = document.querySelector('#glamsContainer');
+
+	let debounceTimeout;
+	function filterGlams() {
+		if (debounceTimeout) {
+			clearTimeout(debounceTimeout);
+		}
+		debounceTimeout = setTimeout(() => {
+			const value = searchInput.value.toLowerCase();
+			const glamsHtml = glams.reduce((html, glam) => {
+				if (glam.fullname.toLowerCase().includes(value)) {
+					html += `
+						<div class="glam-container">
+							<img src="${glam.image}">
+							<div class="text-block">
+								<a class="glam-link" href="/${glam.name}" alt="${glam.category}">
+									<h4>${glam.fullname}</h4>
+								</a>
+							</div>
+						</div>
+					`;
+				}
+				return html;
+			}, '');
+			if (glamsHtml) {
+				glamsContainer.innerHTML = glamsHtml;
+			} else {
+				glamsContainer.innerHTML = '<h1>0 {{langDict.results}}</h1>';
+			}
+		}, 300);
+	}
+	searchGlamForm.addEventListener('submit', (e) => {
+		e.preventDefault();
+	})
+	searchInput.addEventListener('keyup', () => filterGlams());
+</script>
 {{/mainWrapper}}
