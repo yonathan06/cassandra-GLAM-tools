@@ -13,6 +13,7 @@
   },
   "description": "תיאור",
   "learnMore": "מידע נוסף",
+  "viewGraph": "לצפייה בגרף",
   "downloadDataset": "הורדת נתונים",
   "day": "יום",
   "week": "שבוע",
@@ -61,7 +62,7 @@
       "institutions": "מוסד",
       "categoryTitle": "קטגוריה ב-Commons",
       "totalMedia": "סה״כ פריטי מדיה",
-      "view": "צפיות",
+      "view": "לצפיה",
       "chart": "גרף",
       "thisWeekMediacounts": "צפיות בשבוע הנוכחי",
       "cards": {

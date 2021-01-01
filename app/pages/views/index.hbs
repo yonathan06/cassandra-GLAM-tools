@@ -324,7 +324,7 @@
 
 	.modal-content {
 		margin-top: 20px;
-		font-size: 14px;
+		font-size: 16px;
 		padding-inline-end: 44px;
 		line-height: 1.43;
 	}
@@ -348,17 +348,19 @@
 	.modal-button .btn {
 		width: 140px;
 		height: 50px;
+		font-size: 14px;
+		margin-inline-end: 8px;
 	}
 </style>
 <div class="modal-container" id="learnMoreModalContainer">
 	<div class="modal" id="learnMoreModal">
 		<div class="modal-header">
-			<h2 class="modal-title" id="modalTitle">Category Network</h2>
+			<h2 class="modal-title" id="modalTitle"></h2>
 			<button class="modal-exit" id="modalExit">&times;</button>
 		</div>
 		<div class="modal-content" id="modalContent"></div>
 		<div class="modal-button">
-			<a class="btn btn-white" id="modalLink">View Graph</a>
+			<a class="btn btn-white" id="modalLink">{{langDict.viewGraph}}</a>
 		</div>
 	</div>
 </div>
