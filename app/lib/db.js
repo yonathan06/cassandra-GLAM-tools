@@ -70,7 +70,9 @@ const formatDateForPg = date => dateFns.format(date, dbDateFormat)
 function extractYesterdayMediacounts(mediacountResults) {
   const yesterdayResult = mediacountResults[0];
   if (yesterdayResult) {
-    return +yesterdayResult.accesses_sum;
+    if (dateFns.isYesterday(yesterdayResult.access_date)) {
+      return +yesterdayResult.accesses_sum;
+    }
   }
   return 0;
 }
@@ -79,7 +81,7 @@ function extractThisMonthMediacounts(mediacountResults) {
   const thisMonth = new Date();
   let sum = 0;
   for (let result of mediacountResults) {
-    if (!dateFns.isSameMonth(result.access_date, thisMonth)) {
+    if (!dateFns.isSameMonth(result.access_date.getTime(), thisMonth)) {
       break;
     }
     sum += +result.accesses_sum;
@@ -88,13 +90,17 @@ function extractThisMonthMediacounts(mediacountResults) {
 }
 
 function calcMonthlyAvg(mediacountResults) {
-  if (mediacountResults.length === 0) {
+  const thisMonth = new Date();
+  if (mediacountResults.length === 0 || thisMonth.getMonth() === 0) {
     return 0;
   }
   const sum = mediacountResults.reduce((sum, res) => {
-    return sum + +res.accesses_sum;
+    if (!dateFns.isSameMonth(res.access_date.getTime(), thisMonth)) {
+      return sum + +res.accesses_sum;
+    }
+    return sum;
   }, 0);
-  return Math.round(sum / mediacountResults.length);
+  return Math.round(sum / thisMonth.getMonth());
 }
 
 async function getGlamMediaCountReport(glam) {
@@ -104,7 +110,7 @@ async function getGlamMediaCountReport(glam) {
     SELECT *
     FROM visualizations_sum
     WHERE access_date BETWEEN '${formatDateForPg(startOfYear)}'
-    and '${formatDateForPg(yesterday)}'
+    AND '${formatDateForPg(yesterday)}'
     ORDER BY access_date DESC
   `;
   const { rows: mediacountResults } = await glam.connection.query(mediacountsQuery);
@@ -116,3 +122,44 @@ async function getGlamMediaCountReport(glam) {
   return report;
 }
 exports.getGlamMediaCountReport = getGlamMediaCountReport;
+
+async function getGlamCategoryCount(glam) {
+  const { rows: [result] } = 
+    await glam.connection.query('SELECT COUNT(*) AS count FROM categories');
+  return +result.count - 1;
+}
+exports.getGlamCategoryCount = getGlamCategoryCount;
+
+async function getArticlesCount(glam) {
+  const { rows: [result] } = 
+    await glam.connection.query('SELECT COUNT(*) FROM (SELECT DISTINCT gil_page_title FROM usages) AS count');
+  return +result.count;
+}
+exports.getArticlesCount = getArticlesCount;
+
+async function getProjectsCount(glam) {
+  const { rows: [result] } = 
+    await glam.connection.query(`SELECT COUNT(*) FROM (SELECT DISTINCT gil_wiki FROM usages) AS count`);
+  return +result.count;
+}
+exports.getProjectsCount = getProjectsCount;
+
+const reportDataCache = {};
+async function getReportData(glam) {
+  const today = dateFns.format(new Date(), dbDateFormat);
+  if (reportDataCache[glam.name]) {
+    if (reportDataCache[glam.name][today]) {
+      return reportDataCache[glam.name][today];
+    }
+  }
+  const data = {
+    ...(await getGlamMediaCountReport(glam)),
+    totalImgNum: await getGlamImgCount(glam),
+    categoriesCount: await getGlamCategoryCount(glam),
+    articlesCount: await getArticlesCount(glam),
+    projectsCount: await getProjectsCount(glam)
+  }
+  reportDataCache[glam.name] = { [today]: data };
+  return data;
+}
+exports.getReportData = getReportData;

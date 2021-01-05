@@ -1,12 +1,12 @@
-var express = require('express');
-var apicache = require('apicache').options({ debug: false }).middleware;
-var morgan = require('morgan');
-var Sentry = require('@sentry/node');
+const express = require('express');
+const apicache = require('apicache').options({ debug: false }).middleware;
+const morgan = require('morgan');
+const Sentry = require('@sentry/node');
 const i18n = require('i18n');
 const hbs = require('hbs');
 const fs = require('fs');
 const cookieParser = require('cookie-parser');
-var config = require('./config/config');
+const config = require('./config/config');
 
 const localesMap = [
     { lang: 'en', label: 'English' },
@@ -69,10 +69,9 @@ hbs.registerPartial('langSelect', fs.readFileSync(__dirname + '/pages/views/temp
 require('./routes.js')(app, apicache);
 
 
-var port = +process.env.PORT || 8081;
+const port = +process.env.PORT || 8081;
 
-var server = app.listen(port, function () {
-    var host = '0.0.0.0'
-    var port = server.address().port;
+app.listen(port, function () {
+    const host = '0.0.0.0'
     console.log('Server listening at http://%s:%s', host, port);
 });

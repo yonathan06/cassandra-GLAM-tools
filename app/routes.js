@@ -1,10 +1,14 @@
-var express = require('express');
-var request = require('request');
-var api = require('./api.js');
-var auth = require('http-auth');
+const express = require('express');
+const request = require('request');
+const api = require('./api.js');
+const auth = require('http-auth');
 
-var config = require('./config/config.js');
-const { getGlamByName, getAllGlams, getGlamImgCount, getGlamMediaCountReport } = require('./lib/db.js');
+const config = require('./config/config.js');
+const {
+    getGlamByName,
+    getAllGlams,
+    getReportData
+} = require('./lib/db.js');
 
 function isValidGlam(glam) {
     return glam !== undefined && glam['status'] === 'running' && glam['lastrun'] !== null;
@@ -132,10 +136,7 @@ module.exports = function (app) {
         const glams = await getAllGlams();
         const glam = glams.find(glam => glam.name === req.params.id);
         if (isValidGlam(glam)) {
-            const data = {
-                totalImgNum: await getGlamImgCount(glam),
-                ...(await getGlamMediaCountReport(glam))
-            }
+            const data = await getReportData(glam);
             res.renderWithLocal('/pages/views/index.hbs', { glams, glam, data });
         } else {
             res.sendStatus(400);

@@ -67,7 +67,14 @@
       "totalMedia": "סה״כ פריטי מדיה",
       "view": "לצפיה",
       "chart": "גרף",
-      "thisWeekMediacounts": "צפיות בשבוע הנוכחי",
+      "report": {
+        "viewsYesterday": "צפיות אתמול",
+        "viewsThisMonth": "צפיות בחודש זה",
+        "monthlyAvgViews": "ממוצע צפיות לחודש",
+        "relatedCategories": "קטגורויות מקושרות",
+        "articleUsage": "ערכים בהם יש שימוש",
+        "projectsUsage": "פרויקטים בהם יש שימוש"
+      },
       "cards": {
         "categoryNetwork": {
           "title": "עץ קטגוריות",

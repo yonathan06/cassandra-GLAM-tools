@@ -67,7 +67,14 @@
       "totalMedia": "Total media",
       "view": "View",
       "chart": "CHART",
-      "thisWeekMediacounts": "This week mediacounts",
+      "report": {
+        "viewsYesterday": "Views yesterday",
+        "viewsThisMonth": "Views this month",
+        "monthlyAvgViews": "Monthly avg. views",
+        "relatedCategories": "Related categories",
+        "articleUsage": "Article usage",
+        "projectsUsage": "Projects usage"
+      },
       "cards": {
         "categoryNetwork": {
           "title": "Category Network",

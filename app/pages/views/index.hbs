@@ -64,6 +64,8 @@
 		display: grid;
 		row-gap: 6px;
 		color: #fff;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.data-card-title {
@@ -73,6 +75,7 @@
 	.data-card-number {
 		font-size: 35px;
 		font-weight: 500;
+		margin-top: auto;
 	}
 
 	.large-card {
@@ -186,30 +189,29 @@
 			<input type="text" name="fileName" aria-label="{{langDict.views.index.searchFile}}"
 				placeholder="{{langDict.views.index.searchFile}}">
 		</form>
-
 		<div class="data-card">
-			<div class="data-card-title">{{langDict.views.index.thisWeekMediacounts}}</div>
-			<div class="data-card-number">{{toLocaleString data.thisWeekMediacount}}</div>
+			<div class="data-card-title">{{langDict.views.index.report.viewsYesterday}}</div>
+			<div class="data-card-number">{{toLocaleString data.yesterdayMediacount}}</div>
 		</div>
 		<div class="data-card">
-			<div class="data-card-title">Number of values created</div>
-			<div class="data-card-number">1</div>
+			<div class="data-card-title">{{langDict.views.index.report.viewsThisMonth}}</div>
+			<div class="data-card-number">{{toLocaleString data.thisMonthMediacount}}</div>
 		</div>
 		<div class="data-card">
-			<div class="data-card-title">Number of values created</div>
-			<div class="data-card-number">1</div>
+			<div class="data-card-title">{{langDict.views.index.report.monthlyAvgViews}}</div>
+			<div class="data-card-number">{{toLocaleString data.thisYearMonthlyAvg}}</div>
 		</div>
 		<div class="data-card">
-			<div class="data-card-title">Number of values created</div>
-			<div class="data-card-number">1</div>
+			<div class="data-card-title">{{langDict.views.index.report.relatedCategories}}</div>
+			<div class="data-card-number">{{toLocaleString data.categoriesCount}}</div>
 		</div>
 		<div class="data-card">
-			<div class="data-card-title">Number of values created</div>
-			<div class="data-card-number">1</div>
+			<div class="data-card-title">{{langDict.views.index.report.articleUsage}}</div>
+			<div class="data-card-number">{{toLocaleString data.articlesCount}}</div>
 		</div>
 		<div class="data-card">
-			<div class="data-card-title">Number of values created</div>
-			<div class="data-card-number">1</div>
+			<div class="data-card-title">{{langDict.views.index.report.projectsUsage}}</div>
+			<div class="data-card-number">{{toLocaleString data.projectsCount}}</div>
 		</div>
 		<div class="large-card page-card views-card">
 			<h4 class="page-card-title">{{langDict.views.index.cards.views.title}}</h4>
