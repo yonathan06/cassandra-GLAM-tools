@@ -1,6 +1,9 @@
 const config = require('../config/config.js');
 const mariadb = require('mariadb/callback');
 
+
+const log = (...args) => console.log(new Date().toLocaleString() + ':', ...args);
+
 const CONST_USE_PER_QUERY = 10;
 const CONST_CAT_PER_QUERY = 40;
 
@@ -16,21 +19,21 @@ var usagindex = 0;
 var glam;
 
 var finalize = function (failure) {
-    console.log("===========================================");
-    console.log("Number of categories: " + catFreeTail);
-    console.log("Number of images: " + countImages);
+    log("===========================================");
+    log("Number of categories: " + catFreeTail);
+    log("Number of images: " + countImages);
 
     if (failure === true) {
-        console.log("Process failed!");
+        log("Process failed!");
         process.exit(65);
     }
 
     glam.connection.query("select * from doMaintenance();", function (err, res) {
         if (err) {
-            console.log(err);
+            log(err);
             process.exit(1);
         }
-        console.log("Process completed!");
+        log("Process completed!");
         process.exit(0);
     });
 }
@@ -57,8 +60,8 @@ var wikiOpen = function (starting_cat) {
     catQueue[0].cat_subcats = 0;
     catQueue[0].cat_files = 0;
     catQueue[0].father = "ROOT";
-    console.log("===========================================");
-    console.log("Loading categories...");
+    log("===========================================");
+    log("Loading categories...");
 
     let temp_query = "select cat_subcats, cat_files from category where cat_title='" + starting_cat.replace(/\'/g, "''") + "'";
     wikiCaller.query(temp_query, function (err, rows) {
@@ -68,8 +71,8 @@ var wikiOpen = function (starting_cat) {
             getLevelChilds();
         }
         else {
-            console.log("Cannot complete daily update due to error: ");
-            console.log(err);
+            log("Cannot complete daily update due to error: ");
+            log(err);
             return;
         }
     });
@@ -85,7 +88,7 @@ var getLevelChilds = function () {
         finalize(true);
     }
 
-    console.log("At " + catHead + " of " + catFreeTail);
+    log("At " + catHead + " of " + catFreeTail);
     var RQ = "";
     var originalHead = catHead;
     while (catHead < catFreeTail && catHead < (originalHead + CONST_CAT_PER_QUERY)) {
@@ -98,8 +101,8 @@ var getLevelChilds = function () {
     var query = buildCategoryQuery(RQ);
     wikiCaller.query(query, function (err, rows) {
         if (err) {
-            console.log("Cannot complete daily update due to error: ");
-            console.log(err);
+            log("Cannot complete daily update due to error: ");
+            log(err);
             return;
         }
         for (var k = 0; k < rows.length; k++) {
@@ -133,15 +136,15 @@ var afterCategories = function () {
         i++;
     }
 
-    console.log("Updating Postgres data...");
+    log("Updating Postgres data...");
     glam.connection.query(storage_query, function (err, res) {
         if (err) {
             console.error(err);
             process.exit(1);
         }
-        console.log("Completed!");
-        console.log("===========================================");
-        console.log("Now loading images...");
+        log("Completed!");
+        log("===========================================");
+        log("Now loading images...");
         catHead = 0;
         imgIndex = 0;
         loadImages();
@@ -151,8 +154,8 @@ var afterCategories = function () {
 var loadImages = function () {
     if (catHead >= catFreeTail) {
         loadImagesIntoDB(function () {
-            console.log("===========================================");
-            console.log("Loading usages...");
+            log("===========================================");
+            log("Loading usages...");
             usages = [];
             usagindex = 0;
             catHead = 0;
@@ -166,7 +169,7 @@ var loadImages = function () {
     }
 
     // TODO can be optimized looking for files number and merging little cats calls
-    console.log("At " + catHead + " of " + catFreeTail);
+    log("At " + catHead + " of " + catFreeTail);
     var RQ = "'" + catQueue[catHead].page_title.replace(/'/g, "''") + "'";
     catHead++;
 
@@ -176,8 +179,8 @@ var loadImages = function () {
     var query = buildImageQuery(RQ);
     wikiCaller.query(query, function (err, rows) {
         if (err) {
-            console.log("Cannot complete daily update due to error: ");
-            console.log(err);
+            log("Cannot complete daily update due to error: ");
+            log(err);
             return;
         }
         for (var k = 0; k < rows.length; k++) {
@@ -214,9 +217,9 @@ var loadImagesIntoDB = function (callback) {
         i++;
     }
 
-    console.log("Updating Postgres data...");
+    log("Updating Postgres data...");
     glam.connection.query(storage_query, function (err, res) {
-        console.log("Completed!");
+        log("Completed!");
         callback();
     });
 }
@@ -226,7 +229,7 @@ var loadUsages = function () {
         afterUsages();
         return;
     }
-    console.log("At " + catHead + " of " + catFreeTail);
+    log("At " + catHead + " of " + catFreeTail);
     var RQ = "";
     var originalHead = catHead;
     while (catHead < catFreeTail && catHead < (originalHead + CONST_USE_PER_QUERY)) {
@@ -239,8 +242,8 @@ var loadUsages = function () {
     var query = buildUsageQuery(RQ);
     wikiCaller.query(query, function (err, rows) {
         if (err) {
-            console.log("Cannot complete daily update due to error: ");
-            console.log(err);
+            log("Cannot complete daily update due to error: ");
+            log(err);
             return;
         }
         for (var k = 0; k < rows.length; k++) {
@@ -265,9 +268,9 @@ var afterUsages = function () {
         i++;
     }
 
-    console.log("Updating Postgres data...");
+    log("Updating Postgres data...");
     glam.connection.query(storage_query, function (err, res) {
-        console.log("Completed!");
+        log("Completed!");
         finalize();
     });
 
@@ -303,7 +306,7 @@ var buildCategoryQuery = function (RQ) {
 
 // ENTRY POINT
 if (process.argv.length != 3) {
-    console.log('Missing GLAM name');
+    log('Missing GLAM name');
     process.exit(1);
 }
 
@@ -311,13 +314,13 @@ config.loadGlams().then((glams) => {
     glam = glams[process.argv[2]];
 
     if (glam === undefined) {
-        console.log('Unknown GLAM name');
+        log('Unknown GLAM name');
         process.exit(1);
     }
 
-    console.log("Application launched...");
+    log("Application launched...");
     wikiCaller = mariadb.createConnection(config.wmflabs);
 
-    console.log("Working for " + glam.fullname);
+    log("Working for " + glam.fullname);
     wikiOpen(glam.category.replace(/ /g, "_"));
 });

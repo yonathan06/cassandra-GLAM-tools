@@ -13,7 +13,6 @@ if __name__ == "__main__":
     with_sentry()
     yesterday_date = date.today() - timedelta(days=1)
     glams = get_running_glams()
-    # run jobs
     filepath = download_file(yesterday_date)
     extracted_file = bz2.BZ2File(filepath, "r")
 
@@ -21,6 +20,7 @@ if __name__ == "__main__":
         process_glam(glam)
         conn = get_glam_database_connection(glam['database'])
         glam_images = get_glam_images(conn)
+        extracted_file.seek(0)
         update_glam_mediacounts_from_file(
             extracted_file, yesterday_date, conn, glam_images, glam["name"])
         conn.close()
