@@ -57,11 +57,11 @@
 	}
 
 	.data-card {
+		position: relative;
 		min-height: 100px;
 		border-radius: 8px;
 		background-color: var(--main);
 		padding: 10px 14px;
-		display: grid;
 		row-gap: 6px;
 		color: #fff;
 		display: flex;
@@ -70,6 +70,17 @@
 
 	.data-card-title {
 		font-size: 17px;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.data-card-title::after {
+		content: ' ';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
 	}
 
 	.data-card-number {
@@ -190,27 +201,27 @@
 				placeholder="{{langDict.views.index.searchFile}}">
 		</form>
 		<div class="data-card">
-			<div class="data-card-title">{{langDict.views.index.report.viewsYesterday}}</div>
+			<a href="{{glam.name}}/page-views" class="data-card-title">{{langDict.views.index.report.viewsYesterday}}</a>
 			<div class="data-card-number">{{toLocaleString data.yesterdayMediacount}}</div>
 		</div>
 		<div class="data-card">
-			<div class="data-card-title">{{langDict.views.index.report.viewsThisMonth}}</div>
+			<a href="{{glam.name}}/page-views" class="data-card-title">{{langDict.views.index.report.viewsThisMonth}}</a>
 			<div class="data-card-number">{{toLocaleString data.thisMonthMediacount}}</div>
 		</div>
 		<div class="data-card">
-			<div class="data-card-title">{{langDict.views.index.report.monthlyAvgViews}}</div>
+			<a href="{{glam.name}}/page-views" class="data-card-title">{{langDict.views.index.report.monthlyAvgViews}}</a>
 			<div class="data-card-number">{{toLocaleString data.thisYearMonthlyAvg}}</div>
 		</div>
 		<div class="data-card">
-			<div class="data-card-title">{{langDict.views.index.report.relatedCategories}}</div>
+			<a href="{{glam.name}}/category-network" class="data-card-title">{{langDict.views.index.report.relatedCategories}}</a>
 			<div class="data-card-number">{{toLocaleString data.categoriesCount}}</div>
 		</div>
 		<div class="data-card">
-			<div class="data-card-title">{{langDict.views.index.report.articleUsage}}</div>
+			<a href="{{glam.name}}/usage" class="data-card-title">{{langDict.views.index.report.articleUsage}}</a>
 			<div class="data-card-number">{{toLocaleString data.articlesCount}}</div>
 		</div>
 		<div class="data-card">
-			<div class="data-card-title">{{langDict.views.index.report.projectsUsage}}</div>
+			<a href="{{glam.name}}/usage" class="data-card-title">{{langDict.views.index.report.projectsUsage}}</a>
 			<div class="data-card-number">{{toLocaleString data.projectsCount}}</div>
 		</div>
 		<div class="large-card page-card views-card">
