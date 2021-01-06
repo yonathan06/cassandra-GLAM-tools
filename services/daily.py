@@ -1,12 +1,12 @@
 import logging
 import bz2
 import os
+import urllib.parse
 from datetime import date, timedelta
 from lib.sentry import with_sentry
 from etl.glams_table import get_running_glams, get_glam_database_connection, get_glam_images
 from etl.run import process_glam
 from etl.download_mediacounts import download_file
-import urllib.parse
 from tqdm import tqdm
 
 
@@ -70,17 +70,18 @@ def refresh_and_close(glams):
         glam['conn'].close()
 
 
-def main():
-    yesterday_date = date.today() - timedelta(days=1)
-    filepath = download_file(yesterday_date)
+def main(date_val: date):
+    filepath = download_file(date_val)
     glams = get_running_glams()
     process_glams(glams)
-    dailyinsert_from_file(glams, filepath, yesterday_date)
+    dailyinsert_from_file(glams, filepath, date_val)
     refresh_and_close(glams)
     os.remove(filepath)
 
 
 if __name__ == "__main__":
-    logging.info("Starting daily tasks")
+    yesterday_date = date.today() - timedelta(days=1)
+    logging.info(f"Starting daily tasks for {yesterday_date}")
     with_sentry()
-    main()
+    main(yesterday_date)
+    logging.info(f'Done daily tasks for {yesterday_date}')
