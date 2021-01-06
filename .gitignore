@@ -11,3 +11,5 @@ venv
 config.*.json
 .DS_Store
 tmp
+__pycache__
+*.out
