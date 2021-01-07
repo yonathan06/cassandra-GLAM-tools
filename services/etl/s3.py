@@ -3,6 +3,7 @@ import logging
 import os
 from datetime import date
 from config import config
+from tqdm import tqdm
 
 bucket_name = config['aws']['wikiDumpBucket']
 logging.info(f"Looking for bucket {bucket_name}")
@@ -19,6 +20,10 @@ tmp_mediacounts_folder = f"{__package__}/tmp/{config['aws']['wikiMediacountsFold
 if not os.path.exists(tmp_mediacounts_folder):
     os.makedirs(tmp_mediacounts_folder)
 
+def tqdm_hook(t):
+  def inner(bytes_amount):
+    t.update(bytes_amount)
+  return inner
 
 def get_mediacount_file_by_date(date_val: date):
     filename = f"mediacounts.{date_val.strftime('%Y-%m-%d')}.v00.tsv.bz2"
@@ -28,9 +33,14 @@ def get_mediacount_file_by_date(date_val: date):
     if not os.path.exists(year_folder):
         os.makedirs(year_folder)
     filepath = f"{year_folder}/{filename}"
-
-    logging.info(f"S3: Downloading {object_key}")
-    s3.Object(bucket_name, object_key).download_file(filepath)
+    if not os.path.exists(filepath):
+        logging.info(f"S3: Downloading {object_key}")
+        file_object = s3.Object(bucket_name, object_key)
+        filesize = file_object.content_length
+        with tqdm(total=filesize, unit='B', unit_scale=True, unit_divisor = 1024, miniters = 1, desc=filename) as t:
+            file_object.download_file(filepath, Callback=tqdm_hook(t))
+    else:
+        logging.info(f"File {filename} already exist on disk")
     return filepath
 
 def upload_mediacount_file(year: str, filename: str):
