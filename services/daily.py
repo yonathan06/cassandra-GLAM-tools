@@ -71,9 +71,9 @@ def refresh_and_close(glams):
 
 
 def main(date_val: date):
-    filepath = download_file(date_val)
     glams = get_running_glams()
     process_glams(glams)
+    filepath = download_file(date_val)
     dailyinsert_from_file(glams, filepath, date_val)
     refresh_and_close(glams)
     os.remove(filepath)
