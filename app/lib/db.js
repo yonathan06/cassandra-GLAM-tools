@@ -124,21 +124,21 @@ async function getGlamMediaCountReport(glam) {
 exports.getGlamMediaCountReport = getGlamMediaCountReport;
 
 async function getGlamCategoryCount(glam) {
-  const { rows: [result] } = 
+  const { rows: [result] } =
     await glam.connection.query('SELECT COUNT(*) AS count FROM categories');
   return +result.count - 1;
 }
 exports.getGlamCategoryCount = getGlamCategoryCount;
 
 async function getArticlesCount(glam) {
-  const { rows: [result] } = 
+  const { rows: [result] } =
     await glam.connection.query('SELECT COUNT(*) FROM (SELECT DISTINCT gil_page_title FROM usages) AS count');
   return +result.count;
 }
 exports.getArticlesCount = getArticlesCount;
 
 async function getProjectsCount(glam) {
-  const { rows: [result] } = 
+  const { rows: [result] } =
     await glam.connection.query(`SELECT COUNT(*) FROM (SELECT DISTINCT gil_wiki FROM usages) AS count`);
   return +result.count;
 }
@@ -148,8 +148,9 @@ const reportDataCache = {};
 async function getReportData(glam) {
   const today = dateFns.format(new Date(), dbDateFormat);
   if (reportDataCache[glam.name]) {
-    if (reportDataCache[glam.name][today]) {
-      return reportDataCache[glam.name][today];
+    const report = reportDataCache[glam.name][today];
+    if (report && Date.now() - report.reportCreatedDate < 1000 * 60) {
+      return report;
     }
   }
   const data = {
@@ -157,7 +158,8 @@ async function getReportData(glam) {
     totalImgNum: await getGlamImgCount(glam),
     categoriesCount: await getGlamCategoryCount(glam),
     articlesCount: await getArticlesCount(glam),
-    projectsCount: await getProjectsCount(glam)
+    projectsCount: await getProjectsCount(glam),
+    reportCreatedDate: Date.now()
   }
   reportDataCache[glam.name] = { [today]: data };
   return data;

@@ -64,16 +64,16 @@
     "index": {
       "institutions": "Institutions",
       "categoryTitle": "Category in Commons",
-      "totalMedia": "Total media",
+      "totalMedia": "Total media files",
       "view": "View",
       "chart": "CHART",
       "report": {
         "viewsYesterday": "Views yesterday",
         "viewsThisMonth": "Views this month",
-        "monthlyAvgViews": "Monthly avg. views",
-        "relatedCategories": "Related categories",
-        "articleUsage": "Article usage",
-        "projectsUsage": "Projects usage"
+        "monthlyAvgViews": "Monthly avg. of views",
+        "relatedCategories": "Related subcategories",
+        "articleUsage": "Usage - no. of articles",
+        "projectsUsage": "Usage - no. of projects"
       },
       "cards": {
         "categoryNetwork": {

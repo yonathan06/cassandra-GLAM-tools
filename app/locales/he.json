@@ -64,16 +64,16 @@
     "index": {
       "institutions": "מוסד",
       "categoryTitle": "קטגוריה ב-Commons",
-      "totalMedia": "סה״כ פריטי מדיה",
+      "totalMedia": "סה״כ קבצי מדיה",
       "view": "לצפיה",
       "chart": "גרף",
       "report": {
         "viewsYesterday": "צפיות אתמול",
-        "viewsThisMonth": "צפיות בחודש הנוכחי",
+        "viewsThisMonth": "צפיות בחודש זה",
         "monthlyAvgViews": "ממוצע צפיות לחודש",
-        "relatedCategories": "קטגורויות מקושרות",
-        "articleUsage": "ערכים בהם יש שימוש",
-        "projectsUsage": "פרויקטים בהם יש שימוש"
+        "relatedCategories": "מספר תת-קטגוריות",
+        "articleUsage": "שימוש במדיה - מספר ערכים",
+        "projectsUsage": "שימוש במדיה - מספר מיזמים"
       },
       "cards": {
         "categoryNetwork": {
