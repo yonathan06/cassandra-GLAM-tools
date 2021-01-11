@@ -1,13 +1,5 @@
-import json
 import logging
-import os
-import subprocess
-import time
 from datetime import date, datetime, timedelta
-from subprocess import SubprocessError
-
-import psycopg2
-from psycopg2 import ProgrammingError
 
 from .glams_table import get_glams, get_running_glams,update_min_date, get_glam_database_connection
 from config import config

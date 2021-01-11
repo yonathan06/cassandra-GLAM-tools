@@ -1,10 +1,7 @@
-import json
 import psycopg2
 import psycopg2.extras
 import psycopg2.errors
-from psycopg2 import ProgrammingError
 import logging
-from datetime import datetime, timedelta
 from config import config
 
 logging.basicConfig(level=logging.INFO,
