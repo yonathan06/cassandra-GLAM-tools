@@ -3,7 +3,7 @@
 	.container {
 		padding: 24px 32px;
 		display: grid;
-		grid-template-columns: repeat(6, 1fr);
+		grid-template-columns: repeat(6, minmax(0, 1fr));
 		row-gap: 32px;
 		column-gap: 24px;
 		margin-inline-start: var(--sidebar-width);
@@ -84,7 +84,7 @@
 	}
 
 	.data-card-number {
-		font-size: 35px;
+		font-size: 26px;
 		font-weight: 500;
 		margin-top: auto;
 	}
