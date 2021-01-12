@@ -29,7 +29,6 @@
   .sidebar-logo {
     margin-inline-start: var(--link-space-side);
     flex: auto 0 0;
-    margin-bottom: 40px;
   }
 
   .sidebar-logo>a {
@@ -46,10 +45,10 @@
   }
 
   .institutions {
+    padding-top: 16%;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    cursor: pointer;
     align-self: stretch;
   }
 
@@ -60,6 +59,7 @@
     height: 58px;
     padding: 0 var(--link-space-side);
     margin-bottom: 4px;
+    cursor: pointer;
   }
 
   .sidebar-link::after {
@@ -80,6 +80,7 @@
     display: flex;
     flex-direction: column;
     align-self: stretch;
+    padding-bottom: 20%;
   }
 
   .sidebar-link-img {
@@ -107,7 +108,6 @@
 
   .sidebar-wikiil-logo {
     padding-inline-start: var(--link-space-side);
-    margin-top: 66px;
   }
 
   .sidebar-wikiil-logo>a {
@@ -155,6 +155,14 @@
   .secondary-sidebar .institutions-list>li>a {
     color: white;
     text-decoration: none;
+  }
+  @media (max-width: 576px) {
+    .main-sidebar {
+      display: none;
+    }
+    .secondary-sidebar {
+      display: none;
+    }
   }
 </style>
 {{#if langDict.isRtl}}
