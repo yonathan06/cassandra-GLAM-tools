@@ -5,7 +5,7 @@
   }
 
   .main-sidebar {
-    padding: 22px 0;
+    padding: 3vh 0 87px 0;
     background-color: var(--main);
     position: fixed;
     height: 100%;
@@ -18,7 +18,6 @@
     flex-direction: column;
     align-items: flex-start;
     border-bottom-right-radius: var(--sidebar-border-radius);
-    font-size: 16px;
   }
 
   .main-sidebar a {
@@ -45,7 +44,7 @@
   }
 
   .institutions {
-    padding-top: 16%;
+    padding-top: 3vh;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -56,10 +55,11 @@
     position: relative;
     display: flex;
     align-items: center;
-    height: 58px;
+    height: 6vh;
     padding: 0 var(--link-space-side);
     margin-bottom: 4px;
     cursor: pointer;
+    overflow: hidden;
   }
 
   .sidebar-link::after {
@@ -80,7 +80,7 @@
     display: flex;
     flex-direction: column;
     align-self: stretch;
-    padding-bottom: 20%;
+    padding-bottom: 4vh;
   }
 
   .sidebar-link-img {
@@ -107,7 +107,9 @@
   }
 
   .sidebar-wikiil-logo {
-    padding-inline-start: var(--link-space-side);
+    position: absolute;
+    bottom: 22px;
+    right: var(--link-space-side);
   }
 
   .sidebar-wikiil-logo>a {
@@ -130,12 +132,11 @@
     padding-inline-start: var(--sidebar-border-radius);
     transition: all .5s;
     border-bottom-right-radius: var(--sidebar-border-radius);
-    font-size: 16px;
   }
 
   .secondary-sidebar .institutions-list {
     position: relative;
-    top: 141px;
+    top: 14.4vh;
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -156,6 +157,7 @@
     color: white;
     text-decoration: none;
   }
+
   @media (max-width: 576px) {
     .main-sidebar {
       display: none;

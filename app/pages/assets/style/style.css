@@ -63,22 +63,6 @@
   font-family: "Arimo", "Montserrat", sans-serif;
 }
 
-html,
-body {
-  font-size: 16px;
-}
-
-@media screen and (max-width: 1440px) {
-  html,
-  body {
-    font-size: 14px;
-  }
-}
-
-html {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   padding: 0;
