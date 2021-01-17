@@ -68,7 +68,7 @@
       "view": "View",
       "chart": "CHART",
       "report": {
-        "viewsYesterday": "Views yesterday",
+        "viewsDate": "Views for date",
         "viewsThisMonth": "Views this month",
         "monthlyAvgViews": "Monthly avg. of views",
         "relatedCategories": "Related subcategories",

@@ -68,7 +68,7 @@
       "view": "לצפיה",
       "chart": "גרף",
       "report": {
-        "viewsYesterday": "צפיות אתמול",
+        "viewsDate": "צפיות לתאריך זה",
         "viewsThisMonth": "צפיות בחודש זה",
         "monthlyAvgViews": "ממוצע צפיות לחודש",
         "relatedCategories": "מספר תת-קטגוריות",

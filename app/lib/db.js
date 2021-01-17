@@ -64,24 +64,24 @@ async function getGlamImgCount(glam) {
 exports.getGlamImgCount = getGlamImgCount;
 
 const dbDateFormat = 'yyyy-LL-dd';
+exports.dbDateFormat = dbDateFormat;
 
 const formatDateForPg = date => dateFns.format(date, dbDateFormat)
 
-function extractYesterdayMediacounts(mediacountResults) {
+function extractYesterdayMediacounts(mediacountResults, yesterdayDate) {
   const yesterdayResult = mediacountResults[0];
   if (yesterdayResult) {
-    if (dateFns.isYesterday(yesterdayResult.access_date)) {
+    if (dateFns.isSameDay(yesterdayDate, yesterdayResult.access_date)) {
       return +yesterdayResult.accesses_sum;
     }
   }
   return 0;
 }
 
-function extractThisMonthMediacounts(mediacountResults) {
-  const thisMonth = new Date();
+function extractThisMonthMediacounts(mediacountResults, forDate) {
   let sum = 0;
   for (let result of mediacountResults) {
-    if (!dateFns.isSameMonth(result.access_date.getTime(), thisMonth)) {
+    if (!dateFns.isSameMonth(result.access_date.getTime(), forDate)) {
       break;
     }
     sum += +result.accesses_sum;
@@ -89,35 +89,33 @@ function extractThisMonthMediacounts(mediacountResults) {
   return sum;
 }
 
-function calcMonthlyAvg(mediacountResults) {
-  const thisMonth = new Date();
-  if (mediacountResults.length === 0 || thisMonth.getMonth() === 0) {
+function calcMonthlyAvg(mediacountResults, forDate) {
+  if (mediacountResults.length === 0 || forDate.getMonth() === 0) {
     return 0;
   }
   const sum = mediacountResults.reduce((sum, res) => {
-    if (!dateFns.isSameMonth(res.access_date.getTime(), thisMonth)) {
+    if (!dateFns.isSameMonth(res.access_date.getTime(), forDate)) {
       return sum + +res.accesses_sum;
     }
     return sum;
   }, 0);
-  return Math.round(sum / thisMonth.getMonth());
+  return Math.round(sum / forDate.getMonth());
 }
 
-async function getGlamMediaCountReport(glam) {
-  const yesterday = dateFns.sub(new Date(), { days: 1 });
-  const startOfYear = dateFns.startOfYear(yesterday);
+async function getGlamMediaCountReport(glam, forDate) {
+  const startOfYear = dateFns.startOfYear(forDate);
   const mediacountsQuery = `
     SELECT *
     FROM visualizations_sum
     WHERE access_date BETWEEN '${formatDateForPg(startOfYear)}'
-    AND '${formatDateForPg(yesterday)}'
+    AND '${formatDateForPg(forDate)}'
     ORDER BY access_date DESC
   `;
   const { rows: mediacountResults } = await glam.connection.query(mediacountsQuery);
   const report = {
-    yesterdayMediacount: extractYesterdayMediacounts(mediacountResults),
-    thisMonthMediacount: extractThisMonthMediacounts(mediacountResults),
-    thisYearMonthlyAvg: calcMonthlyAvg(mediacountResults)
+    yesterdayMediacount: extractYesterdayMediacounts(mediacountResults, forDate),
+    thisMonthMediacount: extractThisMonthMediacounts(mediacountResults, forDate),
+    thisYearMonthlyAvg: calcMonthlyAvg(mediacountResults, forDate)
   };
   return report;
 }
@@ -145,23 +143,26 @@ async function getProjectsCount(glam) {
 exports.getProjectsCount = getProjectsCount;
 
 const reportDataCache = {};
-async function getReportData(glam) {
-  const today = dateFns.format(new Date(), dbDateFormat);
+async function getReportData(glam, forDate = new Date()) {
+  if (dateFns.isToday(forDate)) {
+    forDate = dateFns.sub(forDate, { days: 1 });
+  }
+  const forDateString = dateFns.format(forDate, dbDateFormat);
   if (reportDataCache[glam.name]) {
-    const report = reportDataCache[glam.name][today];
+    const report = reportDataCache[glam.name][forDateString];
     if (report && Date.now() - report.reportCreatedDate < 1000 * 60) {
       return report;
     }
   }
   const data = {
-    ...(await getGlamMediaCountReport(glam)),
+    ...(await getGlamMediaCountReport(glam, forDate)),
     totalImgNum: await getGlamImgCount(glam),
     categoriesCount: await getGlamCategoryCount(glam),
     articlesCount: await getArticlesCount(glam),
     projectsCount: await getProjectsCount(glam),
     reportCreatedDate: Date.now()
   }
-  reportDataCache[glam.name] = { [today]: data };
+  reportDataCache[glam.name] = { [forDateString]: data };
   return data;
 }
 exports.getReportData = getReportData;

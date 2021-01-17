@@ -3,7 +3,7 @@
 	.container {
 		padding: 24px 32px;
 		display: grid;
-		grid-template-columns: repeat(6, minmax(0, 1fr));
+		grid-template-columns: repeat(6, 1fr);
 		row-gap: 32px;
 		column-gap: 24px;
 		margin-inline-start: var(--sidebar-width);
@@ -35,10 +35,22 @@
 		margin-top: 12px;
 	}
 
-	.glam-search {
-		grid-column: 1 / 7;
-		height: 34px;
+	.report-date-picker {
+		grid-column: 1 / 2;
 		display: flex;
+	}
+
+	.report-date-picker input {
+		border: none;
+		background: transparent;
+		font-size: 16px;
+	}
+
+	.glam-search {
+		height: 34px;
+		grid-column: 2 / 7;
+		display: flex;
+		flex-grow: 1;
 	}
 
 	.glam-search input {
@@ -193,6 +205,34 @@
 				{{> langSelect}}
 			</div>
 		</div>
+		<div class="report-date-picker">
+			<input type="date" name="date" id="reportDate">
+			<script>
+				function getYesterdayDateValue(dateVal = new Date()) {
+					let date = dateVal.getDate() - 1;
+					if (date < 10) {
+						date = '0' + date;
+					}
+					let month = dateVal.getMonth() + 1;
+					if (month < 10) {
+						month = '0' + month;
+					}
+					return `${dateVal.getFullYear()}-${month}-${date}`;
+				}
+				(() => {
+					const dateInput = document.getElementById('reportDate');
+					const url = new URL(window.location);
+					const todayVal = getYesterdayDateValue();
+					dateInput.value = url.searchParams.get('date') || todayVal;
+					dateInput.max = todayVal;
+					dateInput.addEventListener('change', (e) => {
+						url.searchParams.set('date', e.target.value);
+						history.pushState({}, '', url);
+						location.reload();
+					});
+				})()
+			</script>
+		</div>
 		<form class="glam-search" id="searchFileForm">
 			<button type="submit">
 				<img src="/assets/icons/icons-search.svg" />
@@ -201,7 +241,7 @@
 				placeholder="{{langDict.views.index.searchFile}}">
 		</form>
 		<div class="data-card">
-			<a href="{{glam.name}}/page-views" class="data-card-title">{{langDict.views.index.report.viewsYesterday}}</a>
+			<a href="{{glam.name}}/page-views" class="data-card-title">{{langDict.views.index.report.viewsDate}}</a>
 			<div class="data-card-number">{{toLocaleString data.yesterdayMediacount}}</div>
 		</div>
 		<div class="data-card">
@@ -213,7 +253,8 @@
 			<div class="data-card-number">{{toLocaleString data.thisYearMonthlyAvg}}</div>
 		</div>
 		<div class="data-card">
-			<a href="{{glam.name}}/category-network" class="data-card-title">{{langDict.views.index.report.relatedCategories}}</a>
+			<a href="{{glam.name}}/category-network"
+				class="data-card-title">{{langDict.views.index.report.relatedCategories}}</a>
 			<div class="data-card-number">{{toLocaleString data.categoriesCount}}</div>
 		</div>
 		<div class="data-card">

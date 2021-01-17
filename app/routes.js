@@ -2,12 +2,13 @@ const express = require('express');
 const request = require('request');
 const api = require('./api.js');
 const auth = require('http-auth');
-
+const dateFns = require('date-fns');
 const config = require('./config/config.js');
 const {
     getGlamByName,
     getAllGlams,
-    getReportData
+    getReportData,
+    dbDateFormat
 } = require('./lib/db.js');
 
 function isValidGlam(glam) {
@@ -136,7 +137,13 @@ module.exports = function (app) {
         const glams = await getAllGlams();
         const glam = glams.find(glam => glam.name === req.params.id);
         if (isValidGlam(glam)) {
-            const data = await getReportData(glam);
+            let forDate;
+            if (req.query.date) {
+                try {
+                    forDate = dateFns.parse(req.query.date, dbDateFormat, new Date());
+                } catch (e) { }
+            }
+            const data = await getReportData(glam, forDate);
             res.renderWithLocal('/pages/views/index.hbs', { glams, glam, data });
         } else {
             res.sendStatus(400);
