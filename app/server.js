@@ -11,7 +11,7 @@ const config = require('./config/config');
 const localesMap = [
     { lang: 'en', label: 'English' },
     { lang: 'he', label: 'עברית' },
-    { lang: 'sv', label: 'Swedish' },
+    { lang: 'sv', label: 'svenska' },
 ]
 const locales = localesMap.map(l => l.lang);
 const localesDir = __dirname + '/locales';
