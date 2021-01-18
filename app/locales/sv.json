@@ -1,15 +1,22 @@
 {
   "isRtl": false,
   "lang": "sv",
-  "title": "Cassandra - GLAM-statistik",
+  "title": "GLAM Wiki Dashboard — en statistikpanel",
   "index": {
     "title": "Ett statistik- och analysverktyg för kulturarvsorganisationer som samarbetar med Wikimediarörelsen."
   },
   "sidebar": {
-    "institutions": "ORGANISATIONER"
+    "institutions": "Organisationer",
+    "introduction": "Introduktion",
+    "joinUs": "Gå med",
+    "contactUs":  "Kontakta oss"
   },
   "description": "Beskrivning",
-  "help": "Hjälp",
+  "learnMore": "Om rapporten",
+  "viewGraph": "Visa graf",
+  "results": "Resultat",
+  "search": "Sök",
+  "searchInstitution": "Sök organisation",
   "downloadDataset": "Ladda ner dataset",
   "day": "Dag",
   "week": "Vecka",
@@ -17,18 +24,18 @@
   "quarter": "Kvartal",
   "year": "År",
   "selectView": "Välj vy",
-  "categoryInCommons": "KATEGORI I WIKIMEDIA COMMONS",
-  "position": "POSITION",
+  "categoryInCommons": "Kategori på Wikimedia Commons",
+  "position": "Position",
   "left": "Vänster",
   "right": "Höger",
   "top": "Högst upp",
   "bottom": "Längst ner",
   "cancel": "Avbryt",
   "confirm": "Bekräfta",
-  "loadMore": "LADDA MER",
+  "loadMore": "Ladda mer",
   "viewInCommons": "Se på Commons",
   "viewDetails": "Se detaljer",
-  "usage":  "användning",
+  "usage": "användning",
   "projects": "Projekt",
   "totalPagesEnhanced": "ANTAL FÖRBÄTTRADE SIDOR",
   "totalProjectsInvolved": "ANTAL WIKIMEDIATJÄNSTER",
@@ -44,16 +51,33 @@
   "file": "Fil",
   "dismiss": "AVFÄRDA",
   "lv": "lv",
+  "aboutPage": {
+    "title": "Välkommen till GLAM Wiki Dashboard — en statistikpanel",
+    "subtitle": "Ett verktyg för användningsanalys för GLAM-organisationer att följa fritt material tillgängliggjort på Wikimedias plattformar",
+    "body": "<p>GLAM Wiki Dashboard är ett projekt från Wikimedia Israel, med stöd och vägledning från Wikimedia Sverige, byggt på en infrastruktur av öppen källkod vilken ursprungligen utvecklats av Wikimedia CH. Den syftar till att hjälpa GLAM-organisationer (porträttgallerier, bibliotek, arkiv och museer) att följa användningen av det fria material de laddat upp till Wikimedias plattformar. Verktyget visualiserar statistisk data som reflekterar nivån av av synlighet och användning av dessa fria filer, utifrån flera aspekter och tidsperioder. Ackumulerad data, som presenteras i diverse diagram och grafer, låter organisationerna skaffa insikter, identifiera trender och preferenser, och få grepp på det generella inflytandet detta fria innehåll har på en publik av användare av Wikimediaprojekten världen över. Klicka på länken för att <a href=\"/join\">gå med i GLAM Wiki Dashboard.</a></p><p>Främja allmänhetens medvetenhet om vikten av fri kunskap och expansionen av den kulturella allmänningen är ett av Wikimediarörelsens större mål och en essentiell komponent av Wikimedia Israels uppdrag. För att nå detta mål söker vi att etablera meningsfulla samarbete med innehålls- och kunskapsorganisationer och uppmuntrar dessa att släppa material till den kulturella allmänningen och att ladda upp det på internet. GLAM Wiki Dashboard visualiserar nyttan av att släppa materialet för de deltagande organisationerna och allmänheten.</p><p><strong>Vi hoppas att detta verktyg kommer att öka medvetenheten av vikten om att tillgängliggöra objekt kulturarv och kultur på det globala nätverket och uppmuntrar fler GLAM-organisationer att öppna portarna till sin kunskap genom internet, gratis, till förmån för allmänheten och för att främja tillgången till kunskap, utbildning och fördomsfrihet.</strong></p>",
+    "thanks": "Vi tackar våra kollegor vid Wikimedia CH för deras insats med att utveckla Cassandra-plattformen — det ursprungliga öppen källkod<a href=\"http://stats.wikimedia.swiss/\" target=\"_blanc\">verktyget för GLAM statistik</a>, på vilket denna GLAM Wiki Dashboard är bygd."
+  },
+  "contactUs": {
+    "address": "Wikimedia Israel </br> Carlebach 7, P.O.B 51875 </br> Tel aviv, 6713211 Israel"
+  },
   "views": {
     "index": {
-      "institutions": "ORGANISATION",
+      "institutions": "Organisationer",
       "categoryTitle": "Kategori på Commons",
       "totalMedia": "Totalt antal mediefiler",
-      "view": "VISA",
-      "chart": "DIAGRAM",
+      "view": "Visa",
+      "chart": "Diagram",
+      "report": {
+        "viewsDate": "Visningar för datum",
+        "viewsThisMonth": "Visningar denna månad",
+        "monthlyAvgViews": "Visningar — månatligt snitt",
+        "relatedCategories": "Relaterade underkategorier",
+        "articleUsage": "Användning — antal artiklar",
+        "projectsUsage": "Användning — antal projekt"
+      },
       "cards": {
         "categoryNetwork": {
-          "title": "KATEGORINÄTVERK",
+          "title": "Kategorinätverk",
           "description": "<i>Kategorinätverk</i> är en <b>graf</b> som visar underkategoriers relation till varandra och till huvudkategorin. Varje nod representerar en kategori och linjer dem emellan relationerna.",
           "inPageDescription": "Den här grafen visar underkategoriernas relation till huvudkategorin.<br>Att ha endast en kategori eller nivå av kategorier gör det svårare för användare att hitta och använda mediefilerna. Flera och meningsfullt strukturerade kategorier gör detta enklare för användarna.<br>Grafen uppdateras en gång per dygn.<br><br><h5>Så förstår du grafen</h5>Varje nod motsvarar en kategori och linjerna relationerna dem emellan. Kategorier på samma nivå har samma färg. Nodernas storlek står i proportion till antalet filer som ingår i kategorin. <br><br><h5>Så funkar det</h5>I den högra panelen kan du sortera kategorierna per nivå eller antal ingående filer. Om du klickar på en kategoris namn markeras den motsvarande noden (och vice versa).<br>I den övre menyraden kan du välja att visa enbart filerna i en viss kategori<br><br><h5>Syfte</h5>Med hjälp av den här grafen kan du förstå om en organisations mediefiler är kategorindelade på ett bra sätt. Kategorier med ett stort antal ingående filer kan försvåra för användare att hitta filerna och därmed också använda dem, på Wikipedia eller andra webbplatser.<br>Mer om kategorier: <a href=\"https://commons.wikimedia.org/wiki/Commons:Categories\">https://commons.wikimedia.org/wiki/Commons:Categories</a>.",
           "byLevel": "sorterat per nivå",
@@ -62,7 +86,7 @@
           "categoryNetworkChart": "KATEGORINÄTVERK"
         },
         "userContribution": {
-          "title": "ANVÄNDARBIDRAG",
+          "title": "Användarbidrag",
           "description": "<i>Användarbidrag</i> är ett <b>stapeldiagram</b> som visar antalet uppladdningar över tid.",
           "inPageDescription": "Det här stapeldiagrammet visar antalet användarbidrag över tid.<br>Du kan ser om bidragen är jämnt utspridda över tid eller har tydliga toppar och dalar.<br>Diagrammet uppdateras en gång per dygn.<br><br><h5>Så förstår du diagrammet</h5>På den horisontella axeln visas tid, indelad i månader. På den vertikala axeln visas antalet filer som laddats upp i kategorin under en viss månad.<br><br><h5>Så använder du sidan</h5>I listan till höger kan du sortera användare efter deras namn eller antal bidrag. Om du klickar på ett användarnamn i panelen till höger markeras dennes bidrag i diagrammet.<br>I den övre menyraden kan du välja att visa enbart filerna i en viss kategori.<br><br><h5>Syfte</h5>Med hjälp av detta diagram kan du identifiera användare med ett intresse av filerna i en viss kategori.",
           "byName": "sorterat per nivå",
@@ -70,7 +94,7 @@
           "userContributionChart": "ANVÄNDARBIDRAG"
         },
         "usage": {
-          "title": "ANVÄNDNING",
+          "title": "Användning",
           "description": "Detta diagram visar mediefilernas <i>användning</i> i olika Wikimediatjänster.",
           "inPageDescription": "Den hör sidan visar hur mycket mediefilerna används i de olika Wikimediatjänsterna.<br>Varjer gång en fil ingår i en Wikipediaartikel eller i en annan Wikimediatjänst som Wikidata eller Wikisource räknas det som en användning av en fil. På den här sidan kan du också undersöka hur många av filerna från en organisation som används, i vilka av Wikimediatjänsterna samt hur många visningar de har.<br>Diagrammet uppdateras en gång per dygn.<br><br><h5>Så förstår du diagrammet</h5>Till vänster visas ett liggande stapeldiagram som visar (max tio) Wikimediatjänster som använder filerna. Till höger visas de använda filerna.<br><br><h5>Så använder du sidan</h5>I listan till höger kan du sortera filerna efter användning, Wikimediatjänst eller filnamn. Om du klickar på ett filnamn i listan markeras de Wikimediatjänster i vilken filen används i i stapeldiagrammet.<br>I den övre menyraden kan du välja att visa enbart filerna i en viss kategori.<br><br><h5>Syfte</h5>Med hjälp av denna rapport kan du se vilka Wikimediatjänster användargemenskaper har använt filerna mest och minst. Det kan ge dig ett underlag för att välja vilka användargemenskaper att rikta kommunikationsinsatser mot.",
           "byUsage": "nivå",
@@ -79,9 +103,9 @@
           "usageChart": "FILERNAS ANVÄNDNING"
         },
         "views": {
-          "title": "VISNINGAR",
-          "description": "<i>Visningar</i> är ett <b>linjediagram</b> som visar antalet visinigar av filerna i huvudkategorin de senaste 24 timmarna.",
-          "inPageDescription": "This line chart shows the sum of the views for the files thats belong to the main category with a 24h span.<br>Generally is quite visible the difference of visits between workdays and weekends. Sometimes some spikes could lead to a popular event. A growing trend is not always equals to a growing popularity of the category because of file additions.<br>This statistic is updated every day (max lag time 24h). The data collected here are taken from<a  href=\"https://dumps.wikimedia.org/other/mediacounts/daily/\">https://dumps.wikimedia.org/other/mediacounts/daily/</a>.A visit is recorded every time a device download a specific file from Wikimedia server. So it counts both actual visits, both visits on pages where the file is present (but only if loaded on the device). Actually this is the most precise statistic released by Wikimedia servers.<br><br><h5>Så förstår du diagrammet</h5>On the horizontal axis we have time, with one day precision. On the vertical axis the total views performed by all files in the category. This axis has logarithmic scale.<br><br><h5>How to use it</h5>On the right menu you can order files by views, by median or by name.<br>On the top bar you can also drill-down to a chosen subdirectory or select your preferred time dimension.",
+          "title": "Visningar",
+          "description": "<i>Visningar</i> är ett <b>linjediagram</b> som visar antalet visinigar av filerna i huvudkategorin under en period av 24 timmar.",
+          "inPageDescription": "Detta linjediagram visar summan av visningarna för de filer som ingår i huvudkategorin under en period av 24 timmar.<br>Generellt är skillnaden mellan besök under arbetsdagar och helgerna väldigt synlig. Ibland kan en spik i diagrammet vara kopplat till ett populärt event. På grund av att fler filer kan ha lagts till är en stigande trend inte alltid kopplad till att kategorin blivit mer populär.<br>Denna statistik uppdateras varje dag (släpar max 24 timmar). Det data som samlats här hämtas från <a href=\"https://dumps.wikimedia.org/other/mediacounts/daily/\">https://dumps.wikimedia.org/other/mediacounts/daily/</a>. Ett besök registreras varje gång en enhet laddar ner en specifik fil från en Wikimedias server. Därmed räknas både faktiska besök, samt besök på sidor där filen visas (men bara om den laddas av enheten). Detta är den mest precisa statistik som tillgängliggörs av Wikimedias servrar.<br><br><h5>Så förstår du diagrammet</h5>På den horisontella axeln har vi tid, med en precision av en dag. PÅ den vertikala axeln det totala antalet visningar av alla filer i kategorin. Denna axel har en logaritmisk skala.<br><br><h5>Så använder du diagrammet</h5>På den högra menyn kan du ordna filer efter visningar, medianvärde eller namn.<br>I det övre fältet kan du även fördjupa dig en en vald underkategori eller välja din föredragna tidsperiod.",
           "viewsChart": "VISNINGAR",
           "byViews": "antal visningar",
           "byMedian": "median",
@@ -90,9 +114,9 @@
           "addNewAnnotation": "LÄGG TILL ANTECKNING"
         },
         "suggestions": {
-          "title": "FÖRSLAG",
+          "title": "Förslag",
           "description": "Denna sida visar oanvända filer med förslag på sidor på wikidata och Wikipedia där de kanske passar att lägga till.",
-          "inPageDescription": "This page shows some unused files belonging to the selected category with links to Wikidata and Wikipedia pages where they can be possibly used. <br><br> <h5>Recommendation approaches</h5> This tool follows two recommendation approaches. The first one is based on the Commons categories of the target file. Wikipedia articles connected on Wikidata with the categories of the target file are selected with the highest confidence. The second approach is based on the description of the file on Commons. Additional Wikipedia articles connected with the Wikidata entities having a textual description similar to the one of the target file are also selected. <br><br> <h5>Så förstår du sidan</h5> In the column Wikidata suggestion there are the links to Wikidata pages where you can use the selected image. <br> In the Wikipedia pages column there are the links to the Wikipedia pages corresponding to the Wikidata entity on the same row, divided by language.",
+          "inPageDescription": "Denna sida visar några oanvända filer som ingår i den valda kategorin med länkar till Wikidata- och Wikipediasidor där de möjligen kan användas.<br><br><h5>Metoder för förslag</h5> Detta verktyg följer två metoder för att ta fram förslag. Den första utgår från Wikimedia Commons-kategorierna för filen. Wikipediaartiklar som genom Wikidata kopplats till filens kategorier väljs ut med högst konfidens. Den andra metoden är baserad på filbeskrivningen på Wikimedia Commons. Ytterligare Wikipediaartiklar kopplade till Wikidataobjekt som har en textbeskrivning liknande den för filen väljs också ut.<br><br><h5>Så förstår du sidan</h5> I kolumnen Wikidataförslag finns länkar till Wikidataobjekt där du kan använda de utvalda bilderna.<br>I kolumnen Wikipediasidor finns länkar till de Wikipediasidor som motsvarar Wikidataobjekten på samma rad, uppdelade per språk.",
           "unusedFilesSuggestions": "FÖRSLAG TILL OANVÄNDA FILER",
           "wikidataSuggestion": "Wikidataförslag",
           "wikidataPage": "Wikidataobjekt",
@@ -103,8 +127,8 @@
     },
     "fileView": {
       "title": "Filöversikt",
-      "usage": "ANVÄNDNING",
-      "views": "VISNINGAR",
+      "usage": "Användningar",
+      "views": "Visningar",
       "fileDetails": "Fildetaljer",
       "partOf": "DEL AV",
       "usedIn": "ANVÄND I",
