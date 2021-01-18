@@ -1,4 +1,4 @@
-CREATE table IF NOT EXISTS categories (p
+CREATE table IF NOT EXISTS categories (
   age_title varchar(255) primary key, 
   cat_subcats int, 
   cat_files int, 
