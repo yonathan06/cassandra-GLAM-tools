@@ -124,7 +124,7 @@ exports.getGlamMediaCountReport = getGlamMediaCountReport;
 async function getGlamCategoryCount(glam) {
   const { rows: [result] } =
     await glam.connection.query('SELECT COUNT(*) AS count FROM categories');
-  return +result.count - 1;
+  return Math.max(+result.count - 1, 0);
 }
 exports.getGlamCategoryCount = getGlamCategoryCount;
 
