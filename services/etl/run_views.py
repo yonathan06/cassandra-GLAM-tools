@@ -79,7 +79,7 @@ def process_glams_mediacounts():
                     glams_with_missing_date, date_value)
 
 
-def process_glams_mediacounts_for_date(date_value: date, mediacount_filepath: str):
+def process_glams_mediacounts_for_date(date_value: date):
     glams = get_running_glams()
     for glam in glams:
         glams_with_missing_date = []

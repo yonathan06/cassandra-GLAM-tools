@@ -4,10 +4,10 @@ from datetime import date, datetime, timedelta
 from etl.views import process_mediacounts
 
 
-def process_glam_views(glam, date_val):
+def process_glam_views(glam, date_val, remove_file_after_process):
     today = date.today()
     while date_val < today:
-        process_mediacounts([glam], date_val, remove_file_after_process=False)
+        process_mediacounts([glam], date_val, remove_file_after_process=remove_file_after_process)
         date_val = date_val + timedelta(days=1)
 
 

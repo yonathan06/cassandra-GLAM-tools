@@ -12,7 +12,7 @@ def process_new_glam_views(glam_name):
     glam = get_glam_by_name(glam_name)
     date_val = datetime.strptime(
         config['mediacountStartDate'], "%Y-%m-%d").date()
-    process_glam_views(glam, date_val)
+    process_glam_views(glam, date_val, True)
 
 
 def initialize_new_glam(glam_name):
