@@ -9,6 +9,7 @@ function generateAppGlamFromDb(element) {
     fullname: element.fullname,
     category: element.category,
     image: element.image,
+    website: element.website,
     connection: new Pool({
       ...config.postgres,
       database: element.database

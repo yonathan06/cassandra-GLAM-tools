@@ -8,11 +8,8 @@
 	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
 	<link rel="stylesheet"
 		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
-	<link rel="stylesheet"
-		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.css" />
+
 	<link rel="stylesheet" href="/assets/style/style.css" />
-	<link rel="stylesheet" href="/assets/style/homepage.css" />
-	<link href="https://tools-static.wmflabs.org/fontcdn/css?family=Raleway" rel="stylesheet">
 	<script>
 		langDict = {{ json langDict }}
 	</script>
@@ -22,18 +19,11 @@
 </head>
 
 <body>
-	<!-- Mobile sidebar -->
-	<div id="mobile-sidebar" class="ui left sidebar"></div>
 	<div class="pusher">
-		<!-- Sidebar -->
-		<aside id="main-sidebar"></aside>
-		<aside id="secondary-sidebar"></aside>
-		<!-- MAIN -->
-		<!-- Title -->
 		<section id="admin-cover" class="cover">
 			<div class="row">
 				<div class="col-12">
-					<h2>Create a new GLAM stats monitor</h2>
+					<h2>Create a new GLAM</h2>
 				</div>
 			</div>
 		</section>
@@ -79,26 +69,58 @@
 								<input type="text" class="form-control" id="featuredImageURL" placeholder="URL" required
 									autocomplete="off" />
 							</div>
-							<!-- <div class="form-group">
-							<label for="glamPassword">Password (leave blank for public GLAMs)</label>
-							<input type="password" class="form-control" id="glamPassword" placeholder="Password" autocomplete="new-password" />
-						</div> -->
-							<button id="create-new-glam-button" class="btn btn-primary">CREATE</button>
+							<div class="form-group">
+								<label for="websiteURL">Website URL</label>
+								<input type="text" class="form-control" id="websiteURL" name="website" placeholder="URL" required />
+							</div>
+							<button type="submit" class="btn btn-primary">CREATE</button>
 						</form>
 					</div>
 				</div>
 			</section>
 		</main>
 	</div>
-	<!-- SCRIPTS -->
-	<script type="text/javascript"
-		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script type="text/javascript"
-		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript"
-		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.js"></script>
-	<script type="text/javascript" src="/js/loader.js"></script>
-	<script type="text/javascript" src="/js/new-glam-panel.js"></script>
+	<script>
+		(() => {
+			const form = document.getElementById('new-glam-form');
+			const idInput = document.getElementById('glamID');
+			const fullnameInput = document.getElementById('glamFullName');
+			const categoryInput = document.getElementById('glamCategory');
+			const imageInput = document.getElementById('featuredImageURL');
+			const websiteInput = document.getElementById('websiteURL');
+
+			const successMessage = document.getElementById('success-glam');
+			const errorMessage = document.getElementById('wrong-glam');
+
+			async function createGlam(data) {
+				errorMessage.style.display = 'none';
+				const response = await fetch(`/api/admin/glams`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(data)
+				});
+				if (response.ok) {
+					form.style.display = 'none';
+					successMessage.style.display = 'block';
+				} else {
+					errorMessage.style.display = 'block';
+				}
+			}
+
+			form.addEventListener('submit', event => {
+				event.preventDefault();
+				createGlam({
+					name: idInput.value,
+					fullname: fullnameInput.value,
+					category: categoryInput.value,
+					image: imageInput.value,
+					website: websiteInput.value,
+				});
+			})
+		})();
+	</script>
 </body>
 
 </html>

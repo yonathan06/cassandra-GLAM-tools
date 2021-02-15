@@ -36,6 +36,7 @@ async function loadGlams() {
       fullname: element.fullname,
       category: element.category,
       image: element.image,
+      website: element.website,
       connection: new Pool({
         ...config.postgres,
         database: element.database
@@ -66,23 +67,22 @@ async function loadGlams() {
 }
 
 async function insertGlam(glam) {
-  const { name, fullname, category, image, database } = glam;
-  const query = SQL`INSERT INTO glams (name, fullname, category, image, database, status) 
-                    VALUES (${name}, ${fullname}, ${category}, ${image}, ${database}, 'pending')`;
+  const { name, fullname, category, image, database, website } = glam;
+  const query = SQL`INSERT INTO glams (name, fullname, category, image, database, status, website) 
+                    VALUES (${name}, ${fullname}, ${category}, ${image}, ${database}, 'pending', ${website || null})`;
   await cassandraPgPool.query(query)
   await sendNewGlamMessage({ name, fullname, category, image, database });
   console.log(`Created new GLAM "${name}"`);
 }
 
 function updateGlam(glam) {
-  const { name, fullname, category, image, status } = glam;
-  const query = `
+  const { name, fullname, image, website } = glam;
+  const query = SQL`
     UPDATE glams 
     SET fullname = ${fullname}, 
-        category = ${category},  
         image = ${image}, 
-        status = ${status},
-        updated_at = NOW()
+        website = ${website}, 
+        updated_at = NOW() 
     WHERE name = ${name} 
   `;
   return cassandraPgPool.query(query);

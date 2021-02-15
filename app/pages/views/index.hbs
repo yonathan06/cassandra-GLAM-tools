@@ -25,6 +25,7 @@
 		font-size: 17px;
 		display: flex;
 		align-items: center;
+		margin-bottom: 8px;
 	}
 
 	.glam-category a {
@@ -200,6 +201,11 @@
 				<div class="glam-category"><span>{{langDict.views.index.categoryTitle}}</span> <a
 						href="https://commons.wikimedia.org/wiki/Category:{{glam.category}}" target="_blank">{{glam.category}}</a>
 				</div>
+				{{#if glam.website}}
+				<div class="glam-website"><a href="{{glam.website}}"
+						target="_blank">{{langDict.views.index.officialWebsite}}</a>
+				</div>
+				{{/if}}
 			</div>
 			<div class="lang-select-container">
 				{{> langSelect}}

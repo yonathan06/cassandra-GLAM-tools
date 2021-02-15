@@ -75,14 +75,11 @@ var createGlam = async function (req, res, config) {
 
     glam['image'] = image;
 
-    // // Password is optional
-    // let password = req.body['password'];
-    // if (password !== undefined && password !== '') {
-    //     glam['http-auth'] = {
-    //         'username': glam['database'],
-    //         'password': password
-    //     };
-    // }
+    const website = req.body.website;
+    if (website && website.startsWith('http')) {
+        glam.website = website;
+    }
+
     try {
         const existingGlam = await getGlamByName(name);
         if (existingGlam) {
@@ -97,50 +94,27 @@ var createGlam = async function (req, res, config) {
     }
 }
 
-var updateGlam = function (req, res, config) {
+var updateGlam = async function (req, res, config) {
     let glam = { 'name': req.params.id };
 
-    let fullname = req.body['fullname'];
-    if (fullname !== undefined && fullname !== '') {
-        glam['fullname'] = fullname;
+    if (req.body.fullname) {
+        glam.fullname = req.body.fullname;
     }
 
-    let category = req.body['category'];
-    if (category !== undefined && category !== '') {
-        category = category.replace('Category:', '');
-        category = category.replace(/_/g, ' ');
-        glam['category'] = category;
+    if (req.body.image && req.body.image.startsWith('http')) {
+        glam.image = req.body.image;
     }
 
-    let image = req.body['image'];
-    if (image !== undefined && image !== '' && !image.includes(' ') && image.startsWith('http')) {
-        glam['image'] = image;
+    if (req.body.website) {
+        glam.website = req.body.website;
     }
-
-    // Password is optional
-    let password = req.body['password'];
-    if (password !== undefined) {
-        if (password === '') {
-            // Remove password
-            glam['http-auth'] = undefined;
-        } else {
-            glam['http-auth'] = {
-                'username': glam['name'].toLowerCase(),
-                'password': password
-            };
-        }
+    try {
+        await config.updateGlam(glam);
+        res.sendStatus(200);
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(500);
     }
-
-    // Paused is optional
-    let paused = req.body['paused'];
-    if (paused === true) {
-        glam['status'] = 'paused';
-    } else if (paused === false) {
-        glam['status'] = 'pending';
-    }
-
-    config.updateGlam(glam);
-    res.sendStatus(200);
 };
 
 var getGlam = function (req, res, next, glam) {

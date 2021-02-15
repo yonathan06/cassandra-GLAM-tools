@@ -8,10 +8,7 @@
 	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
 	<link rel="stylesheet"
 		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
-	<link rel="stylesheet"
-		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.css" />
 	<link rel="stylesheet" href="/assets/style/style.css" />
-	<link rel="stylesheet" href="/assets/style/homepage.css" />
 	<script>
 		langDict = {{ json langDict }}
 	</script>
@@ -21,85 +18,107 @@
 </head>
 
 <body>
-	<!-- Mobile sidebar -->
-	<div id="mobile-sidebar" class="ui left sidebar"></div>
-	<div class="pusher">
-		<!-- Sidebar -->
-		<aside id="main-sidebar"></aside>
-		<aside id="secondary-sidebar"></aside>
-		<!-- Main -->
-		<!-- Title -->
-		<section id="admin-cover" class="cover">
+	<section id="admin-cover" class="cover">
+		<div class="row">
+			<div class="col-12">
+				<h2>Create a new GLAM</h2>
+			</div>
+		</div>
+	</section>
+	<main id="main-container">
+		<section>
 			<div class="row">
-				<div class="col-12">
-					<h2>Edit GLAM stats monitor</h2>
+				<div class="col-12 col-xl-9 my-xl-5">
+					<div id="wrong-glam" class="error-message mb-4" style="display:none;">
+						<h3>OOPS! Something went wrong. Check the following things:</h3>
+						<ul>
+							<li><b>GLAM ID</b> must be unique (there cannot be another GLAM with the same ID)</li>
+							<li><b>GLAM ID</b> cannot include spaces</li>
+							<li><b>Image URL</b> must be a valid URL (starts with <i>http://</i> or <i>https://</i>)</li>
+						</ul>
+					</div>
+					<div id="success-glam" class="mb-4" style="display:none;">
+						<div class="success-message mb-5">
+							<h3>Glam edited correctly</h3>
+						</div>
+						<div class="text-center">
+							<a href="/admin/panel">VIEW COMPLETE LIST</a>
+						</div>
+					</div>
+					<form id="edit-glam-form" name="new-glam" autocomplete="off">
+						<div class="form-group">
+							<label for="glamID">Unique GLAM ID</label>
+							<input type="text" class="form-control" id="glamID" aria-describedby="emailHelp"
+								placeholder="e.g. ZU, ETH or SNL" disabled required />
+						</div>
+						<div class="form-group">
+							<label for="glamFullName">Full Name*</label>
+							<input type="text" class="form-control" id="glamFullName" name="fullname"
+								placeholder="e.g. Canton of Zürich, ETH Library of Zurich or Swiss National Library" required />
+						</div>
+						<div class="form-group">
+							<label for="featuredImageURL">Featured image URL*</label>
+							<input type="text" class="form-control" id="featuredImageURL" name="image" placeholder="URL" required />
+						</div>
+						<div class="form-group">
+							<label for="websiteURL">Website URL</label>
+							<input type="text" class="form-control" id="websiteURL" name="website" placeholder="URL" required />
+						</div>
+						<div class="form-group d-flex">
+							<button id="edit-glam-button" class="btn btn-primary mr-auto">SUBMIT</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</section>
-		<!-- Content -->
-		<main id="main-container">
-			<section>
-				<div class="row">
-					<div class="col-12 col-xl-9 my-xl-5">
-						<div id="wrong-glam" class="error-message mb-4" style="display:none;">
-							<h3>OOPS! Something went wrong. Check the following things:</h3>
-							<ul>
-								<li><b>GLAM ID</b> must be unique (there cannot be another GLAM with the same ID)</li>
-								<li><b>GLAM ID</b> cannot include spaces</li>
-								<li><b>Image URL</b> must be a valid URL (starts with <i>http://</i> or <i>https://</i>)</li>
-							</ul>
-						</div>
-						<div id="success-glam" class="mb-4" style="display:none;">
-							<div class="success-message mb-5">
-								<h3>Glam edited correctly</h3>
-							</div>
-							<div class="text-center">
-								<a href="/admin/panel">VIEW COMPLETE LIST</a>
-							</div>
-						</div>
-						<form id="edit-glam-form" name="new-glam" autocomplete="off">
-							<div class="form-group">
-								<label for="glamID">Unique GLAM ID*</label>
-								<input type="text" class="form-control" id="glamID" aria-describedby="emailHelp"
-									placeholder="e.g. ZU, ETH or SNL" disabled required />
-							</div>
-							<div class="form-group">
-								<label for="glamFullName">Full Name*</label>
-								<input type="text" class="form-control" id="glamFullName"
-									placeholder="e.g. Canton of Zürich, ETH Library of Zurich or Swiss National Library" required />
-							</div>
-							<div class="form-group">
-								<label for="glamCategory">Category*</label>
-								<input type="text" class="form-control" id="glamCategory"
-									placeholder="e.g. Historical images of buildings in the canton of Zürich" required />
-							</div>
-							<div class="form-group">
-								<label for="featuredImageURL">Featured image URL*</label>
-								<input type="text" class="form-control" id="featuredImageURL" placeholder="URL" required />
-							</div>
-							<div class="form-group" id="password-field">
-								<label for="glamPassword">New password (leave blank for public GLAMs)</label>
-								<input type="password" class="form-control" id="glamPassword" placeholder="Password"
-									autocomplete="new-password">
-							</div>
-							<div class="form-group d-flex">
-								<button id="edit-glam-button" class="btn btn-primary mr-auto">SUBMIT</button>
-								<button id="edit-password-button" class="btn btn-danger ml-auto">EDIT PASSWORD</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</section>
-		</main>
-	</div>
-	<script type="text/javascript"
-		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script type="text/javascript"
-		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript"
-		src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.js"></script>
-	<script type="text/javascript" src="/js/loader.js"></script>
-	<script type="text/javascript" src="/js/edit-glam-panel.js"></script>
+	</main>
+	<script>
+		(() => {
+			const id = window.location.href.toString().split('/')[5];
+			const updateForm = document.querySelector('#edit-glam-form');
+			const fullNameInput = updateForm.querySelector('input[name=fullname]');
+			const imageInput = updateForm.querySelector('input[name=image]');
+			const websiteInput = updateForm.querySelector('input[name=website]');
+
+			const successMessage = document.getElementById('success-glam');
+			const errorMessage = document.getElementById('wrong-glam');
+
+			async function loadGlam() {
+				const response = await fetch('/api/admin/glams/' + id);
+				const data = await response.json();
+				fullNameInput.value = data.fullname;
+				imageInput.value = data.image;
+				websiteInput.value = data.website || '';
+			}
+			async function updateGlam(updateParams) {
+				errorMessage.style.display = 'none';
+				const response = await fetch(`/api/admin/glams/${id}`, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(updateParams),
+				});
+				if (response.ok) {
+					updateForm.style.display = 'none'
+					successMessage.style.display = 'block';
+				} else {
+					errorMessage.style.display = 'block';
+				}
+			}
+
+			updateForm.addEventListener('submit', event => {
+				event.preventDefault();
+				updateGlam({
+					id,
+					fullname: fullNameInput.value,
+					image: imageInput.value,
+					website: websiteInput.value,
+				});
+			});
+			loadGlam();
+		})();
+	</script>
 </body>
 
 </html>

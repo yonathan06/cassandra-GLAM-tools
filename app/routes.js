@@ -260,7 +260,7 @@ module.exports = function (app) {
 
     app.put('/api/admin/glams/:id', async function (req, res) {
         let glam = await getGlamByName(req.params.id);
-        if (glam !== undefined) {
+        if (glam) {
             api.updateGlam(req, res, config);
         } else {
             res.sendStatus(404);

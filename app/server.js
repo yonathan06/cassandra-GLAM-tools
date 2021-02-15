@@ -12,7 +12,8 @@ const localesMap = [
     { lang: 'en', label: 'English' },
     { lang: 'he', label: 'עברית' },
     { lang: 'sv', label: 'svenska' },
-]
+];
+const defaultLang = 'en';
 const locales = localesMap.map(l => l.lang);
 const localesDir = __dirname + '/locales';
 const localesDicts = locales.reduce((map, locale) => {
@@ -44,13 +45,18 @@ app.use(cookieParser())
 app.use(i18n.init)
 app.use((req, res, next) => {
     if (!req.cookies.lang) {
-        req.cookies.lang = 'en';
+        req.cookies.lang = defaultLang;
     }
     req.localesDicts = localesDicts;
+
     res.renderWithLocal = function (relativeFilePath, additionalData) {
+        const langDict = { ...req.localesDicts[defaultLang], ...req.localesDicts[req.cookies.lang], };
         res.render(
             __dirname + relativeFilePath,
-            { langDict: req.localesDicts[req.cookies.lang], localesMap, ...additionalData }
+            {
+                langDict,
+                localesMap, ...additionalData
+            }
         );
     }
     next();
