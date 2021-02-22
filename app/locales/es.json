@@ -1,7 +1,7 @@
 {
   "isRtl": false,
   "lang": "es",
-  "title": "Panel de Control GLAMWiki",
+  "title": "GLAM Wiki Dashboard",
   "index": {
     "title": "Support GLAMs (Galerias, Bibliotecas, Archivos y Museos) monitoreando y evaluando su cooperación con los proyectos Wikimedia"
   },
@@ -12,7 +12,7 @@
     "contactUs": "Contáctanos"
   },
   "description": "Descripción",
-  "learnMore": "Learn More",
+  "learnMore": "Aprende más",
   "viewGraph": "Ver gráfico",
   "results": "resultados",
   "search": "Buscar",
@@ -39,11 +39,11 @@
   "projects": "proyectos",
   "totalPagesEnhanced": "TOTAL DE PÁGINAS MEJORADAS",
   "totalProjectsInvolved": "Total de proyectos involucrados",
-  "distinctMediaUsed": "Distinct media used",
+  "distinctMediaUsed": "Diferentes medios utilizados",
   "pages": "páginas",
   "total": "total",
   "avgday": "prom/día",
-  "median": "media",
+  "median": "medios",
   "drilldown": "profundizar",
   "viewFiles": "ver archivos",
   "level": "nivel",
@@ -52,10 +52,10 @@
   "dismiss": "DESCARTAR",
   "lv": "lv",
   "aboutPage": {
-    "title": "Bienvenido al panel de control GLAMWiki",
-    "subtitle": "Una herramienta de análisis de uso para queinstituciones GLAM puedan dar seguimiento al contenido libre con el que contribuyeron en proyectos de Wikimedia",
-    "body": "<p>The GLAM Wiki dashboard is a project of Wikimedia Israel, with support and advice from Wikimedia Sverige, built upon open-source infrastructure originally developed by Wikimedia CH. It is meant to help GLAM institutes (galleries, libraries, archives and museums) follow the usage of their free-content files uploaded to Wikimedia projects. The dashboard visualizes statistical data that reflects the level of exposure and usage of these public-domain files, based on several selected indices and various time frames. The accumulating data, which is presented in various diagrams and graphs, allow the institutes to gain insights, identify trends and preferences, and realize the general influence of these free contents on the public of Wikimedia-project users around the world. Click on this link to <a href=\"/join\">join the GLAM Wiki dashboard.</a></p><p>Promoting public awareness to the importance of free knowledge and the expansion of the public domain is a major goal of the global Wikimedia movement and an essential component of Wikimedia Israel’s mission. To achieve this goal, we seek to establish meaningful cooperations with content and knowledge institutes and encourage the release of contents to the public domain and their upload to the Internet. The GLAM Wiki dashboard visualizes the benefit of this release to the contributing institutes and the general public.</p><p><strong>We hope this dashboard will increase awareness of the importance of placing items of human heritage and culture on the global network and encourage more GLAM institutes to open their gates of knowledge through the Internet, free of charge, for the benefit of the general public and in order to promote access to knowledge, education, and open-mindedness.</strong></p>",
-    "thanks": "We thank our colleagues in Wikimedia CH for their efforts in developing the Cassandra platform — the original open-source <a href=\"http://stats.wikimedia.swiss/\" target=\"_blanc\">GLAM Statistical Tool</a>, upon which this GLAM Wiki Dashboard is built."
+    "title": "Bienvenido al GLAM Wiki Dashboard",
+    "subtitle": "Una herramienta de análisis de uso para que instituciones GLAM puedan dar seguimiento al contenido libre con el que contribuyeron en proyectos de Wikimedia",
+    "body": "<p>El GLAM Wiki Dashboard es un proyecto de Wikimedia Israel, con el soporte y asesoramiento de Wikimedia Suecia, construido sobre infraestructura de código abierto, originalmente desarrollada por Wikimedia Suiza. Su función es ayudar a las instituciones GLAM (galerias, bibliotecas, archivos and museos) puedan dar seguimiento al contenido libre con el que contribuyeron en proyectos de Wikimedia. El panel de control muestra datos estadísticos que refleja el nivel de uso y exposición delos archivos en dominio público,en base a varios índices seleccionados y marcos temporales. Los datos acumulados, que se presentan en varios diagramas y gráficos, permite a las instituciones ver con otras perspectivas, identificar tendencias y preferencias, y ver la influencia en general en el público de los proyectos Wikimedia alrededor del mundo. Clickea este enlace para <a href=\"/ingresar\">ingresar al panel de control GLAM Wiki.</a></p><p>Promoting public awareness to the importance of free knowledge and the expansion of the public domain is a major goal of the global Wikimedia movement and an essential component of Wikimedia Israel’s mission. To achieve this goal, we seek to establish meaningful cooperations with content and knowledge institutes and encourage the release of contents to the public domain and their upload to the Internet. The GLAM Wiki dashboard visualizes the benefit of this release to the contributing institutes and the general public.</p><p><strong>We hope this dashboard will increase awareness of the importance of placing items of human heritage and culture on the global network and encourage more GLAM institutes to open their gates of knowledge through the Internet, free of charge, for the benefit of the general public and in order to promote access to knowledge, education, and open-mindedness.</strong></p>",
+    "thanks": "Agradecemos a nuestros colegas de Wikimedia Suiza por su trabajo desarrollando la plataforma Cassandra — el código fuente original <a href=\"http://stats.wikimedia.swiss/\" target=\"_blanc\">GLAM Statistical Tool</a>, sobre el que  GLAM Wiki Dashboard está construido."
   },
   "contactUs": {
     "address": "Wikimedia Israel </br> Carlebach 7, P.O.B 51875 </br> Tel aviv, 6713211 Israel"
@@ -78,71 +78,71 @@
       },
       "cards": {
         "categoryNetwork": {
-          "title": "Category Network",
-          "description": "<i>Category network</i> is a <b>GRAPH CHART</b> that shows the subcategories' topology\nbelonging to the main category. Each node represents a\ncategory, while the edges are the relations.",
+          "title": "Red de categorías",
+          "description": "<i>Red de categorías</i> es un <b>TABLA GRÁFICA</b> that shows the subcategories' topology\nbelonging to the main category. Each node represents a\ncategory, while the edges are the relations.",
           "inPageDescription": "This graph chart shows the subcategories' topology belonging to the main category.<br>Having just one category (or level) is a bad practice on Wikimedia Commons because makes difficult to the community to find and use files. Instead a multilevel and articulated categorization permits better reuse of the uploaded media.<br>This statistic is updated every day (max lag time 24h) and represents the actual scenario.<br><br><h5>How to read it</h5>Each node represents a category, while the edges are the relations. Categories at the same level share the color.The bubble size is proportional to the amount of files within every category.<br><br><h5>How to use it</h5>On the right menu you can order categories by level or by number of files. If you click into a category name the correspondent node will highlight (and vice versa).<br>On the top bar you can also drill-down to a chosen subdirectory.<br><br><h5>Use case</h5>With this graph you can understand if the media files of your interest are divided in a useful way. Probablya category with more then one hundred files needs to be splitted in two or more subcategories. In fact, the better a media is categorized on Wikimedia Commons, the more is probable to be viewed or used inside a Wikipedia page.<br>More info available on: <a href=\"https://commons.wikimedia.org/wiki/Commons:Categories\">https://commons.wikimedia.org/wiki/Commons:Categories</a>.",
-          "byLevel": "by level",
-          "byTotal": "by total",
+          "byLevel": "por nivel",
+          "byTotal": "por total",
           "unusedMediaOnly": "UNUSED MEDIA ONLY",
           "categoryNetworkChart": "CATEGORY NETWORK CHART"
         },
         "userContribution": {
-          "title": "User Contribution",
+          "title": "Contribuciones de usuarios",
           "description": "<i>Users contribution</i> is a <b>BAR CHART</b> that\nshows the number of uploads during time. Here you can\nstudy if the contribution pattern is well\ndistributed or if it's composed by spikes.",
           "inPageDescription": "This bar chart shows the number of user contributions during time.<br>Here you can study if the contribution pattern is well distributed or if it's composed by spikes.<br>This statistic is updated every day (max lag time 24h).<br><br><h5>How to read it</h5>On the horizontal axis we have time, with one month precision. On the vertical axis the total uploaded files in the category during a month.<br><br><h5>How to use it</h5>On the right menu you can order users by name or by number of contributions. If you click into a user name the correspondent graph of contributions will show up.<br>On the top bar you can also drill-down to a chosen subdirectory.<br><br><h5>Use case</h5>Here you can find the community around this category!",
-          "byName": "by name",
-          "byTotal": "by total",
+          "byName": "por nombre",
+          "byTotal": "por totales",
           "userContributionChart": "USERS CONTRIBUTION CHART"
         },
         "usage": {
-          "title": "Usage",
-          "description": "This chart shows the <i>usage</i> of the media of the\nmain category in Wikimedia projects.",
+          "title": "Uso",
+          "description": "Esta tabla muestra el <i>uso</i> of the media of the\nmain category in Wikimedia projects.",
           "inPageDescription": "This section show the usage of the media of the main category in Wikimedia projects.<br>Every time a media is used in a Wikipedia article in any language or in any other sister projects likeWikidata, Wiki source, etc. it counts 1 here. In this page you can investigate about how many files are really used, in which projects and which are the most popular ones.<br>This statistic is updated every day (max lag time 24h) and represents the actual scenario.<br><br><h5>How to read it</h5>On the left a bar chart show the top ten projects that are currently using these files. On the right instead each file is detailed with a link to each page in which is used.<br><br><h5>How to use it</h5>On the right menu you can order files by usage or by number of distinct projects or by name.If you click into a file name the correspondent detail will scroll up.<br>On the top bar you can also drill-down to a chosen subdirectory or select your preferred time dimension.<br><br><h5>Use case</h5>At first glance you can understand which linguistic community has used the major part of this files and,maybe, better knows this collection. Moreover you can try to spread some useful files also in other versions of Wikipedia where, today, the usage is smaller.",
-          "byUsage": "by usage",
-          "byProjects": "by projects",
-          "byName": "by name",
-          "usageChart": "USAGE CHART"
+          "byUsage": "por uso",
+          "byProjects": "por proyectos",
+          "byName": "por nombre",
+          "usageChart": "TABLA DE USO"
         },
         "views": {
-          "title": "Views",
-          "description": "<i>Views</i> is a <b>LINE CHART</b> that\nshows the sum of the views for the files thats belong\nto the main category with a 24h span.",
+          "title": "Visuzaliciones",
+          "description": "<i>Visualizaciones</i> is a <b>LINE CHART</b> that\nshows the sum of the views for the files thats belong\nto the main category with a 24h span.",
           "inPageDescription": "This line chart shows the sum of the views for the files thats belong to the main category with a 24h span.<br>Generally the difference of visits between workdays and weekends is quite visible. Sometimes some spikes could lead to a popular event. A growing trend is not always equals to a growing popularity of the category because of file additions.<br>This statistic is updated every day (max lag time 24h). The data collected here are taken from<a href=\"https://dumps.wikimedia.org/other/mediacounts/daily/\">https://dumps.wikimedia.org/other/mediacounts/daily/</a>. A visit is recorded every time a device download a specific file from a Wikimedia server. So it counts both actual visits, and visits on pages where the file is present (but only if loaded on the device). Actually this is the most precise statistic released by Wikimedia servers.<br><br><h5>How to read it</h5>On the horizontal axis we have time, with one day precision. On the vertical axis the total views performed by all files in the category. This axis has logarithmic scale.<br><br><h5>How to use it</h5>On the right menu you can order files by views, by median or by name.<br>On the top bar you can also drill-down to a chosen subdirectory or select your preferred time dimension.",
-          "viewsChart": "VIEWS CHART",
-          "byViews": "by views",
-          "byMedian": "by median",
-          "byName": "by name",
-          "annotationEditMode": "ANNOTATION EDIT MODE",
-          "addNewAnnotation": "ADD NEW ANNOTATION"
+          "viewsChart": "VER TABLA",
+          "byViews": "por visualizaciones",
+          "byMedian": "por media",
+          "byName": "por nombre",
+          "annotationEditMode": "MODO DE EDICIÓN DE ANOTACIONES",
+          "addNewAnnotation": "AGREGAR NUEVA ANOTACIÓN"
         },
         "suggestions": {
-          "title": "Suggestions",
-          "description": "This page shows some unused files with links to wikidata and wikipedia pages where they can be used.",
+          "title": "Sugerencias",
+          "description": "Esta página muestra alguna archivos sin utilizar, con enlaces a páginas de Wikidata y Wikipedia donde podrían utilizarce.",
           "inPageDescription": "This page shows some unused files belonging to the selected category with links to Wikidata and Wikipedia pages where they can be possibly used.<br><br><h5>Recommendation approaches</h5> This tool follows two recommendation approaches. The first one is based on the Commons categories of the target file. Wikipedia articles connected on Wikidata with the categories of the target file are selected with the highest confidence. The second approach is based on the description of the file on Commons. Additional Wikipedia articles connected with the Wikidata entities having a textual description similar to the one of the target file are also selected. <br><br><h5>How to read it</h5> In the column Wikidata suggestion there are the links to Wikidata pages where you can use the selected image.<br>In the Wikipedia pages column there are the links to the Wikipedia pages corresponding to the Wikidata entity on the same row, divided by language.",
-          "unusedFilesSuggestions": "UNUSED FILES SUGGESTIONS",
-          "wikidataSuggestion": "Wikidata suggestion",
-          "wikidataPage": "Wikidata page",
-          "noElements": "No more elements to load"
+          "unusedFilesSuggestions": "SUGERENCIAS DE ARCHIVOS SIN UTILIZAR",
+          "wikidataSuggestion": "Sugerencias de Wikidata",
+          "wikidataPage": "Página de Wikidata",
+          "noElements": "No hay más elementos para cargar"
         }
       },
-      "searchFile": "Search files"
+      "searchFile": "Buscar archivos"
     },
     "fileView": {
-      "title": "File Overview",
-      "usage": "Usage",
-      "views": "Views",
-      "fileDetails": "File Details",
-      "partOf": "PART OF",
-      "usedIn": "USED IN",
-      "pagesOf": "PAGES OF",
-      "projects": "PROJECTS",
+      "title": "Vista general del archivo",
+      "usage": "Uso",
+      "views": "Visualizaciones",
+      "fileDetails": "Detalles del archivo",
+      "partOf": "PARTE DE",
+      "usedIn": "USADO EN",
+      "pagesOf": "PÁGINAS DE",
+      "projects": "PROYECTOS",
       "relatedWikidataEntities": "RELATED WIKIDATA ENTITIES",
-      "viewsStats": "VIEWS STATS",
-      "totalViews": "TOTAL VIEWS",
-      "dailyAvg": "DAILY AVERAGE",
-      "dailyMedian": "DAILY MEDIAN"
+      "viewsStats": "ESTADISTICAS DE VISUALIZACIONES",
+      "totalViews": "VISUALIZACIONES TOTALES",
+      "dailyAvg": "PROMEDIO DIARIO",
+      "dailyMedian": "MEDIA DIARIA"
     },
     "fileSearch": {
-      "title": "File Search"
+      "title": "Buscar archivo"
     }
   }
 }
