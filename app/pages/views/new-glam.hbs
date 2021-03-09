@@ -49,31 +49,10 @@
 							</div>
 						</div>
 						<form id="new-glam-form" name="new-glam" autocomplete="off">
-							<div class="form-group">
-								<label for="glamID">Unique GLAM ID*</label>
-								<input type="text" class="form-control" id="glamID" aria-describedby="emailHelp"
-									placeholder="e.g. ZU, ETH or SNL" required />
+							<div id="allGlams">
 							</div>
-							<div class="form-group">
-								<label for="glamFullName">Full Name*</label>
-								<input type="text" class="form-control" id="glamFullName"
-									placeholder="e.g. Canton of Zürich, ETH Library of Zurich or Swiss National Library" required />
-							</div>
-							<div class="form-group">
-								<label for="glamCategory">Category*</label>
-								<input type="text" class="form-control" id="glamCategory"
-									placeholder="e.g. Historical images of buildings in the canton of Zürich" required />
-							</div>
-							<div class="form-group">
-								<label for="featuredImageURL">Featured image URL*</label>
-								<input type="text" class="form-control" id="featuredImageURL" placeholder="URL" required
-									autocomplete="off" />
-							</div>
-							<div class="form-group">
-								<label for="websiteURL">Website URL</label>
-								<input type="text" class="form-control" id="websiteURL" name="website" placeholder="URL" required />
-							</div>
-							<button type="submit" class="btn btn-primary">CREATE</button>
+							<button type="button" id="addAnotherGlam" class="btn btn-secondary btn-block">Add another glam</button>
+							<button type="submit" class="btn btn-primary btn-block">CREATE</button>
 						</form>
 					</div>
 				</div>
@@ -83,23 +62,60 @@
 	<script>
 		(() => {
 			const form = document.getElementById('new-glam-form');
-			const idInput = document.getElementById('glamID');
-			const fullnameInput = document.getElementById('glamFullName');
-			const categoryInput = document.getElementById('glamCategory');
-			const imageInput = document.getElementById('featuredImageURL');
-			const websiteInput = document.getElementById('websiteURL');
+			const addAnotherGlamButton = document.getElementById('addAnotherGlam');
 
 			const successMessage = document.getElementById('success-glam');
 			const errorMessage = document.getElementById('wrong-glam');
 
-			async function createGlam(data) {
+			function appendNewGlamToForm(number) {
+				const div = document.createElement('div');
+				div.setAttribute('data-holder', 'glam');
+				div.classList.add('mb-5');
+				div.innerHTML = `
+					<div class="form-group">
+						<label for="glamId-${number}">Unique GLAM ID*</label>
+						<input type="text" name="id" class="form-control" id="glamId-${number}" placeholder="e.g. ZU, ETH or SNL"
+							required />
+					</div>
+					<div class="form-group">
+						<label for="glamFullName-${number}">Full Name*</label>
+						<input type="text" name="fullname" class="form-control" id="glamFullName-${number}"
+							placeholder="e.g. Canton of Zürich, ETH Library of Zurich or Swiss National Library" required />
+					</div>
+					<div class="form-group">
+						<label for="glamCategory-${number}">Category*</label>
+						<input type="text" name="category" class="form-control" id="glamCategory-${number}"
+							placeholder="e.g. Historical images of buildings in the canton of Zürich" required />
+					</div>
+					<div class="form-group">
+						<label for="featuredImageURL-${number}">Featured image URL*</label>
+						<input type="text" name="image" class="form-control" id="featuredImageURL-${number}" placeholder="URL"
+							required autocomplete="off" />
+					</div>
+					<div class="form-group">
+						<label for="websiteURL-${number}">Website URL</label>
+						<input type="text" name="website" class="form-control" id="websiteURL-${number}" placeholder="URL"
+							required />
+					</div>
+				`;
+				form.querySelector('#allGlams').appendChild(div);
+			}
+
+			let glamsCount = 1;
+			appendNewGlamToForm(glamsCount);
+			addAnotherGlamButton.addEventListener('click', () => {
+				glamsCount++;
+				appendNewGlamToForm(glamsCount);
+			})
+
+			async function createGlams(data) {
 				errorMessage.style.display = 'none';
 				const response = await fetch(`/api/admin/glams`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
 					},
-					body: JSON.stringify(data)
+					body: JSON.stringify({ glams: data })
 				});
 				if (response.ok) {
 					form.style.display = 'none';
@@ -111,13 +127,17 @@
 
 			form.addEventListener('submit', event => {
 				event.preventDefault();
-				createGlam({
-					name: idInput.value,
-					fullname: fullnameInput.value,
-					category: categoryInput.value,
-					image: imageInput.value,
-					website: websiteInput.value,
+				const glamsHolders = form.querySelectorAll('[data-holder="glam"]');
+				const glamsInputs = Array.prototype.map.call(glamsHolders, (element, index) => {
+					return {
+						name: element.querySelector('[name="id"]').value,
+						fullname: element.querySelector('[name="fullname"]').value,
+						category: element.querySelector('[name="category"]').value,
+						image: element.querySelector('[name="image"]').value,
+						website: element.querySelector('[name="website"]').value,
+					}
 				});
+				createGlams(glamsInputs);
 			})
 		})();
 	</script>

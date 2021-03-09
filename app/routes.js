@@ -1,5 +1,6 @@
 const express = require('express');
 const request = require('request');
+const Joi = require('joi');
 const api = require('./api.js');
 const auth = require('http-auth');
 const dateFns = require('date-fns');
@@ -245,8 +246,35 @@ module.exports = function (app) {
         api.glams(request, response, await getAllGlams(), true);
     });
 
+    const schema = Joi.object({
+        glams: Joi.array().items(
+            Joi.object({
+                name: Joi.string().required(),
+                fullname: Joi.string().required(),
+                category: Joi.string().required(),
+                image: Joi.string().required(),
+                website: Joi.string()
+            })
+        ).required()
+    })
     app.post('/api/admin/glams', async function (req, res) {
-        api.createGlam(req, res, config);
+        const { value, error } = schema.validate(req.body);
+        const { glams } = value;
+        for (let glam of glams) {
+            if (error || glam.name.includes(' ')) {
+                res.status(400).send(error);
+                return;
+            }
+            const existingGlam = await getGlamByName(glam.name);
+            if (existingGlam) {
+                res.status(400).send("Glam already exists with name " + glam.name);
+                return;
+            }
+            glam.category = glam.category.replace('Category:', '').replace(/_/g, ' ');
+            glam.database = glam.name.toLowerCase();
+        }
+        await config.insertGlams(glams);
+        res.send(`${glams.length} inserted successfully`);
     });
 
     app.get('/api/admin/glams/:id', async function (req, res) {

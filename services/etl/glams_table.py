@@ -34,10 +34,12 @@ def get_glams():
         connection.close()
         cursor.close()
 
-def get_running_glams():
+
+def get_glams():
     connection, cursor = open_connection()
     try:
-        cursor.execute("SELECT * FROM glams WHERE status != 'paused' AND status != 'failed'")
+        cursor.execute(
+            "SELECT * FROM glams")
         glams = cursor.fetchall()
         return glams
     except Exception as error:
@@ -45,6 +47,7 @@ def get_running_glams():
     finally:
         connection.close()
         cursor.close()
+
 
 def get_glam_images(glam_conn):
     cur = glam_conn.cursor()
@@ -60,6 +63,7 @@ def get_glam_images(glam_conn):
     cur.close()
     return glam_images
 
+
 def get_glam_by_name(name):
     connection, cursor = open_connection()
     try:
@@ -72,7 +76,7 @@ def get_glam_by_name(name):
         cursor.close()
 
 
-def query_cassandra(query):
+def query_cassandra_db(query):
     connection, cursor = open_connection()
     try:
         cursor.execute(query)
@@ -84,17 +88,17 @@ def query_cassandra(query):
 
 
 def update_to_running(glam):
-    query_cassandra(
+    query_cassandra_db(
         f"UPDATE glams SET status = 'running', lastrun = NOW() WHERE name = '{glam['name']}'")
 
 
 def update_to_failed(glam):
-    query_cassandra(
+    query_cassandra_db(
         f"UPDATE glams SET status = 'failed' WHERE name = '{glam['name']}'")
 
 
 def update_min_date(glam, date_str):
-    query_cassandra(
+    query_cassandra_db(
         f"UPDATE glams SET min_date = '{date_str}' WHERE name = '{glam['name']}'")
 
 
@@ -124,3 +128,35 @@ def get_glam_database_connection(glam_database):
     conn = psycopg2.connect(get_glam_connection_str(glam_database))
     conn.autocommit = True
     return conn
+
+
+def open_glams_connections(glams):
+    logging.info(f"opening connections for {len(glams)} glams")
+    for glam in glams:
+        glam['conn'] = get_glam_database_connection(glam['database'])
+        glam['cur'] = glam['conn'].cursor()
+
+
+def close_glams_connections(glams):
+    logging.info(f"closing connections for {len(glams)} glams")
+    for glam in glams:
+        glam['cur'].close()
+        glam['conn'].close()
+
+
+def load_glams_images(glams):
+    logging.info(f"loading images for {len(glams)} glams")
+    for glam in glams:
+        glam['images'] = get_glam_images(glam['conn'])
+
+
+def refresh_glams_visualizations(glams):
+    logging.info(f"refrashing views for {len(glams)} glams")
+    for glam in glams:
+        logging.info(f"refrashing for {glam['name']}")
+        glam['cur'].execute('REFRESH MATERIALIZED VIEW visualizations_sum')
+        glam['cur'].execute('REFRESH MATERIALIZED VIEW visualizations_stats')
+
+def dailyinsert_query(key, arr, date_val):
+    return f"SELECT * FROM dailyinsert('" + key.replace(
+        "'", "''") + "','" + date_val.strftime("%Y-%m-%d") + "'," + arr[2] + "," + arr[22] + "," + arr[23] + ")"

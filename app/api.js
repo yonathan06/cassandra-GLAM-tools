@@ -38,62 +38,6 @@ var getAdminGlam = function (req, res, glam) {
     res.json(glam);
 }
 
-var createGlam = async function (req, res, config) {
-    let glam = {};
-    let name = req.body['name'];
-    if (name === undefined || name === '' || name.includes(' ')) {
-        res.status(400).send("Bad name");
-        return;
-    }
-
-    glam['name'] = name;
-    glam['database'] = name.toLowerCase();
-
-    let fullname = req.body['fullname'];
-    if (fullname === undefined || fullname === '') {
-        res.status(400).send("Bad full name");
-        return;
-    }
-
-    glam['fullname'] = fullname;
-
-    let category = req.body['category'];
-    if (category === undefined || category === '') {
-        res.status(400).send("Bad category");
-        return;
-    }
-
-    category = category.replace('Category:', '');
-    category = category.replace(/_/g, ' ');
-    glam['category'] = category;
-
-    let image = req.body['image'];
-    if (image === undefined || image === '' || image.includes(' ') || !image.startsWith('http')) {
-        res.status(400).send("Bad image");
-        return;
-    }
-
-    glam['image'] = image;
-
-    const website = req.body.website;
-    if (website && website.startsWith('http')) {
-        glam.website = website;
-    }
-
-    try {
-        const existingGlam = await getGlamByName(name);
-        if (existingGlam) {
-            res.status(400).send("Glam already exists with name");
-            return;
-        }
-        await config.insertGlam(glam)
-        res.sendStatus(200);
-    } catch (err) {
-        res.sendStatus(500);
-        console.error(err);
-    }
-}
-
 var updateGlam = async function (req, res, config) {
     let glam = { 'name': req.params.id };
 
@@ -1354,7 +1298,6 @@ var hideRecommenderByFile = function (req, res, next, db) {
 
 exports.glams = glams;
 exports.getAdminGlam = getAdminGlam;
-exports.createGlam = createGlam;
 exports.updateGlam = updateGlam;
 exports.getAnnotations = getAnnotations;
 exports.getAnnotation = getAnnotation;

@@ -11,10 +11,10 @@ AWS.config = {
 
 const sqs = new AWS.SQS();
 
-function sendNewGlamMessage(glam) {
+function sendNewGlamMessage(body) {
   return sqs.sendMessage({
     QueueUrl: config.aws.newGlamQueueUrl,
-    MessageBody: JSON.stringify(glam),
+    MessageBody: JSON.stringify(body),
   }).promise()
 }
 
@@ -66,13 +66,16 @@ async function loadGlams() {
   return glams;
 }
 
-async function insertGlam(glam) {
-  const { name, fullname, category, image, database, website } = glam;
-  const query = SQL`INSERT INTO glams (name, fullname, category, image, database, status, website) 
+async function insertGlams(glams) {
+  const newGlamsToSend = []
+  for (let glam of glams) {
+    const { name, fullname, category, image, database, website } = glam;
+    newGlamsToSend.push(glam)
+    const query = SQL`INSERT INTO glams (name, fullname, category, image, database, status, website) 
                     VALUES (${name}, ${fullname}, ${category}, ${image}, ${database}, 'pending', ${website || null})`;
-  await cassandraPgPool.query(query)
-  await sendNewGlamMessage({ name, fullname, category, image, database });
-  console.log(`Created new GLAM "${name}"`);
+    await cassandraPgPool.query(query)
+  }
+  await sendNewGlamMessage({ glams: newGlamsToSend });
 }
 
 function updateGlam(glam) {
@@ -93,7 +96,7 @@ module.exports = {
   glamUser,
   glams,
   loadGlams,
-  insertGlam,
+  insertGlams,
   updateGlam,
   cassandraPgPool
 }
