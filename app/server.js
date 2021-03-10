@@ -13,6 +13,7 @@ const localesMap = [
     { lang: 'he', label: 'עברית' },
     { lang: 'sv', label: 'svenska' },
     { lang: 'es', label: 'español' },
+    { lang: 'pt-br', label: 'Português' },
 ];
 const defaultLang = 'en';
 const locales = localesMap.map(l => l.lang);

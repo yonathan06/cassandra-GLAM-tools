@@ -1,0 +1,148 @@
+{
+  "isRtl": false,
+  "lang": "pt-br",
+  "title": "Painel de controle GLAM-Wiki",
+  "index": {
+    "title": "Suporte para o monitoramento e a avaliação da cooperação entre GLAMs (do inglês, galerias, bibliotecas, arquivos e museus) e projetos Wikimedia"
+  },
+  "sidebar": {
+    "institutions": "Instituições",
+    "introduction": "Introdução",
+    "joinUs": "Faça parte",
+    "contactUs": "Entre em contato"
+  },
+  "description": "Descrição",
+  "learnMore": "Saiba mais",
+  "viewGraph": "Ver gráfico",
+  "results": "resultados",
+  "search": "Pesquisar",
+  "searchInstitution": "Pesquisar instituição",
+  "downloadDataset": "Fazer download de conjunto de dados",
+  "day": "Dia",
+  "week": "Semana",
+  "month": "Mês",
+  "quarter": "Trimestre",
+  "year": "Ano",
+  "selectView": "Selecionar modo de visualização",
+  "categoryInCommons": "Categoria no Commons",
+  "position": "Posição",
+  "left": "Esquerda",
+  "right": "Direita",
+  "top": "Em cima",
+  "bottom": "Embaixo",
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
+  "loadMore": "Carregar mais",
+  "viewInCommons": "ver no Commons",
+  "viewDetails": "ver detalhes",
+  "usage": "uso",
+  "projects": "projetos",
+  "totalPagesEnhanced": "TOTAL DE PÁGINAS MELHORADAS",
+  "totalProjectsInvolved": "Total de projetos envolvidos",
+  "distinctMediaUsed": "Diferentes mídias usadas",
+  "pages": "páginas",
+  "total": "total",
+  "avgday": "média diária",
+  "median": "mediana",
+  "drilldown": "ver mais detalhes",
+  "viewFiles": "ver arquivos",
+  "level": "nível",
+  "files": "arquivos",
+  "file": "Arquivos",
+  "dismiss": "DESCARTAR",
+  "lv": "lv",
+  "aboutPage": {
+    "title": "Bem-vindo(a) ao Painel de controle GLAM-Wiki",
+    "subtitle": "Uma ferramenta de análise de uso para as instituições GLAM acompanharem os conteúdos livres compartilhados nos projetos Wikimedia",
+    "body": "<p>O Painel de controle GLAM-Wiki é um projeto da Wikimedia Israel, com suporte e orientação da Wikimedia Suécia, construído sobre uma infraestrutura de código aberto desenvolvida originalmente pela Wikimedia Suíça, com o objetivo de ajudar instituições GLAM (do inglês, galerias, bibliotecas, arquivos e museus) a acompanharem o uso dos seus arquivos em formato livre carregados nos projetos Wikimedia. O painel de controle permite a visualização de dados estatísticos que refletem o nível de exposição destes arquivos em domínio público com base em diversos índices e intervalos de tempo. Os dados cumulativos, que são apresentados em vários diagramas e gráficos, permitem que as instituições reflitam, identifiquem tendências e preferências e percebam a influência destes conteúdos livres entre os usuários dos projetos Wikimedia ao redor do mundo. Clique <a href=\"/aqui\">aqui para acessar o Painel de controle GLAM-Wiki.</a></p><p>Promover a conscientização pública sobre a importância do conhecimento livre e a expansão do domínio público é o objetivo principal do movimento global da Wikimedia e um componente essencial da missão da Wikimedia Israel. Para atingir esta meta, buscamos estabelecer cooperações significativas com instituições culturais e educacionais e encorajar a liberação de conteúdos para domínio público e o seu carregamento na Internet. O Painel de controle GLAM-Wiki permite visualizar as vantagens desta liberação para as instituições parceiras e o público geral.</p><p><strong> Esperamos que o painel de controle amplie a conscientização sobre a importância de disponibilizar patrimônios culturais da humanidade na rede global e estimule mais instituições GLAM a abrir seus portais de conhecimento por meio da Internet, sem custos, em benefício do público geral e para promover o acesso ao conhecimento, à educação e às mentes abertas.</strong></p>",
+    "thanks": "Agradecemos aos nossos colegas na Wikimedia Suíça pelos esforços para o desenvolvimento da plataforma Cassandra — <a href=\"http://stats.wikimedia.swiss/\" target=\"_blanc\">a ferramenta estatística para GLAMs</a> de código aberto oficial até a construção do Painel de controle GLAM-Wiki."
+  },
+  "contactUs": {
+    "address": "Wikimedia Israel </br> Carlebach 7, P.O.B 51875 </br> Tel Aviv, 6713211 Israel"
+  },
+  "views": {
+    "index": {
+      "institutions": "Instituições",
+      "categoryTitle": "Categoria no Commons",
+      "officialWebsite": "Website oficial",
+      "totalMedia": "Total de arquivos de mídia",
+      "view": "Ver",
+      "chart": "GRÁFICO",
+      "report": {
+        "viewsDate": "Visualizações por data",
+        "viewsThisMonth": "Visualizações este mês",
+        "monthlyAvgViews": "Média mensal de visualizações",
+        "relatedCategories": "Subcategorias relacionadas",
+        "articleUsage": "Uso — número de artigos",
+        "projectsUsage": "Uso — número de projetos"
+      },
+      "cards": {
+        "categoryNetwork": {
+          "title": "Rede de categoria",
+          "description": "<i>Rede de categoria</i> é uma <b>REPRESENTAÇÃO GRÁFICA</b> que mostra a topologia das subcategorias pertencentes à categoria principal. Cada nodo representa uma categoria enquanto os limites são as relações entre elas.",
+          "inPageDescription": "Esta representação gráfica mostra a topologia das subcategorias pertencentes à categoria principal.<br>A existência de apenas uma categoria (ou nível) é uma prática ruim no Wikimedia Commons, porque dificulta para a comunidade encontrar e usar os arquivos. Já uma categorização multinível e articulada permite uma melhor reutilização das mídias.<br>Esta estatística é atualizada diariamente (intervalo máximo de 24 horas) e representa o cenário atual.<br><br><h5>Como ler</h5>Cada nodo representa uma categoria enquanto os limites são as relações entre elas. As categorias no mesmo nível compartilham a mesma cor. O tamanho da bolha é proporcional à quantidade de arquivos dentro de cada uma das categorias.<br><br><h5>Como usar</h5>No menu à direita, você pode ordenar as categorias por nível ou número de arquivos. Se você clicar no nome da categoria, o nodo correspondente irá se sobressair (e vice-versa).<br>Na barra acima, você também pode ver mais detalhes no subdiretório escolhido.<br><br><h5>Exemplo de uso</h5>Com este gráfico você pode entender se os arquivos de mídia de seu interesse estão divididos de maneira útil. Provavelmente uma categoria com mais de cem arquivos precisa ser separada em duas ou mais subcategorias. Na verdade, quão melhor categorizada uma mídia está no Wikimedia Commons, maior a probabilidade de ela ser visualizada ou usada em uma página na Wikipédia.<br>Mais informações em: <a href=\"https://commons.wikimedia.org/wiki/Commons:Categories\">https://commons.wikimedia.org/wiki/Commons:Categories</a>.",
+          "byLevel": "por nível",
+          "byTotal": "por total",
+          "unusedMediaOnly": "APENAS MÍDIAS NÃO USADAS",
+          "categoryNetworkChart": "GRÁFICO DE REDE DE CATEGORIAS"
+        },
+        "userContribution": {
+          "title": "Contribuições dos usuários",
+          "description": "<i>Contribuições dos usuários</i> é um <b>GRÁFICO EM BARRAS</b> que mostra o número de carregamentos pelo tempo. Aqui você pode entender se o padrão de contribuições é bem distribuído ou se ele é composto de picos.",
+          "inPageDescription": "Este gráfico em barras mostra o número de carregamentos por tempo.<br>Aqui você pode entender se o padrão de contribuições é bem distribuído ou se ele é composto de picos.<br>Esta estatística é atualizada diariamente (intervalo máximo de 24 horas).<br><br><h5>Como ler</h5>No eixo horizontal, temos o tempo, com precisão de um mês. No eixo vertical, temos o número total de arquivos carregados em uma categoria durante um mês.<br><br><h5>Como usar</h5>No menu à direita, você pode ordenar os usuários por nome ou número de contribuições. Se você clicar no nome de usuário, o gráfico de contribuições correspondente aparecerá.<br>Na barra acima, você também pode ver mais detalhes no subdiretório escolhido.<br><br><h5>Exemplo </h5>Aqui você pode encontrar a comunidade em torno desta categoria!",
+          "byName": "por nome",
+          "byTotal": "por total",
+          "userContributionChart": "GRÁFICO DAS CONTRIBUIÇÕES DOS USUÁRIOS"
+        },
+        "usage": {
+          "title": "Uso",
+          "description": "Este gráfico mostra o <i>uso</i> das mídias da categoria principal nos projetos Wikimedia.",
+          "inPageDescription": "Esta seção mostra o uso das mídias da categoria principal nos projetos Wikimedia.<br>Todas as vezes em que uma mídia é usada em um artigo na Wikipédia em qualquer língua ou em outro projeto irmão, como Wikidata ou Wikisource, é contabilizado 1. Nesta página, você pode investigar quantos arquivos estão realmente sendo usados, em quais projetos e quais são os mais populares.<br>Esta estatística é atualizada diariamente (intervalo máximo de 24 horas) e representa o cenário atual.<br><br><h5>Como ler</h5>À esquerda, uma barra do gráfico mostra os dez primeiros projetos que estão usando estes arquivos. Já à direita, cada arquivo é detalhado com um link para cada página em que eles são usados.<br><br><h5>Como usar</h5>No menu à direita, você pode ordenar os arquivos por uso, número de diferentes projetos ou nome. Se você clicar no nome do arquivo, seus correspondentes detalhes subirão.<br>Na barra acima, você também pode ver mais detalhes no subdiretório escolhido ou selecionar o intervalo de tempo de seu interesse.<br><br><h5>Exemplo de uso</h5>À primeira vista, você pode entender qual comunidade linguística tem usado a maior parte dos arquivos e, talvez, conhecer melhor esta coleção. Além do mais, você também pode tentar difundir alguns arquivos úteis em outras versões da Wikipédia, em que hoje o uso seja menor.",
+          "byUsage": "por uso",
+          "byProjects": "por projetos",
+          "byName": "por nome",
+          "usageChart": "GRÁFICO DE USO"
+        },
+        "views": {
+          "title": "visualizações",
+          "description": "<i>Visualizações</i> é um <b>GRÁFICO DE LINHAS</b> que mostra a soma das visualizações dos arquivos que pertencem à categoria principal em um período de 24 horas.",
+          "inPageDescription": "Este gráfico de linhas mostra a soma das visualizações dos arquivos que pertencem à categoria principal em um período de 24 horas.<br>Em geral, a diferença entre as visitas nos dias de semana e as visitas nos fins de semana é bastante significativa. Às vezes, alguns picos podem estar relacionados a eventos populares. Uma tendência de alta nem sempre é igual ao aumento da popularidade da categoria por causa de adição de arquivos.<br>Esta estatística é atualizada diariamente (intervalo máximo de 24 horas). Os dados aqui coletados foram retirados de<a href=\"https://dumps.wikimedia.org/other/mediacounts/daily/\">https://dumps.wikimedia.org/other/mediacounts/daily/</a>. Uma visita é registrada toda vez que um dispositivo faz o download de um arquivo específico de um servidor Wikimedia. Então, são contabilizadas tanto as visitas à página original do arquivo quanto as visitas às páginas em que o arquivo está presente (mas apenas se o dispositivo tiver feito o download do arquivo). Na verdade, esta é a estatística mais precisa divulgada pelos servidores Wikimedia.<br><br><h5>Como ler</h5>No eixo horizontal, temos o tempo com precisão de um dia. No eixo vertical, temos o total de visualizações de todos os arquivos da categoria. Este eixo tem escala logaritmica.<br><br><h5>Como usar</h5>No menu à direita, você pode ordenar arquivos por visualização, mediana ou nome.<br>Na barra acima, você também pode detalhar o subdiretório escolhido ou selecionar o intervalo de tempo de seu interesse.",
+          "viewsChart": "GRÁFICO DE VISUALIZAÇÕES",
+          "byViews": "por visualizações",
+          "byMedian": "por mediana",
+          "byName": "por nome",
+          "annotationEditMode": "MODO DE EDIÇÃO DE NOTAS",
+          "addNewAnnotation": "ADICIONAR NOVA NOTA"
+        },
+        "suggestions": {
+          "title": "Sugestões",
+          "description": "Esta página mostra alguns arquivos que ainda não foram usados com links para páginas do Wikidata e da Wikipédia em que eles podem ser utilizados.",
+          "inPageDescription": "Esta página mostra alguns arquivos pertencentes à categoria selecionada que ainda não foram usados com links para páginas do Wikidata e da Wikipédia em que eles podem ser utilizados.<br><br><h5>Abordagens para recomendação</h5> Esta ferramenta segue duas abordagens para recomendação. A primeira é baseada nas categorias do arquivo alvo no Wikimedia Commons. Os artigos da Wikipédia conectados ao Wikidata com as categorias do arquivo alvo são selecionados com a mais alta confiança. A segunda é baseada na descrição do arquivo no Wikimedia Commons. Os artigos adicionais na Wikipédia conectados aos itens do Wikidata com uma descrição textual similar à do arquivo alvo também são selecionados.<br><br><h5>Como ler</h5> Na coluna sugestão do Wikidata, há links para páginas no Wikidata em que você pode usar a imagem selecionada.<br>Na coluna páginas da Wikipédia, há links para páginas da Wikipédia que correspondem ao item no Wikidata na mesma fileira, divididas por língua.",
+          "unusedFilesSuggestions": "SUGESTÕES DE ARQUIVOS NÃO USADOS",
+          "wikidataSuggestion": "Sugestão do Wikidata",
+          "wikidataPage": "Página do Wikidata",
+          "noElements": "Sem mais elementos para carregar"
+        }
+      },
+      "searchFile": "Pesquisar arquivos"
+    },
+    "fileView": {
+      "title": "Panorama do arquivo",
+      "usage": "Uso",
+      "views": "Visualizações",
+      "fileDetails": "Detalhes do arquivo",
+      "partOf": "PARTE DE",
+      "usedIn": "USADO EM",
+      "pagesOf": "PÁGINAS DE",
+      "projects": "PROJETOS",
+      "relatedWikidataEntities": "ITENS RELACIONADOS NO WIKIDATA",
+      "viewsStats": "ESTATÍSTICA DE VISUALIZAÇÕES",
+      "totalViews": "VISUALIZAÇÕES TOTAIS",
+      "dailyAvg": "MÉDIA DIÁRIA",
+      "dailyMedian": "MEDIANA DIÁRIA"
+    },
+    "fileSearch": {
+      "title": "Pesquisa de arquivo"
+    }
+  }
+}
