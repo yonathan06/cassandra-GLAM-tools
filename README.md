@@ -1,47 +1,68 @@
-The purpose of this project is to Support GLAMs in monitoring and evaluating
+# GLAM Wiki Dashboard
+
+The purpose of this project is to Support GLAMs* in monitoring and evaluating
 their cooperation with Wikimedia projects. Starting from a Wikimedia Commons
 category this tool collects data about usage, views, contributors and topology
 of the files inside.
 
-## Installation
+** GLAM - galleries, libraries, archives and museums
+
+## Structure
+
+The project is split into two packages - app & services.
+
+* app - includes an express.js server that functions both as an API and as a front-end server (using mostly handlebars as render engine)
+* services - includes python & node.js scripts for ETL (extract, transform & load) and recommendations (not currently active). The ETL includes a new GLAM loader (for when adding a new GLAM to the system), and a daily cron job to updated the analytical data of yesterday for all of the GLAMs in the system.
+
+## Installation - app
+
+Enter the /app folder
+
+```bash
+cd app
+```
 
 Install Node.js project dependencies:
 
-```
+```bash
 npm install
+```
+
+Start a local postgres db instance using docker (make sure you have docker installed):
+
+```bash
+docker-compose up -d
+```
+
+**Add a development config file inside the config folder: `./config/config.development.json` With the same structure as in `./config/config.sample.json`**
+
+Run the local server:
+
+```bash
+npm run dev
+```
+
+## Installation - services
+
+Enter services folder
+
+```bash
+cd services
 ```
 
 Install Python dependencies:
 
-```
+```bash
 pip3 install -r requirements.txt
 ```
 
-Copy the file `config/config.example.json` to `config/config.json` and modify it as required.
-
-The provided MongoDB collection must contain documents with the following format:
-
-```
-{
-   "name": "ETH",
-   "fullname": "ETH Library of Zurich",
-   "category": "Media contributed by the ETH-Bibliothek",
-   "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Aettenschwil_1953.jpg/640px-Aettenschwil_1953.jpg",
-   "database": "eth",
-   "http-auth": {
-      "username": "eth",
-      "password": "PASSWORD"
-   }
-}
-```
-
-The field `http-auth` is optional and may be omitted if no password is required.
+**Add a development config file inside the config folder: `./config/config.development.json` With the same structure as in `./config/config.sample.json`**
 
 ## Get data
 
 Create the file `.ssh/config`:
 
-```
+```bash
 Host wmflabs
    HostName      tools-dev.wmflabs.org
    User          <user>
@@ -52,13 +73,13 @@ Host wmflabs
 
 Open the SSH tunnel to the WMF databases:
 
-```
+```bash
 autossh -f -N wmflabs
 ```
 
 Create a systemd service unit to auto-launch autossh (optional):
 
-```
+```bash
 [Unit]
 Description=AutoSSH for stats.wikimedia.swiss database.
  
@@ -69,39 +90,4 @@ ExecStart=/usr/bin/autossh -N wmflabs
  
 [Install]
 WantedBy=multi-user.target
-```
-
-Run the data gathering periodically (e.g., every 15 minutes).
-
-```
-cd etl
-python3 run.py
-```
-
-To process the dates from the views chart, you can run:
-
-```
-cd etl
-python3 run_views.py
-```
-
-To create the recommendation model, you need to download the Wikidata JSON dump and then run:
-
-```
-cd recommender
-python3 model.py
-```
-
-To create the recommendations, you can run:
-
-```
-cd recommender
-python3 run.py
-```
-
-## Run webservices
-
-```
-cd app
-node server
 ```
