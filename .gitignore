@@ -8,7 +8,8 @@ venv
 *.gz
 /cassandra-GLAM-tools.iml
 /.idea/
-config.*.json
+config.development.json
+config.production.json
 .DS_Store
 tmp
 __pycache__

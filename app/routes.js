@@ -16,6 +16,18 @@ function isValidGlam(glam) {
     return glam !== undefined && glam['status'] === 'running' && glam['lastrun'] !== null;
 }
 
+function authenticateAdmin(req, res, next) {
+    let auth_basic = auth.basic({
+        realm: config.admin['realm']
+    }, function (username, password, callback) {
+        callback(username === config.admin['username'] && password === config.admin['password']);
+    });
+    const callCheck = auth_basic.check(() => {
+        next();
+    });
+    callCheck(req, res);
+}
+
 module.exports = function (app) {
 
     app.use('/views/templates/:file', function (req, res) {
@@ -52,79 +64,16 @@ module.exports = function (app) {
         res.send("ok");
     })
 
-    app.use(async function (req, res, next) {
-
-        function getId(path) {
-            let exploded = path.split('/');
-            if (path.startsWith('/api/')) {
-                return exploded[2];
-            } else {
-                return exploded[1];
-            }
-        }
-
-        function authenticateAdmin(auth_config) {
-            let auth_basic = auth.basic({
-                realm: auth_config['realm']
-            }, function (username, password, callback) {
-                callback(username === auth_config['username'] && password === auth_config['password']);
-            });
-            const callCheck = auth_basic.check(() => {
-                next();
-            });
-            callCheck(req, res);
-        }
-
-        function createGlamAuth(auth_config) {
-            let auth_basic = auth.basic({
-                realm: auth_config['realm']
-            }, function (username, password, callback) {
-                for (let i = 0; i < auth_config.users.length; i++) {
-                    if (username === auth_config.users[i]['username'] && password === auth_config.users[i]['password']) {
-                        callback(true);
-                        return;
-                    }
-                }
-                callback(false);
-            });
-            (auth.connect(auth_basic))(req, res, next);
-        }
-
-        let id = getId(req.path);
-        if (!id) {
-            next();
-            return;
-        }
-        if (id === 'user') {
-            createGlamAuth(config.glamUser);
-        } else if (id === 'admin') {
-            authenticateAdmin(config.admin);
-        } else {
-            try {
-                let glam = await getGlamByName(id);
-                if (!glam) {
-                    next();
-                } else if (glam.hasOwnProperty('http-auth') === false) {
-                    next();
-                } else {
-                    authenticateAdmin(glam['http-auth']);
-                }
-            } catch (err) {
-                next(err);
-            }
-        }
-    });
-
     // ADMIN PANEL
-    app.get('/admin/panel', async function (req, res) {
+    app.get('/admin/panel', authenticateAdmin, async function (req, res) {
         res.renderWithLocal(`/pages/views/admin-panel.hbs`);
     });
 
-    app.get('/admin/new-glam', async function (req, res) {
+    app.get('/admin/new-glam', authenticateAdmin, async function (req, res) {
         res.renderWithLocal(`/pages/views/new-glam.hbs`);
     });
 
-    app.get('/admin/edit-glam/:id', async function (req, res) {
+    app.get('/admin/edit-glam/:id', authenticateAdmin, async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (glam !== undefined) {
             res.renderWithLocal(`/pages/views/edit-glam.hbs`);
@@ -224,12 +173,23 @@ module.exports = function (app) {
     });
 
     // API
-    app.get('/api/admin/auth', async function (req, res) {
+    app.get('/api/admin/auth', authenticateAdmin, async function (req, res) {
         res.sendStatus(200);
     });
 
     app.get('/api/user/auth', async function (req, res) {
-        res.sendStatus(200);
+        let auth_basic = auth.basic({
+            realm: config.user['realm']
+        }, function (username, password, callback) {
+            for (let i = 0; i < config.user.users.length; i++) {
+                if (username === config.user.users[i]['username'] && password === config.user.users[i]['password']) {
+                    callback(true);
+                    return;
+                }
+            }
+            callback(false);
+        });
+        (auth.connect(auth_basic))(req, res);
     });
 
     app.get('/api/glams', async function (req, res) {
@@ -242,7 +202,7 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/api/admin/glams', async function (request, response) {
+    app.get('/api/admin/glams', authenticateAdmin, async function (request, response) {
         api.glams(request, response, await getAllGlams(), true);
     });
 
@@ -257,7 +217,7 @@ module.exports = function (app) {
             })
         ).required()
     })
-    app.post('/api/admin/glams', async function (req, res) {
+    app.post('/api/admin/glams', authenticateAdmin, async function (req, res) {
         const { value, error } = schema.validate(req.body);
         const { glams } = value;
         for (let glam of glams) {
@@ -277,7 +237,7 @@ module.exports = function (app) {
         res.send(`${glams.length} inserted successfully`);
     });
 
-    app.get('/api/admin/glams/:id', async function (req, res) {
+    app.get('/api/admin/glams/:id', authenticateAdmin, async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (glam !== undefined) {
             api.getAdminGlam(req, res, glam);
@@ -286,7 +246,7 @@ module.exports = function (app) {
         }
     });
 
-    app.put('/api/admin/glams/:id', async function (req, res) {
+    app.put('/api/admin/glams/:id', authenticateAdmin, async function (req, res) {
         let glam = await getGlamByName(req.params.id);
         if (glam) {
             api.updateGlam(req, res, config);
@@ -304,7 +264,7 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/api/admin/glams/:id/annotations/:date', async function (req, res, next) {
+    app.get('/api/admin/glams/:id/annotations/:date', authenticateAdmin, async function (req, res, next) {
         let glam = await getGlamByName(req.params.id);
         if (glam !== undefined) {
             api.getAnnotation(req, res, next, glam);
@@ -313,7 +273,7 @@ module.exports = function (app) {
         }
     });
 
-    app.put('/api/admin/glams/:id/annotations/:date', async function (req, res, next) {
+    app.put('/api/admin/glams/:id/annotations/:date', authenticateAdmin, async function (req, res, next) {
         let glam = await getGlamByName(req.params.id);
         if (glam !== undefined) {
             api.modifyAnnotation(req, res, next, glam);
@@ -322,7 +282,7 @@ module.exports = function (app) {
         }
     });
 
-    app.post('/api/admin/glams/:id/annotations/:date', async function (req, res, next) {
+    app.post('/api/admin/glams/:id/annotations/:date', authenticateAdmin, async function (req, res, next) {
         let glam = await getGlamByName(req.params.id);
         if (glam !== undefined) {
             api.createAnnotation(req, res, next, glam);
@@ -331,7 +291,7 @@ module.exports = function (app) {
         }
     });
 
-    app.delete('/api/admin/glams/:id/annotations/:date', async function (req, res, next) {
+    app.delete('/api/admin/glams/:id/annotations/:date', authenticateAdmin, async function (req, res, next) {
         let glam = await getGlamByName(req.params.id);
         if (glam !== undefined) {
             api.deleteAnnotation(req, res, next, glam);

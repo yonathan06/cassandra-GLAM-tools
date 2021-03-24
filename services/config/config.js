@@ -4,9 +4,6 @@ var config = JSON.parse(fs.readFileSync(`${__dirname}/config.${process.env.ENV}.
 
 const cassandraPgPool = new Pool(config.postgres);
 
-config.glamUser['realm'] = 'User area';
-var glamUser = config.glamUser;
-glamUser.users.push(config.admin);
 config.admin['realm'] = 'Admin area';
 
 var glams = {};
@@ -53,5 +50,4 @@ module.exports = {
   ...config,
   glams,
   loadGlams,
-  glamUser
 }

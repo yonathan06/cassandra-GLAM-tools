@@ -1,0 +1,25 @@
+{
+    "postgres": {
+        "user": "cassandra",
+        "password": "cassandra",
+        "host": "localhost",
+        "database": "cassandra",
+        "port": 5432
+    },
+    "admin": {
+        "username": "adminUser",
+        "password": "adminPassword"
+    },
+    "aws": {
+        "config": {
+            "region": "eu-west-1",
+            "credentials": {
+                "accessKeyId": "XXXXXXX",
+                "secretAccessKey": "XXXXXXXX"
+            }
+        },
+        "wikiDumpBucket": "wikimedia-dump",
+        "wikiMediacountsFolder": "mediacounts",
+        "newGlamQueueUrl": "https://sqs.eu-west-1.amazonaws.com/XXXXX/XXXX"
+    }
+}

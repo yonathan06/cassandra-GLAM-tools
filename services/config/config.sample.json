@@ -1,0 +1,34 @@
+{
+    "postgres": {
+        "user": "cassandra",
+        "password": "cassandra",
+        "host": "localhost",
+        "database": "cassandra",
+        "port": 5432
+    },
+    "wmflabs": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "xxxxx",
+        "password": "xxxxxxx",
+        "database": "commonswiki_p"
+    },
+    "aws": {
+        "config": {
+            "region": "eu-west-1",
+            "credentials": {
+                "accessKeyId": "XXXXXXXXXX",
+                "secretAccessKey": "XXXXXXXXXXXXXX"
+            }
+        },
+        "wikiDumpBucket": "wikimedia-dump",
+        "wikiMediacountsFolder": "mediacounts",
+        "newGlamQueueName": "XXXXXXXXXXXX",
+        "newGlamQueueUrl": "https://sqs.eu-west-1.amazonaws.com/XXXXXXX/XXXXXXXX"
+    },
+    "mediacountStartDate": "2020-09-01",
+    "limits": {
+        "categories": 1000,
+        "images": 500000
+    }
+}
