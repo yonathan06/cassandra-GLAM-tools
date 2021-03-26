@@ -28,12 +28,6 @@ Install Node.js project dependencies:
 npm install
 ```
 
-Start a local postgres db instance using docker (make sure you have docker installed):
-
-```bash
-docker-compose up -d
-```
-
 **Add a development config file inside the config folder: `./config/config.development.json` With the same structure as in `./config/config.sample.json`**
 
 Run the local server:
@@ -92,4 +86,10 @@ python daily.py
 
 ```bash
 python new_glam_listener.py
+```
+
+## Starting local postgres instance using docker compose
+
+```bash
+docker-compose up -d
 ```
