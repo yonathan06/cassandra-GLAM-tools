@@ -54,13 +54,18 @@ Install Python dependencies:
 
 ```bash
 pip3 install -r requirements.txt
+npm run install
 ```
 
 **Add a development config file inside the config folder: `./config/config.development.json` With the same structure as in `./config/config.sample.json`**
 
-## Get data
+## SSH tunneling to wmflabs
 
-Create the file `.ssh/config`:
+Create a [toolforge](https://admin.toolforge.org) account and add your ssh key there.
+
+You will need this setup to ssh toolforge, where the wikimedia database is
+
+Recommended: Create an ssh config file at `.ssh/config`:
 
 ```bash
 Host wmflabs
@@ -71,23 +76,20 @@ Host wmflabs
    LocalForward  3306 itwiki.analytics.db.svc.eqiad.wmflabs:3306
 ```
 
-Open the SSH tunnel to the WMF databases:
+Open a SSH tunnel to the WMF databases:
 
 ```bash
-autossh -f -N wmflabs
+ssh wmflabs
 ```
 
-Create a systemd service unit to auto-launch autossh (optional):
+### Run daily task (usually done with a daily cron job)
 
 ```bash
-[Unit]
-Description=AutoSSH for stats.wikimedia.swiss database.
- 
-[Service]
-User=<user>
-Group=<user>
-ExecStart=/usr/bin/autossh -N wmflabs
- 
-[Install]
-WantedBy=multi-user.target
+python daily.py
+```
+
+### Run new glam listener
+
+```bash
+python new_glam_listener.py
 ```
