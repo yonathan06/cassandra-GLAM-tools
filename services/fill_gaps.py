@@ -23,8 +23,11 @@ def _main(start_date: date, end_date: date, glams_names: List[str]):
     for glam in glams:
         total_image_num += len(glam['images'])
     while date_val < end_date:
-        filepath = get_mediacount_file_by_date(date_val)
-        dailyinsert_from_file(glams, filepath, date_val)
+        try:
+            filepath = get_mediacount_file_by_date(date_val)
+            dailyinsert_from_file(glams, filepath, date_val)
+        except Exception as err:
+            logging.error(f"Error loading mediacount for date {date_val}:\n{err}")
         date_val = date_val + timedelta(days=1)
     refresh_glams_visualizations(glams)
     close_glams_connections(glams)

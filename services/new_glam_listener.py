@@ -55,9 +55,12 @@ def _process_mediacounts(glams):
         config['mediacountStartDate'], "%Y-%m-%d").date()
     while current_date < today:
         logging.info(f"Loading mediacounts for date: {current_date}")
-        filepath = get_mediacount_file_by_date(current_date)
-        dailyinsert_from_file(glams, filepath, current_date)
-        os.remove(filepath)
+        try:
+            filepath = get_mediacount_file_by_date(current_date)
+            dailyinsert_from_file(glams, filepath, current_date)
+            os.remove(filepath)
+        except Exception as err:
+            logging.error(f"Error loading mediacount for date {current_date}:\n{err}")
         current_date = current_date + timedelta(days=1)
 
 
