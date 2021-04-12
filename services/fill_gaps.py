@@ -1,5 +1,6 @@
 from etl.mediacounts_dump import dailyinsert_from_file
 import logging
+import os
 from etl.s3 import get_mediacount_file_by_date
 from typing import List
 import argparse
@@ -26,6 +27,7 @@ def _main(start_date: date, end_date: date, glams_names: List[str]):
         try:
             filepath = get_mediacount_file_by_date(date_val)
             dailyinsert_from_file(glams, filepath, date_val)
+            os.remove(filepath)
         except Exception as err:
             logging.error(f"Error loading mediacount for date {date_val}:\n{err}")
         date_val = date_val + timedelta(days=1)
