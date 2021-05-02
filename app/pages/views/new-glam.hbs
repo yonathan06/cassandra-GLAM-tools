@@ -1,25 +1,8 @@
-<!DOCTYPE html>
-<html html={{ langDict.lang }}>
-
-<head>
-	<title>GLAM stat tool (Cassandra)</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta charset="utf-8">
-	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+{{#> mainWrapper}}
 	<link rel="stylesheet"
 		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
-
-	<link rel="stylesheet" href="/assets/style/style.css" />
-	<script>
-		langDict = {{ json langDict }}
-	</script>
-	{{#if langDict.isRtl}}
-	<link rel="stylesheet" href="/assets/style/rtl.css">
-	{{/if}}
-</head>
-
-<body>
 	<div class="pusher">
+		{{>sidebar}}
 		<section id="admin-cover" class="cover">
 			<div class="row">
 				<div class="col-12">
@@ -60,6 +43,7 @@
 		</main>
 	</div>
 	<script>
+		const countries = {{ json countries }};
 		(() => {
 			const form = document.getElementById('new-glam-form');
 			const addAnotherGlamButton = document.getElementById('addAnotherGlam');
@@ -96,6 +80,13 @@
 						<label for="websiteURL-${number}">Website URL</label>
 						<input type="text" name="website" class="form-control" id="websiteURL-${number}" placeholder="URL"
 							required />
+					</div>
+					<div class="form-group">
+						<label for="country-${number}">Country</label>
+						<select name="country" class="form-control" id="country-${number}" required>
+							<option value="">Select country</option>
+							${countries.map(country => `<option value="${country}">${country}</option>`).join('')}
+						</select>
 					</div>
 				`;
 				form.querySelector('#allGlams').appendChild(div);
@@ -135,12 +126,11 @@
 						category: element.querySelector('[name="category"]').value,
 						image: element.querySelector('[name="image"]').value,
 						website: element.querySelector('[name="website"]').value,
+						country: element.querySelector('[name="country"]').value,
 					}
 				});
 				createGlams(glamsInputs);
 			})
 		})();
 	</script>
-</body>
-
-</html>
+{{/mainWrapper}}

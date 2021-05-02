@@ -1,4 +1,4 @@
-FROM       node:12-alpine
+FROM       node:16-alpine
 
 WORKDIR    /usr/cassandra-app
 
@@ -6,8 +6,11 @@ WORKDIR    /usr/cassandra-app
 COPY       config config/
 COPY       pages pages/
 COPY       api.js ./
+COPY       middlewares middlewares/
+COPY       routes routes/
 COPY       locales locales/
 COPY       lib lib/
+COPY       countries.json ./
 COPY       routes.js ./
 COPY       server.js ./
 COPY       package*.json ./

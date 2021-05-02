@@ -3,13 +3,15 @@ const { Pool } = require('pg');
 const SQL = require('@nearform/sql');
 const dateFns = require('date-fns');
 
+const pool = new Pool(config.postgres);
+
+async function query(sql) {
+  return await pool.query(sql);
+}
+
 function generateAppGlamFromDb(element) {
   const glam = {
-    name: element.name,
-    fullname: element.fullname,
-    category: element.category,
-    image: element.image,
-    website: element.website,
+    ...element,
     connection: new Pool({
       ...config.postgres,
       database: element.database
@@ -36,8 +38,7 @@ function generateAppGlamFromDb(element) {
 }
 
 async function getAllGlams() {
-  const query = `SELECT * FROM glams`;
-  const result = await config.cassandraPgPool.query(query);
+  const result = await query(SQL`SELECT * FROM glams`);
   return result.rows.map(generateAppGlamFromDb)
 }
 

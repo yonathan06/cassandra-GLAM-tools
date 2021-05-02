@@ -1,77 +1,72 @@
-<!DOCTYPE html>
-<html html={{ langDict.lang }}>
-
-<head>
-	<title>GLAM stat tool (Cassandra)</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta charset="utf-8">
-	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+{{#> mainWrapper}}
 	<link rel="stylesheet"
 		href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="/assets/style/style.css" />
-	<script>
-		langDict = {{ json langDict }}
-	</script>
-	{{#if langDict.isRtl}}
-	<link rel="stylesheet" href="/assets/style/rtl.css">
-	{{/if}}
-</head>
-
-<body>
-	<section id="admin-cover" class="cover">
-		<div class="row">
-			<div class="col-12">
-				<h2>Create a new GLAM</h2>
-			</div>
-		</div>
-	</section>
-	<main id="main-container">
-		<section>
+	<div class="pusher">
+		{{> sidebar}}
+		<section id="admin-cover" class="cover">
 			<div class="row">
-				<div class="col-12 col-xl-9 my-xl-5">
-					<div id="wrong-glam" class="error-message mb-4" style="display:none;">
-						<h3>OOPS! Something went wrong. Check the following things:</h3>
-						<ul>
-							<li><b>GLAM ID</b> must be unique (there cannot be another GLAM with the same ID)</li>
-							<li><b>GLAM ID</b> cannot include spaces</li>
-							<li><b>Image URL</b> must be a valid URL (starts with <i>http://</i> or <i>https://</i>)</li>
-						</ul>
-					</div>
-					<div id="success-glam" class="mb-4" style="display:none;">
-						<div class="success-message mb-5">
-							<h3>Glam edited correctly</h3>
-						</div>
-						<div class="text-center">
-							<a href="/admin/panel">VIEW COMPLETE LIST</a>
-						</div>
-					</div>
-					<form id="edit-glam-form" name="new-glam" autocomplete="off">
-						<div class="form-group">
-							<label for="glamID">Unique GLAM ID</label>
-							<input type="text" class="form-control" id="glamID" aria-describedby="emailHelp"
-								placeholder="e.g. ZU, ETH or SNL" disabled required />
-						</div>
-						<div class="form-group">
-							<label for="glamFullName">Full Name*</label>
-							<input type="text" class="form-control" id="glamFullName" name="fullname"
-								placeholder="e.g. Canton of Zürich, ETH Library of Zurich or Swiss National Library" required />
-						</div>
-						<div class="form-group">
-							<label for="featuredImageURL">Featured image URL*</label>
-							<input type="text" class="form-control" id="featuredImageURL" name="image" placeholder="URL" required />
-						</div>
-						<div class="form-group">
-							<label for="websiteURL">Website URL</label>
-							<input type="text" class="form-control" id="websiteURL" name="website" placeholder="URL" required />
-						</div>
-						<div class="form-group d-flex">
-							<button id="edit-glam-button" class="btn btn-primary mr-auto">SUBMIT</button>
-						</div>
-					</form>
+				<div class="col-12">
+					<h2>Create a new GLAM</h2>
 				</div>
 			</div>
 		</section>
-	</main>
+		<main id="main-container">
+			<section>
+				<div class="row">
+					<div class="col-12 col-xl-9 my-xl-5">
+						<div id="wrong-glam" class="error-message mb-4" style="display:none;">
+							<h3>OOPS! Something went wrong. Check the following things:</h3>
+							<ul>
+								<li><b>GLAM ID</b> must be unique (there cannot be another GLAM with the same ID)</li>
+								<li><b>GLAM ID</b> cannot include spaces</li>
+								<li><b>Image URL</b> must be a valid URL (starts with <i>http://</i> or <i>https://</i>)</li>
+							</ul>
+						</div>
+						<div id="success-glam" class="mb-4" style="display:none;">
+							<div class="success-message mb-5">
+								<h3>Glam edited correctly</h3>
+							</div>
+							<div class="text-center">
+								<a href="/admin/panel">VIEW COMPLETE LIST</a>
+							</div>
+						</div>
+						<form id="edit-glam-form" name="new-glam" autocomplete="off">
+							<div class="form-group">
+								<label for="glamID">Unique GLAM ID</label>
+								<input type="text" class="form-control" id="glamID" aria-describedby="emailHelp"
+									placeholder="e.g. ZU, ETH or SNL" disabled required />
+							</div>
+							<div class="form-group">
+								<label for="glamFullName">Full Name*</label>
+								<input type="text" class="form-control" id="glamFullName" name="fullname"
+									placeholder="e.g. Canton of Zürich, ETH Library of Zurich or Swiss National Library" required />
+							</div>
+							<div class="form-group">
+								<label for="featuredImageURL">Featured image URL*</label>
+								<input type="text" class="form-control" id="featuredImageURL" name="image" placeholder="URL" required />
+							</div>
+							<div class="form-group">
+								<label for="websiteURL">Website URL</label>
+								<input type="text" class="form-control" id="websiteURL" name="website" placeholder="URL" required />
+							</div>
+							<div class="form-group">
+								<label for="country">Country</label>
+								<select class="form-control" id="country" name="country" required>
+									<option value="">Select country</option>
+									{{#each countries}}
+										<option value="{{this}}">{{this}}</option>
+									{{/each}}
+								</select>
+							</div>
+							<div class="form-group d-flex">
+								<button id="edit-glam-button" class="btn btn-primary mr-auto">SUBMIT</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
 	<script>
 		(() => {
 			const id = window.location.href.toString().split('/')[5];
@@ -79,7 +74,7 @@
 			const fullNameInput = updateForm.querySelector('input[name=fullname]');
 			const imageInput = updateForm.querySelector('input[name=image]');
 			const websiteInput = updateForm.querySelector('input[name=website]');
-
+			const countrySelect = updateForm.querySelector('select[name=country]')
 			const successMessage = document.getElementById('success-glam');
 			const errorMessage = document.getElementById('wrong-glam');
 
@@ -89,6 +84,7 @@
 				fullNameInput.value = data.fullname;
 				imageInput.value = data.image;
 				websiteInput.value = data.website || '';
+				countrySelect.value = data.country || '';
 			}
 			async function updateGlam(updateParams) {
 				errorMessage.style.display = 'none';
@@ -114,11 +110,10 @@
 					fullname: fullNameInput.value,
 					image: imageInput.value,
 					website: websiteInput.value,
+					country: countrySelect.value,
 				});
 			});
 			loadGlam();
 		})();
 	</script>
-</body>
-
-</html>
+{{/mainWrapper}}

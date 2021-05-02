@@ -55,11 +55,6 @@ async function loadGlams() {
       glam.status = null;
     }
 
-    if (element['http-auth']) {
-      glam['http-auth'] = element['http-auth'];
-      glam['http-auth'].realm = element.name + " stats";
-    }
-
     // Glams are never deleted
     glams[glam.name] = glam;
   })
@@ -69,22 +64,24 @@ async function loadGlams() {
 async function insertGlams(glams) {
   const newGlamsToSend = []
   for (let glam of glams) {
-    const { name, fullname, category, image, database, website } = glam;
+    const { name, fullname, category, image, database, website, country } = glam;
     newGlamsToSend.push(glam)
-    const query = SQL`INSERT INTO glams (name, fullname, category, image, database, status, website) 
-                    VALUES (${name}, ${fullname}, ${category}, ${image}, ${database}, 'pending', ${website || null})`;
+    const query = SQL`INSERT INTO glams (name, fullname, category, image, database, status, website, country) 
+                    VALUES (${name}, ${fullname}, ${category}, ${image}, ${database}, 'pending', ${website || null}, ${country || null})`;
     await cassandraPgPool.query(query)
   }
   await sendNewGlamMessage({ glams: newGlamsToSend });
 }
 
 function updateGlam(glam) {
-  const { name, fullname, image, website } = glam;
+  console.log("🚀 ~ file: config.js ~ line 77 ~ updateGlam ~ glam", glam)
+  const { name, fullname, image, website, country } = glam;
   const query = SQL`
     UPDATE glams 
     SET fullname = ${fullname}, 
         image = ${image}, 
         website = ${website}, 
+        country = ${country},
         updated_at = NOW() 
     WHERE name = ${name} 
   `;

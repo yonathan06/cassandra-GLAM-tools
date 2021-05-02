@@ -1,5 +1,5 @@
-const { Pool } = require('pg');
-const config = require('./config/config');
+const { Pool } = require("pg");
+const config = require("./config/config");
 const cassandraPgPool = new Pool(config.postgres);
 
 function createGlamsTableIfNoExist() {
@@ -8,18 +8,22 @@ function createGlamsTableIfNoExist() {
     fullname TEXT NOT NULL,
     category TEXT NOT NULL,
     image TEXT NOT NULL,
+    website TEXT,
+    country TEXT,
     database TEXT UNIQUE,
     lastrun TIMESTAMPTZ,
     status TEXT NOT NULL,
     min_date TEXT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-  )`
+  )`;
   return cassandraPgPool.query(query);
 }
 
-createGlamsTableIfNoExist().then(result => {  
-  console.log('Glams table created successfully');
-}).catch(error => {
-  console.error('Error creating Glams table', error);
-})
+createGlamsTableIfNoExist()
+  .then(() => {
+    console.log("Glams table created successfully");
+  })
+  .catch((error) => {
+    console.error("Error creating Glams table", error);
+  });

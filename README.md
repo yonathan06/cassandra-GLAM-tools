@@ -22,8 +22,6 @@ Enter the /app folder
 cd app
 ```
 
-Make sure you are using Node.js v12 before continuing
-
 Install Node.js project dependencies:
 
 ```bash

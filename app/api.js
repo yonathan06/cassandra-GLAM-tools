@@ -1,5 +1,4 @@
 const stringify = require('csv-stringify');
-const { getGlamByName } = require('./lib/db');
 
 Date.prototype.toISODateString = function () {
     let offset = this.getTimezoneOffset() * 60 * 1000;
@@ -51,6 +50,9 @@ var updateGlam = async function (req, res, config) {
 
     if (req.body.website) {
         glam.website = req.body.website;
+    }
+    if(req.body.country) {
+        glam.country = req.body.country;
     }
     try {
         await config.updateGlam(glam);

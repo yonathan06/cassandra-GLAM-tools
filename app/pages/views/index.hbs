@@ -14,6 +14,10 @@
 		display: flex;
 		justify-content: space-between;
 	}
+	.glam-data {
+		display: grid;
+		row-gap: 8px;
+	}
 
 	.glam-title {
 		font-size: 40px;
@@ -30,6 +34,31 @@
 
 	.glam-category a {
 		margin-inline-start: 20px;
+	}
+
+	.glam-props {
+		display: flex;
+		align-items: center;
+	}
+
+	.glam-country {
+		display: flex;
+		align-items: center;
+		margin-inline-end: 8px;
+	}
+
+	.glam-country > img {
+		margin-inline-end: 4px;
+	}
+
+	.glam-website > a {
+		display: flex;
+		align-items: center;
+	}
+
+	.glam-website > a > img {
+		height: 16px;
+		margin-inline-end: 4px;
 	}
 
 	.lang-select-container {
@@ -196,16 +225,26 @@
 	{{> sidebar}}
 	<main id="container" class="container">
 		<div class="glam-header">
-			<div>
+			<div class="glam-data">
 				<h1 class="glam-title">{{ glam.fullname }}</h1>
 				<div class="glam-category"><span>{{langDict.views.index.categoryTitle}}</span> <a
 						href="https://commons.wikimedia.org/wiki/Category:{{glam.category}}" target="_blank">{{glam.category}}</a>
 				</div>
-				{{#if glam.website}}
-				<div class="glam-website"><a href="{{glam.website}}"
-						target="_blank">{{langDict.views.index.officialWebsite}}</a>
-				</div>
-				{{/if}}
+				{{#ifOr glam.website glam.country}}
+					<div class="glam-props">
+						{{#if glam.country}}
+							<div class="glam-country">
+								<img height="16" src="/assets/icons/countries/{{glam.country}}.png" />
+								<span>{{glam.country}}</span>
+							</div>
+						{{/if}}
+						{{#if glam.website}}
+							<div class="glam-website"><a href="{{glam.website}}"
+									target="_blank"><img height="16" src="/assets/icons/link.svg" />{{glam.website}}</a>
+							</div>
+						{{/if}}
+					</div>
+				{{/ifOr}}
 			</div>
 			<div class="lang-select-container">
 				{{> langSelect}}

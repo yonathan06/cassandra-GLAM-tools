@@ -58,6 +58,21 @@
 		object-fit: cover;
 	}
 
+	.flag {
+		position: absolute;
+    top: 4px;
+    right: 4px;
+    border-radius: 100%;
+    display: flex;
+    padding: 4px;
+    background: rgba(0,0,0,0.3);
+	}
+
+	.flag>img {
+		width: 20px;
+		height: 20px;
+	}
+
 	.text-block {
 		position: absolute;
 		bottom: 0;
@@ -115,6 +130,9 @@
 			{{#*inline "glamLink"}}
 			<div class="glam-container">
 				<img src="{{glam.image}}">
+				<div class="flag">
+					<img src="/assets/icons/countries/{{glam.country}}.png" alt="{{glam.country}}" />
+				</div>
 				<div class="text-block">
 					<a class="glam-link" href="/{{glam.name}}" alt="{{glam.category}}">
 						<h4>{{glam.fullname}}</h4>
@@ -124,7 +142,7 @@
 			{{/inline}}
 
 			{{#each glams}}
-			{{> glamLink glam=this}}
+				{{> glamLink glam=this}}
 			{{/each}}
 		</div>
 	</main>
@@ -149,6 +167,9 @@
 					html += `
 						<div class="glam-container">
 							<img src="${glam.image}">
+							<div class="flag">
+								<img src="/assets/icons/countries/${glam.country}.png" alt="${glam.country}" />
+							</div>
 							<div class="text-block">
 								<a class="glam-link" href="/${glam.name}" alt="${glam.category}">
 									<h4>${glam.fullname}</h4>
