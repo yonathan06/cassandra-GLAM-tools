@@ -226,7 +226,7 @@ async function loadImagesIntoDB() {
 
 async function loadUsages() {
   if (catHead >= catFreeTail) {
-    afterUsages();
+    await afterUsages();
     return;
   }
   log("At " + catHead + " of " + catFreeTail);
@@ -323,6 +323,7 @@ config.loadGlams().then(async (glams) => {
 
   log("Working for " + glam.fullname);
   await wikiOpen(glam.category.replace(/ /g, "_"));
+  process.exit(0);
 }).catch(e => {
     console.error(e);
     process.exit(1);
