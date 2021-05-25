@@ -9,7 +9,9 @@
     "institutions": "Institutions",
     "introduction": "Introduction",
     "joinUs": "Join Us",
-    "contactUs": "Contact Us"
+    "contactUs": "Contact Us",
+    "controlPanel": "Control panel",
+    "githubRepository": "GitHub repository"
   },
   "description": "Description",
   "learnMore": "Learn More",

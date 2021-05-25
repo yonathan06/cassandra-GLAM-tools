@@ -9,7 +9,9 @@
     "institutions": "Organisationer",
     "introduction": "Introduktion",
     "joinUs": "Gå med",
-    "contactUs":  "Kontakta oss"
+    "contactUs":  "Kontakta oss",
+    "controlPanel": "Control panel",
+    "githubRepository": "GitHub repository"
   },
   "description": "Beskrivning",
   "learnMore": "Om rapporten",

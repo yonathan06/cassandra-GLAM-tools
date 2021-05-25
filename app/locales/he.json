@@ -9,7 +9,9 @@
     "institutions": "מוסדות",
     "introduction": "אודות",
     "joinUs": "הצטרפות",
-    "contactUs": "יצירת קשר"
+    "contactUs": "יצירת קשר",
+    "controlPanel": "Control panel",
+    "githubRepository": "GitHub repository"
   },
   "description": "תיאור",
   "learnMore": "מידע נוסף",
