@@ -1,5 +1,5 @@
 CREATE table IF NOT EXISTS categories (
-  age_title varchar(255) primary key, 
+  page_title varchar(255) primary key,
   cat_subcats int, 
   cat_files int, 
   cl_to varchar(255)[], 
