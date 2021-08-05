@@ -27,40 +27,6 @@ const cassandraPgPool = new Pool(config.postgres);
 
 const glams = {};
 
-async function loadGlams() {
-  const query = `SELECT * FROM glams`;
-  const result = await cassandraPgPool.query(query)
-  result.rows.forEach(element => {
-    const glam = {
-      name: element.name,
-      fullname: element.fullname,
-      category: element.category,
-      image: element.image,
-      website: element.website,
-      connection: new Pool({
-        ...config.postgres,
-        database: element.database
-      })
-    };
-
-    if (element.lastrun) {
-      glam.lastrun = element.lastrun;
-    } else {
-      glam.lastrun = null;
-    }
-
-    if (element.status) {
-      glam.status = element.status;
-    } else {
-      glam.status = null;
-    }
-
-    // Glams are never deleted
-    glams[glam.name] = glam;
-  })
-  return glams;
-}
-
 async function insertGlams(glams) {
   const newGlamsToSend = []
   for (let glam of glams) {
@@ -74,7 +40,6 @@ async function insertGlams(glams) {
 }
 
 function updateGlam(glam) {
-  console.log("🚀 ~ file: config.js ~ line 77 ~ updateGlam ~ glam", glam)
   const { name, fullname, image, website, country } = glam;
   const query = SQL`
     UPDATE glams 
@@ -92,7 +57,6 @@ module.exports = {
   ...config,
   glamUser,
   glams,
-  loadGlams,
   insertGlams,
   updateGlam,
   cassandraPgPool
