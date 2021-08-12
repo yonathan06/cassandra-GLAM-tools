@@ -217,11 +217,17 @@ async function loadImagesIntoDB() {
       img.cl_to.replace(/'/g, "''") +
       "');\r\n";
     storage_query += temp;
+    if (i % 10000 == 0) {
+      log("Adding 10,000 images to database");
+      await glam.connection.query(storage_query);
+      storage_query = "";
+    }
     i++;
   }
-
   log("Updating Postgres data...");
-  await glam.connection.query(storage_query);
+  if (storage_query) {
+    await glam.connection.query(storage_query);
+  }
 }
 
 async function loadUsages() {
