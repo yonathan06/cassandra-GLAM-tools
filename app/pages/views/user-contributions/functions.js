@@ -4,16 +4,13 @@ function getUrl() {
     const db = window.location.href.toString().split('/')[3];
     const groupby = $('#groupby-select').val();
     const subcat = window.location.href.toString().split('/')[5];
-    const subcatQ = subcat ? "&cat="+subcat : "";
     const query = subcat ? ("?groupby=" + groupby + "&cat=" + subcat) : "?groupby=" + groupby;
     return "/api/"+db+"/file/upload-date"+query;
 }
 
 function getUrlDataset() {
     let db = window.location.href.toString().split('/')[3];
-    let subcat = window.location.href.toString().split('/')[5];
     let groupby = $('#groupby-select').val();
-    //let query = subcat ? ("?groupby=" + groupby + "&cat=" + subcat) : "?groupby=" + groupby;
     return "/api/" + db + "/file/upload-date/dataset/" + groupby;
 }
 
