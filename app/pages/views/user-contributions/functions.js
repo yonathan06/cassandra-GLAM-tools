@@ -1,19 +1,17 @@
 let ACTIVE_ITEM_ID;
 
 function getUrl() {
-    let db = window.location.href.toString().split('/')[3];
-    let subcat = window.location.href.toString().split('/')[5];
-    let groupby = $('#groupby-select').val();
-    let query = subcat ? ("?groupby=" + groupby + "&cat=" + subcat) : "?groupby=" + groupby;
+    const db = window.location.href.toString().split('/')[3];
+    const groupby = $('#groupby-select').val();
+    const subcat = window.location.href.toString().split('/')[5];
+    const query = subcat ? ("?groupby=" + groupby + "&cat=" + subcat) : "?groupby=" + groupby;
     return "/api/"+db+"/file/upload-date"+query;
 }
 
 function getUrlDataset() {
     let db = window.location.href.toString().split('/')[3];
-    let subcat = window.location.href.toString().split('/')[5];
     let groupby = $('#groupby-select').val();
-    let query = subcat ? ("?groupby=" + groupby + "&cat=" + subcat) : "?groupby=" + groupby;
-    return "/api/"+db+"/file/upload-date/dataset"+query;
+    return "/api/" + db + "/file/upload-date/dataset/" + groupby;
 }
 
 function getUrlAll(){
@@ -98,12 +96,20 @@ function sorting_sidebar() {
     });
 }
 
+// Made this link the same as in other pages.
 function download() {
     // remove old link
     $("#download_dataset a").remove();
     // recreate download link based on timespan
     $('<a href="' + getUrlDataset() + '" download="' + "user_contributions.csv" + '">'+langDict.downloadDataset+'</a>').appendTo('#download_dataset');
 }
+
+
+
+function download_json_helper(){
+    download_json("user-contributions");
+}
+
 
 function highlight() {
     if (ACTIVE_ITEM_ID !== undefined) {
@@ -135,6 +141,7 @@ $(document).ready(function() {
     dataviz();
     how_to_read();
     download();
+	download_json_helper();
     switch_page();
     sorting_sidebar();
     $('#groupby-select').change(function() {

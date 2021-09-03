@@ -190,6 +190,7 @@ function sorting_sidebar() {
     });
 
     $("#by_name").on("click", function(){
+
 	if ($("#by_name").hasClass("active_order") ) {
 	    //console.log("già selezionato")
 	} else {
@@ -210,6 +211,11 @@ function download(){
     // recreate download link based on timespan
     $('<a href="' + getUrlDataset() + '" download="' + "views.csv" + '">'+langDict.downloadDataset+'</a>').appendTo('#download_dataset');
 }
+
+function download_json_helper(){
+    download_json("views");
+}
+
 
 function how_to_read(){
     button = $("#how_to_read_button");
@@ -262,6 +268,7 @@ $(document).ready(function(){
 	how_to_read();
 	sidebar("views");
 	download();
+	download_json_helper();
 	switch_page();
 	sorting_sidebar();
 	lineChartDraw("main_views_container", getUrlAll());

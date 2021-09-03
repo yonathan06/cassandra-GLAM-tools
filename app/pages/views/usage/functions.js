@@ -274,6 +274,12 @@ function download(){
 	$('<a href="' + getUrlDataset() + '" download="' + "usage.csv" + '">'+langDict.downloadDataset+'</a>').appendTo('#download_dataset');
 }
 
+
+function download_json_helper(){
+    download_json("usage");
+}
+
+
 function how_to_read() {
 	const button = $("#how_to_read_button");
 	const box = $(".how_to_read");
@@ -309,6 +315,7 @@ $(function() {
 	how_to_read();
 	sidebar("by_num");
 	download();
+	download_json_helper();
 	switch_page();
 	sorting_sidebar();
 	drawUsageDataViz();

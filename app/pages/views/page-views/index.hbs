@@ -22,6 +22,8 @@
 	<script>
 		langDict = {{ json langDict }}
 	</script>
+
+
 	{{#if langDict.isRtl}}
 	<link rel="stylesheet" href="/assets/style/rtl.css">
 	{{/if}}
@@ -178,6 +180,9 @@
 					<div class="download">
 						<h6 id="download_dataset"><img src="/assets/img/download-icon.svg" alt="download"></h6>
 					</div>
+					<div class="download">
+						<h6 id="download_json"><img src="/assets/img/download-icon.svg" alt="download"></h6>
+					</div>
 				</div>
 			</footer>
 		</main>
@@ -203,6 +208,7 @@
 	<script type="text/javascript" src="/assets/scripts/custom-selector.js"></script>
 	<script type="text/javascript" src="/assets/scripts/linechart.js"></script>
 	<script type="text/javascript" src="/views/page-views/functions.js"></script>
+	<script type="text/javascript" src="/views/json-generation.js"></script>
 </body>
 
 </html>
