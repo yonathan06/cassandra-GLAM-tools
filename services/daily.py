@@ -16,13 +16,17 @@ def process_glams(glams):
 def main(date_val: date):
     glams = get_glams()
     logging.info(f"Processing {len(glams)} glams: {', '.join(map(lambda glam: glam['name'] ,glams))}")
+
     process_glams(glams)
     filepath = download_file(date_val)
-    open_glams_connections(glams)
-    load_glams_images(glams)
-    dailyinsert_from_file(glams, filepath, date_val)
-    refresh_glams_visualizations(glams)
-    close_glams_connections(glams)
+    try:
+        open_glams_connections(glams)
+        load_glams_images(glams)
+        dailyinsert_from_file(glams, filepath, date_val)
+        refresh_glams_visualizations(glams)
+        close_glams_connections(glams)
+    except:
+        logging.error("Error running daily.js")
     os.remove(filepath)
 
 
