@@ -6,9 +6,9 @@ from typing import List
 import argparse
 from datetime import date, datetime, timedelta
 from etl.glams_table import close_glams_connections, get_glams, load_glams_images, open_glams_connections, refresh_glams_visualizations
+from etl.download_mediacounts import download_file
 
-
-def _main(start_date: date, end_date: date, glams_names: List[str]):
+def _main(start_date: date, end_date: date, glams_names: List[str], should_download: bool):
     glams = get_glams()
     if glams_names != None:
         glams = list(
@@ -25,7 +25,7 @@ def _main(start_date: date, end_date: date, glams_names: List[str]):
         total_image_num += len(glam['images'])
     while date_val < end_date:
         try:
-            filepath = get_mediacount_file_by_date(date_val)
+            filepath = download_file(date_val) if should_download else get_mediacount_file_by_date(date_val)
             dailyinsert_from_file(glams, filepath, date_val)
             os.remove(filepath)
         except Exception as err:
@@ -45,7 +45,8 @@ if __name__ == '__main__':
             s, '%Y-%m-%d').date(), help="End date, default to today (format Y-m-d)", default=date.today())
     parser.add_argument("--glams", nargs='+', type=str,
                         help="Glam names to process (deafult to all)")
+    parser.add_argument("--download", type=bool,  default=False, help="Should download mediafile from wikimedia and upload to S3. default False")
     args = parser.parse_args()
 
-    _main(args.start_date, end_date=args.end_date, glams_names=args.glams)
+    _main(args.start_date, end_date=args.end_date, glams_names=args.glams, should_download=args.download)
     logging.info(f"Fill gaps done")
