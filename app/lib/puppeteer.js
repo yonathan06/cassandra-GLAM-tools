@@ -6,7 +6,10 @@ const puppeteer = require("puppeteer");
 let puppeteerInstance;
 async function getPuppeteerInstance() {
   if (!puppeteerInstance) {
-    puppeteerInstance = await puppeteer.launch({ headless: true });
+    puppeteerInstance = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-dev-shm-usage"],
+    });
   }
   return puppeteerInstance;
 }
@@ -19,7 +22,7 @@ async function printPDF(html) {
     waitUntil: "networkidle0",
   });
   const pdfBuffer = await page.pdf({
-    format: 'A4'
+    format: "A4",
   });
   await page.close();
   return pdfBuffer;

@@ -167,7 +167,6 @@ async function getReportData(glam, date = new Date()) {
     date = dateFns.sub(date, { days: 1 });
   }
   const forDateString = dateFns.format(date, dbDateFormat);
-  console.log("🚀 ~ file: db.js ~ line 170 ~ getReportData ~ forDateString", forDateString)
   if (reportDataCache[glam.name]) {
     const report = reportDataCache[glam.name][forDateString];
     if (report && Date.now() - report.reportCreatedDate < 1000 * 60) {
