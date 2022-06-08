@@ -1,0 +1,99 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { box-sizing: border-box; } html { font-family: "Montserrat"; font-size:
+      20px; } body { padding: 1rem; } h1, h2 { margin: 0; } h2 { font-weight:
+      500; } .container { display: grid; row-gap: 5rem; max-width: 2180px; margin:
+      auto; } .main { margin-bottom: 500px; } .most-viewed-section { margin-bottom: 600px; } .grid { max-width: 2180px; display: grid; grid-template-columns: 1fr 1fr; column-gap:
+      2rem; row-gap: 4rem; } .image-title { overflow: hidden; flex-grow: 0; } .main-image { width: 100%; height: auto;
+      border-radius: 8px; flex-shrink: 0; } .date-title { margin-top: 1rem; font-size: 1.5rem;
+      font-weight: 300; } .light { font-weight: 200; } .mt-1 { margin-top: 1rem;
+      } .mb-3 { margin-bottom: 3rem; } .center { text-align: center; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main grid">
+        <div>
+          <img class="main-image" src="{{mainImage}}" />
+        </div>
+        <div class="main-text">
+          <h1>{{name}}</h1>
+          <div class="date-title">
+            <u>{{month}} {{year}}</u>
+            <div>Wikimedia report</div>
+          </div>
+        </div>
+        <div class="center">
+          <h2>Total media files</h2>
+          <h2 class="light mt-1">{{totalMediaFiles}}</h2>
+        </div>
+        <div class="center">
+          <h2>Monthly avg. views</h2>
+          <h2 class="light mt-1">{{monthlyAvgViews}}</h2>
+        </div>
+        <div class="center">
+          <h2>Usage - no. of articles</h2>
+          <h2 class="light mt-1">{{numOfArticles}}</h2>
+        </div>
+        <div class="center">
+          <h2>Uage - no. of projects</h2>
+          <h2 class="light mt-1">{{numOfProjects}}</h2>
+        </div>
+      </div>
+      <div class="most-viewed-section">
+        <h2 class="center mb-3">Most viewed image</h2>
+        <div class="grid">
+          <div style="align-self: center;">
+            <h2 class="light">
+              {{mostViewedImg.title}}
+            </h2>
+          </div>
+          <div>
+            <img
+              class="main-image"
+              src="{{mostViewedImg.src}}"
+              alt="{{mostViewedImg.title}}"
+            />
+          </div>
+          <h2
+            class="light"
+            style="justify-self: end;"
+          >{{mostViewedImg.totalViews}} views</h2>
+          <h2 class="light">{{mostViewedImg.avgDailyViews}}
+            avg views per day</h2>
+        </div>
+      </div>
+      <div class="image-section">
+        <h2 class="center mb-3">New image</h2>
+        <div class="grid">
+          <div class="image-title" style="align-self: center;">
+            <h2 class="light">
+              {{newImg.title}}
+            </h2>
+          </div>
+          <div>
+            <img
+              class="main-image"
+              src="{{newImg.src}}"
+              alt="{{newImg.title}}"
+            />
+          </div>
+          <h2 class="light" style="justify-self: end;">{{newImg.totalViews}}
+            views</h2>
+          <h2 class="light">{{newImg.avgDailyViews}} avg views per day</h2>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

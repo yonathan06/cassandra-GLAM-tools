@@ -1,4 +1,8 @@
 {{#> mainWrapper}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" integrity="sha512-MQXduO8IQnJVq1qmySpN87QQkiR1bZHtorbJBD0tzy7/0U9+YIC93QWHeGTEoojMVHWWNkoCp8V6OzVSYrX0oQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js" integrity="sha512-K/oyQtMXpxI4+K0W7H25UopjM8pzq0yrVdFdG21Fh5dBe91I40pDd9A4lzNlHPHBIP2cwZuoxaUSX0GJSObvGA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/plugins/monthSelect/style.min.css" integrity="sha512-V7B1IY1DE/QzU/pIChM690dnl44vAMXBidRNgpw0mD+hhgcgbxHAycRpOCoLQVayXGyrbC+HdAONVsF+4DgrZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="/js/monthSelect.js"></script>
 <style>
 	.container {
 		padding: 24px 32px;
@@ -78,7 +82,7 @@
 
 	.glam-search {
 		height: 34px;
-		grid-column: 2 / 7;
+		grid-column: 2 / 5;
 		display: flex;
 		flex-grow: 1;
 	}
@@ -96,6 +100,20 @@
 		align-items: center;
 		background: none;
 		border: none;
+	}
+
+	.export-report {
+		display: flex;
+		column-gap: 1rem;
+		grid-column: 5 / 7;
+		justify-content: flex-end;
+	}
+
+	.export-report input {
+		background: none;
+    border: none;
+    height: inherit;
+    max-width: 100px;
 	}
 
 	.data-card {
@@ -285,6 +303,35 @@
 			<input type="text" name="fileName" aria-label="{{langDict.views.index.searchFile}}"
 				placeholder="{{langDict.views.index.searchFile}}">
 		</form>
+		<div class="export-report">
+			<input placeholder="Select month" id="reportInput" type="text" name="report" />
+			<button id="downloadReportBtn" class="btn btn-primary">Download report</button>
+			<script type="module">
+				let date;
+				flatpickr("#reportInput", {
+					onChange: (val) => date = val[0],
+					plugins: [
+						new monthSelectPlugin({
+							shorthand: true,
+						})
+					]
+				});
+				const downloadButton = document.getElementById("downloadReportBtn");
+				downloadButton.addEventListener("click", async () => {
+					if (!date) return;
+					downloadButton.disabled = true;
+					const originalText = downloadButton.textContent;
+					downloadButton.textContent = "Loading..."
+					const response = await fetch(
+						`/api/report/{{glam.name}}?year=${date.getFullYear()}&month=${date.getMonth()}`
+					);
+					const file = URL.createObjectURL(await response.blob());
+					downloadButton.disabled = false;
+					downloadButton.textContent = originalText;
+					window.open(file, "_blank").focus();
+				});
+			</script>
+		</div>
 		<div class="data-card">
 			<a href="{{glam.name}}/page-views" class="data-card-title">{{langDict.views.index.report.viewsDate}}</a>
 			<div class="data-card-number">{{toLocaleString data.yesterdayMediacount}}</div>

@@ -10,8 +10,12 @@ const {
   getAllGlams,
   getReportData,
   dbDateFormat,
+  getImagesDataForMonth,
+  getMostViewedImage
 } = require("./lib/db.js");
 const { authenticateAdmin } = require("./middlewares/auth");
+const { createMonthlyReport } = require("./lib/reports/monthly/index.js");
+const crypto = require("node:crypto");
 
 function isValidGlam(glam) {
   return (
@@ -519,5 +523,89 @@ module.exports = function (app) {
         res.json(JSON.parse(response.body));
       }
     });
+  });
+
+  function validateQuery(query) {
+    let { year, month } = query;
+    year = +year;
+    month = +month;
+    if (isNaN(year)) {
+      return new Error("year must be a number");
+    }
+    if (isNaN(month)) {
+      return new Error("month must be a number");
+    }
+    if (month < 0 || month > 11) {
+      return new Error("month must be between 0 - 11");
+    }
+    return { year, month };
+  }
+  function getThumbnailUrl(file, size = 1000) {
+    const base_url = "https://upload.wikimedia.org/wikipedia/commons/thumb";
+    const hash = crypto
+      .createHash("md5")
+      .update(decodeURIComponent(file))
+      .digest("hex");
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.tif|\.tiff|\.svg)$/i;
+    if (!allowedExtensions.exec(file)) {
+      return "";
+    }
+    const file_url =
+      base_url +
+      "/" +
+      hash.substring(0, 1) +
+      "/" +
+      hash.substring(0, 2) +
+      "/" +
+      encodeURIComponent(file) +
+      "/" +
+      size.toString() +
+      "px-thumbnail.jpg";
+    return file_url;
+  }
+  function fromDbImageToPDFImage(imageData) {
+    if (!imageData) return {};
+    return {
+      title: imageData.img_name,
+      totalViews: (+imageData.tot).toLocaleString(),
+      avgDailyViews: (+imageData.avg).toLocaleString(),
+      src: getThumbnailUrl(imageData.img_name),
+    }
+  }
+  app.get("/api/report/:id", async function (req, res, next) {
+    try {
+      const glam = await getGlamByName(req.params.id);
+      const validationResult = validateQuery(req.query);
+      if (validationResult instanceof Error) {
+        res.status(400).send({ error: validationResult.message });
+        return;
+      }
+      const { year, month } = validationResult;
+
+      const date = dateFns.endOfMonth(dateFns.set(new Date(), { year, month }));
+      const [data, newImageMonth, mostViewedImage] = await Promise.all([
+        getReportData(glam, date),
+        getImagesDataForMonth(glam, year, month),
+        getMostViewedImage(glam)
+      ]);
+      const pdfBuffer = await createMonthlyReport({
+        name: glam.fullname,
+        mainImage: glam.image,
+        year,
+        month: dateFns.format(date, "MMMM"),
+        monthlyAvgViews: data.thisYearMonthlyAvg,
+        numOfArticles: data.articlesCount,
+        numOfProjects: data.projectsCount,
+        totalMediaFiles: data.totalImgNum,
+        mostViewedImg: fromDbImageToPDFImage(mostViewedImage),
+        newImg: fromDbImageToPDFImage(newImageMonth),
+      });
+      res.setHeader("Content-Length", pdfBuffer.byteLength);
+      res.setHeader("Content-Type", "application/pdf");
+      res.setHeader("Content-Disposition", "attachment; filename=report.pdf");
+      res.send(pdfBuffer);
+    } catch (e) {
+      next(e);
+    }
   });
 };
