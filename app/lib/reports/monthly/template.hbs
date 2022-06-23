@@ -47,10 +47,11 @@
           <h2 class="light mt-1">{{numOfArticles}}</h2>
         </div>
         <div class="center">
-          <h2>Uage - no. of projects</h2>
+          <h2>Usage - no. of projects</h2>
           <h2 class="light mt-1">{{numOfProjects}}</h2>
         </div>
       </div>
+      {{#if mostViewedImg}}
       <div class="most-viewed-section">
         <h2 class="center mb-3">Most viewed image</h2>
         <div class="grid">
@@ -74,6 +75,8 @@
             avg views per day</h2>
         </div>
       </div>
+      {{/if}}
+      {{#if newImg}}
       <div class="image-section">
         <h2 class="center mb-3">New image</h2>
         <div class="grid">
@@ -94,6 +97,7 @@
           <h2 class="light">{{newImg.avgDailyViews}} avg views per day</h2>
         </div>
       </div>
+      {{/if}}
     </div>
   </body>
 </html>
