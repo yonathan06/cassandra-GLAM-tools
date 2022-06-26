@@ -3,6 +3,7 @@ import bz2
 from tqdm import tqdm
 import urllib.parse
 from etl.glams_table import dailyinsert_query
+import concurrent.futures
 
 
 def _get_total_glam_images(glams):
@@ -19,27 +20,40 @@ def get_file_key_from_line(line):
     return key, arr
 
 
-def _dailyinsert_glams(glams, line, date_val):
+def exec_dailyinsert(glam, key, arr, date_val):
+    print(f"calling dailyinsert on {glam.name}")
+    glam['cur'].execute(
+        dailyinsert_query(key, arr, date_val))
+    print(f"Done calling dailyinsert on {glam.name}")
+
+
+def _dailyinsert_glams(glams, line, date_val, executor: concurrent.futures.ThreadPoolExecutor):
     key, arr = get_file_key_from_line(line)
     counter = 0
     for glam in glams:
         if key in glam['images']:
-            glam['cur'].execute(
-                dailyinsert_query(key, arr, date_val))
+            executor.submit(exec_dailyinsert, glam, key, arr, date_val)
             counter += 1
     return counter
 
 
 def dailyinsert_from_file(glams, filepath, date_val):
     with bz2.BZ2File(filepath, "r") as extracted_file:
+        for glam in glams:
+            glam.queries = []
         total_image_num = _get_total_glam_images(glams)
         with tqdm(total=total_image_num) as bar:
-            counter = 0
-            for line in extracted_file:
-                inserted_counter = _dailyinsert_glams(glams, line, date_val)
-                counter += inserted_counter
-                bar.update(inserted_counter)
-                if counter == total_image_num:
-                    logging.info(
-                        f"Counter {counter} total_image_num{total_image_num}")
-                    break
+            with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+                counter = 0
+                for line in extracted_file:
+                    inserted_counter = _dailyinsert_glams(
+                        glams, line, date_val, executor)
+                    counter += inserted_counter
+                    bar.update(inserted_counter)
+                    if counter == total_image_num:
+                        logging.info(
+                            f"Counter {counter} total_image_num{total_image_num}")
+                        break
+                print(f"waiting for all queries to be done")
+                concurrent.futures.wait(concurrent.futures)
+                print(f"queries are done")
