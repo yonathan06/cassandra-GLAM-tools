@@ -21,10 +21,8 @@ def get_file_key_from_line(line):
 
 
 def exec_dailyinsert(glam, key, arr, date_val):
-    print(f"calling dailyinsert on {glam.name}")
     glam['cur'].execute(
         dailyinsert_query(key, arr, date_val))
-    print(f"Done calling dailyinsert on {glam.name}")
 
 
 def _dailyinsert_glams(glams, line, date_val, executor: concurrent.futures.ThreadPoolExecutor):
