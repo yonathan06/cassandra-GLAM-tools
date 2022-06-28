@@ -52,6 +52,6 @@ def dailyinsert_from_file(glams, filepath, date_val):
                         logging.info(
                             f"Counter {counter} total_image_num{total_image_num}")
                         break
-                print(f"waiting for all queries to be done")
+                logging.info(f"waiting for all queries to be done")
                 executor.shutdown(wait=True)
-                print(f"queries are done")
+                logging.info(f"queries are done")
