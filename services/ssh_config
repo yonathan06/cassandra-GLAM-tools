@@ -1,0 +1,11 @@
+Host *
+  AddKeysToAgent yes
+  IgnoreUnknown UseKeychain
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_rsa
+Host toolforge
+   HostName      login.toolforge.org
+   User          myusername
+   Port          22
+   IdentityFile  ~/.ssh/id_rsa
+   LocalForward  3306 commonswiki.analytics.db.svc.wikimedia.cloud:3306
