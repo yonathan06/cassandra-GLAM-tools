@@ -134,13 +134,11 @@ def open_glams_connections(glams):
     logging.info(f"opening connections for {len(glams)} glams")
     for glam in glams:
         glam['conn'] = get_glam_database_connection(glam['database'])
-        glam['cur'] = glam['conn'].cursor()
 
 
 def close_glams_connections(glams):
     logging.info(f"closing connections for {len(glams)} glams")
     for glam in glams:
-        glam['cur'].close()
         glam['conn'].close()
 
 
@@ -154,8 +152,11 @@ def refresh_glams_visualizations(glams):
     logging.info(f"refrashing views for {len(glams)} glams")
     for glam in glams:
         logging.info(f"refrashing for {glam['name']}")
-        glam['cur'].execute('REFRESH MATERIALIZED VIEW visualizations_sum')
-        glam['cur'].execute('REFRESH MATERIALIZED VIEW visualizations_stats')
+        cur = glam['conn'].cursor()
+        cur.execute('REFRESH MATERIALIZED VIEW visualizations_sum')
+        cur.execute('REFRESH MATERIALIZED VIEW visualizations_stats')
+        cur.close()
+
 
 def dailyinsert_query(key, arr, date_val):
     return f"SELECT * FROM dailyinsert('" + key.replace(
