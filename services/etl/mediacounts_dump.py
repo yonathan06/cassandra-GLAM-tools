@@ -42,8 +42,8 @@ def dailyinsert_from_file(glams, filepath, date_val):
         for glam in glams:
             glam.queries = []
         total_image_num = _get_total_glam_images(glams)
-        with tqdm(total=total_image_num) as bar:
-            with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
+            with tqdm(total=total_image_num) as bar:
                 counter = 0
                 for line in extracted_file:
                     inserted_counter = _dailyinsert_glams(
@@ -51,9 +51,7 @@ def dailyinsert_from_file(glams, filepath, date_val):
                     counter += inserted_counter
                     bar.update(inserted_counter)
                     if counter == total_image_num:
-                        logging.info(
-                            f"Counter {counter} total_image_num{total_image_num}")
                         break
-                logging.info(f"waiting for all queries to be done")
-                executor.shutdown(wait=True)
-                logging.info(f"queries are done")
+            logging.info(f"waiting for all queries to be done")
+            executor.shutdown(wait=True)
+            logging.info(f"queries are done")
