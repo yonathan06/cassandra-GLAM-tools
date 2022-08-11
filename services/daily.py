@@ -23,11 +23,11 @@ def main(date_val: date):
         open_glams_connections(glams)
         load_glams_images(glams)
         dailyinsert_from_file(glams, filepath, date_val)
+        os.remove(filepath)
         refresh_glams_visualizations(glams)
         close_glams_connections(glams)
     except:
         logging.error("Error running daily.js")
-    os.remove(filepath)
 
 
 if __name__ == "__main__":
