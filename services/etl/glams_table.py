@@ -3,6 +3,7 @@ import psycopg2.extras
 import psycopg2.errors
 import logging
 from config import config
+import concurrent.futures
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s')
@@ -148,14 +149,29 @@ def load_glams_images(glams):
         glam['images'] = get_glam_images(glam['conn'])
 
 
+def _refresh_vis_sum_view(glam):
+    logging.info(f"refreshing for visualizations_sum for {glam['name']}")
+    cur = glam['conn'].cursor()
+    cur.execute('REFRESH MATERIALIZED VIEW visualizations_sum')
+    cur.close()
+
+
+def _refresh_vis_stats_view(glam):
+    logging.info(f"refreshing for visualizations_stats for {glam['name']}")
+    cur = glam['conn'].cursor()
+    cur.execute('REFRESH MATERIALIZED VIEW visualizations_stats')
+    cur.close()
+
+
 def refresh_glams_visualizations(glams):
-    logging.info(f"refrashing views for {len(glams)} glams")
-    for glam in glams:
-        logging.info(f"refrashing for {glam['name']}")
-        cur = glam['conn'].cursor()
-        cur.execute('REFRESH MATERIALIZED VIEW visualizations_sum')
-        cur.execute('REFRESH MATERIALIZED VIEW visualizations_stats')
-        cur.close()
+    logging.info(f"refreshing views for {len(glams)} glams")
+    with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
+        for glam in glams:
+            executor.submit(_refresh_vis_sum_view, glam)
+            executor.submit(_refresh_vis_stats_view, glam)
+        logging.info(f"waiting for all data refreshes to be done")
+        executor.shutdown(wait=True)
+        logging.info(f"all data refreshes done")
 
 
 def dailyinsert_query(key, arr, date_val):
