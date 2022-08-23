@@ -154,6 +154,7 @@ def _refresh_vis_sum_view(glam):
     cur = glam['conn'].cursor()
     cur.execute('REFRESH MATERIALIZED VIEW visualizations_sum')
     cur.close()
+    logging.info(f"done refreshing for visualizations_sum for {glam['name']}")
 
 
 def _refresh_vis_stats_view(glam):
@@ -161,6 +162,7 @@ def _refresh_vis_stats_view(glam):
     cur = glam['conn'].cursor()
     cur.execute('REFRESH MATERIALIZED VIEW visualizations_stats')
     cur.close()
+    logging.info(f"done refreshing for visualizations_stats for {glam['name']}")
 
 
 def refresh_glams_visualizations(glams):
