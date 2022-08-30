@@ -6,7 +6,7 @@ import subprocess
 import sys
 from subprocess import SubprocessError
 
-from services.etl.glams_table import get_glams
+from services.etl.glams_table import get_active_glams
 
 import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -44,7 +44,7 @@ def main():
         logging.info('External error reporting DISABLED')
         pass
 
-    for glam in get_glams():
+    for glam in get_active_glams():
         if 'status' in glam:
             if glam['status'] == 'paused':
                 logging.info('Glam %s is paused', glam['name'])

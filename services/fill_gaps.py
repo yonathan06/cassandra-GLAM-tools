@@ -5,11 +5,11 @@ from etl.s3 import get_mediacount_file_by_date
 from typing import List
 import argparse
 from datetime import date, datetime, timedelta
-from etl.glams_table import close_glams_connections, get_glams, load_glams_images, open_glams_connections, refresh_glams_visualizations
+from etl.glams_table import close_glams_connections, get_active_glams, load_glams_images, open_glams_connections, refresh_glams_visualizations
 from etl.download_mediacounts import download_file
 
 def _main(start_date: date, end_date: date, glams_names: List[str], should_download: bool):
-    glams = get_glams()
+    glams = get_active_glams()
     if glams_names != None:
         glams = list(
             filter(lambda g:  g['name'] in glams_names, glams))

@@ -3,7 +3,7 @@ import logging
 import os
 from datetime import date, timedelta
 from lib.sentry import with_sentry
-from etl.glams_table import close_glams_connections, get_glams, load_glams_images, open_glams_connections, refresh_glams_visualizations
+from etl.glams_table import close_glams_connections, get_active_glams, load_glams_images, open_glams_connections, refresh_glams_visualizations
 from etl.etl_glam import process_glam
 from etl.download_mediacounts import download_file
 
@@ -14,7 +14,7 @@ def process_glams(glams):
         process_glam(glam)
 
 def main(date_val: date):
-    glams = get_glams()
+    glams = get_active_glams()
     logging.info(f"Processing {len(glams)} glams: {', '.join(map(lambda glam: glam['name'] ,glams))}")
 
     process_glams(glams)

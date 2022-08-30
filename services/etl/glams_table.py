@@ -23,7 +23,7 @@ def open_connection(autocommit=True):
     return (connection, cursor)
 
 
-def get_glams():
+def get_active_glams():
     connection, cursor = open_connection()
     try:
         cursor.execute("SELECT * FROM glams")
@@ -36,11 +36,11 @@ def get_glams():
         cursor.close()
 
 
-def get_glams():
+def get_active_glams():
     connection, cursor = open_connection()
     try:
         cursor.execute(
-            "SELECT * FROM glams")
+            "SELECT * FROM glams WHERE status!='disabled'")
         glams = cursor.fetchall()
         return glams
     except Exception as error:
