@@ -23,6 +23,7 @@ async function printPDF(html) {
   });
   const pdfBuffer = await page.pdf({
     format: "A4",
+    printBackground: true,
   });
   await page.close();
   return pdfBuffer;

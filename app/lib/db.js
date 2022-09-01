@@ -93,16 +93,19 @@ function extractThisMonthMediacounts(mediacountResults, forDate) {
   return sum;
 }
 
-function calcMonthlyAvg(mediacountResults, forDate) {
-  if (mediacountResults.length === 0 || forDate.getMonth() === 0) {
-    return 0;
-  }
-  const sum = mediacountResults.reduce((sum, res) => {
+function sumMediacounts(mediacountResults, forDate) {
+  return mediacountResults.reduce((sum, res) => {
     if (!dateFns.isSameMonth(res.access_date.getTime(), forDate)) {
       return sum + +res.accesses_sum;
     }
     return sum;
   }, 0);
+}
+function calcMonthlyAvg(mediacountResults, forDate) {
+  if (mediacountResults.length === 0 || forDate.getMonth() === 0) {
+    return 0;
+  }
+  const sum = sumMediacounts(mediacountResults, forDate);
   return Math.round(sum / forDate.getMonth());
 }
 
@@ -127,6 +130,7 @@ async function getGlamMediaCountReport(glam, forDate) {
       mediacountResults,
       forDate
     ),
+    sumForMonth: sumMediacounts(mediacountResults, forDate),
     thisYearMonthlyAvg: calcMonthlyAvg(mediacountResults, forDate),
   };
   return report;
@@ -217,3 +221,13 @@ async function getMostViewedImage(glam) {
   return imageData;
 }
 exports.getMostViewedImage = getMostViewedImage;
+
+async function getMostViewedTopImages(glam, count = 3) {
+  const query = `SELECT * FROM visualizations_stats as vs
+  LEFT JOIN images i ON vs.img_name = i.img_name
+  ORDER BY vs.tot DESC
+  LIMIT ${count}`;
+  const { rows } = await glam.connection.query(query);
+  return rows;
+}
+exports.getMostViewedTopImages = getMostViewedTopImages;

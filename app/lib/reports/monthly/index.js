@@ -17,16 +17,7 @@ const template = hbs.compile(fs.readFileSync(path.join(__dirname, "template.hbs"
  * @param {string} params.numOfArticles
  * @param {string} params.numOfProjects
  * @param {string} params.numOfProjects
- * @param {Object} params.mostViewedImg
- * @param {string} params.mostViewedImg.title
- * @param {string} params.mostViewedImg.src
- * @param {string} params.mostViewedImg.totalViews
- * @param {string} params.mostViewedImg.avgDailyViews
- * @param {Object} params.newImg
- * @param {string} params.newImg.title
- * @param {string} params.newImg.src
- * @param {string} params.newImg.totalViews
- * @param {string} params.newImg.avgDailyViews
+ * @param {Array} params.topViewedImages
  * @returns {Promise<Buffer>}
  */
 async function createMonthlyReport(params) {

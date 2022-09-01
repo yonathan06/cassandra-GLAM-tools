@@ -10,8 +10,7 @@ const {
   getAllGlams,
   getReportData,
   dbDateFormat,
-  getImagesDataForMonth,
-  getMostViewedImage
+  getMostViewedTopImages,
 } = require("./lib/db.js");
 const { authenticateAdmin } = require("./middlewares/auth");
 const { createMonthlyReport } = require("./lib/reports/monthly/index.js");
@@ -540,7 +539,7 @@ module.exports = function (app) {
     }
     return { year, month };
   }
-  function getThumbnailUrl(file, size = 1000) {
+  function getThumbnailUrl(file, size = 500) {
     const base_url = "https://upload.wikimedia.org/wikipedia/commons/thumb";
     const hash = crypto
       .createHash("md5")
@@ -563,13 +562,14 @@ module.exports = function (app) {
       "px-thumbnail.jpg";
     return file_url;
   }
-  function fromDbImageToPDFImage(imageData) {
-    if (!imageData) return {};
-    return {
-      title: imageData.img_name,
-      totalViews: (+imageData.tot).toLocaleString(),
-      avgDailyViews: (+imageData.avg).toLocaleString(),
-      src: getThumbnailUrl(imageData.img_name),
+  function parseNumberToLocalString(number) {
+    try {
+      if (typeof number === "string") {
+        number = +number;
+      }
+      return number.toLocaleString();
+    } catch(e) {
+      return 0
     }
   }
   app.get("/api/report/:id", async function (req, res, next) {
@@ -583,22 +583,30 @@ module.exports = function (app) {
       const { year, month } = validationResult;
 
       const date = dateFns.endOfMonth(dateFns.set(new Date(), { year, month }));
-      const [data, newImageMonth, mostViewedImage] = await Promise.all([
+      let [data, topViewedImages] = await Promise.all([
         getReportData(glam, date),
-        getImagesDataForMonth(glam, year, month),
-        getMostViewedImage(glam)
+        getMostViewedTopImages(glam),
       ]);
+      topViewedImages = topViewedImages.map((image, i) => ({
+        ...image,
+        index: i + 1,
+        img_name: image.img_name.replace(/\,/g, ", "),
+        tot: parseNumberToLocalString(image.tot),
+        avg: parseNumberToLocalString(image.avg),
+        date: dateFns.format(image.img_timestamp, "dd.LL.yyyy"),
+        src: getThumbnailUrl(image.img_name)
+      }))
       const pdfBuffer = await createMonthlyReport({
         name: glam.fullname,
         mainImage: glam.image,
         year,
         month: dateFns.format(date, "MMMM"),
-        monthlyAvgViews: data.thisYearMonthlyAvg,
-        numOfArticles: data.articlesCount,
-        numOfProjects: data.projectsCount,
-        totalMediaFiles: data.totalImgNum,
-        mostViewedImg: fromDbImageToPDFImage(mostViewedImage),
-        newImg: fromDbImageToPDFImage(newImageMonth),
+        monthlyAvgViews: data.thisYearMonthlyAvg.toLocaleString(),
+        totalMonthlyViews: data.sumForMonth.toLocaleString(),
+        numOfArticles: data.articlesCount.toLocaleString(),
+        numOfProjects: data.projectsCount.toLocaleString(),
+        totalMediaFiles: data.totalImgNum.toLocaleString(),
+        topViewedImages,
       });
       res.setHeader("Content-Length", pdfBuffer.byteLength);
       res.setHeader("Content-Type", "application/pdf");
