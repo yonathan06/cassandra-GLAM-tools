@@ -155,37 +155,31 @@
 	const searchInput = searchGlamForm.querySelector('input[name="searchTerm"]');
 	const glamsContainer = document.querySelector('#glamsContainer');
 
-	let debounceTimeout;
 	function filterGlams() {
-		if (debounceTimeout) {
-			clearTimeout(debounceTimeout);
-		}
-		debounceTimeout = setTimeout(() => {
-			const value = searchInput.value.toLowerCase();
-			const glamsHtml = glams.reduce((html, glam) => {
-				if (glam.fullname.toLowerCase().includes(value)) {
-					html += `
-						<div class="glam-container">
-							<img src="${glam.image}">
-							<div class="flag">
-								<img src="/assets/icons/countries/${glam.country}.png" alt="${glam.country}" />
-							</div>
-							<div class="text-block">
-								<a class="glam-link" href="/${glam.name}" alt="${glam.category}">
-									<h4>${glam.fullname}</h4>
-								</a>
-							</div>
+		const value = searchInput.value.toLowerCase();
+		const glamsHtml = glams.reduce((html, glam) => {
+			if (glam.fullname.toLowerCase().includes(value)) {
+				html += `
+					<div class="glam-container">
+						<img src="${glam.image}">
+						<div class="flag">
+							<img src="/assets/icons/countries/${glam.country}.png" alt="${glam.country}" />
 						</div>
-					`;
-				}
-				return html;
-			}, '');
-			if (glamsHtml) {
-				glamsContainer.innerHTML = glamsHtml;
-			} else {
-				glamsContainer.innerHTML = '<h1>0 {{langDict.results}}</h1>';
+						<div class="text-block">
+							<a class="glam-link" href="/${glam.name}" alt="${glam.category}">
+								<h4>${glam.fullname}</h4>
+							</a>
+						</div>
+					</div>
+				`;
 			}
-		}, 300);
+			return html;
+		}, '');
+		if (glamsHtml) {
+			glamsContainer.innerHTML = glamsHtml;
+		} else {
+			glamsContainer.innerHTML = '<h1>0 {{langDict.results}}</h1>';
+		}
 	}
 	searchGlamForm.addEventListener('submit', (e) => {
 		e.preventDefault();
