@@ -602,7 +602,7 @@ module.exports = function (app) {
         year,
         month: dateFns.format(date, "MMMM"),
         monthlyAvgViews: data.thisYearMonthlyAvg.toLocaleString(),
-        totalMonthlyViews: data.sumForMonth.toLocaleString(),
+        totalMonthlyViews: data.thisMonthMediacount.toLocaleString(),
         numOfArticles: data.articlesCount.toLocaleString(),
         numOfProjects: data.projectsCount.toLocaleString(),
         totalMediaFiles: data.totalImgNum.toLocaleString(),

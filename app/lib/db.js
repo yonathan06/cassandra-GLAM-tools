@@ -101,6 +101,7 @@ function sumMediacounts(mediacountResults, forDate) {
     return sum;
   }, 0);
 }
+
 function calcMonthlyAvg(mediacountResults, forDate) {
   if (mediacountResults.length === 0 || forDate.getMonth() === 0) {
     return 0;
@@ -130,7 +131,6 @@ async function getGlamMediaCountReport(glam, forDate) {
       mediacountResults,
       forDate
     ),
-    sumForMonth: sumMediacounts(mediacountResults, forDate),
     thisYearMonthlyAvg: calcMonthlyAvg(mediacountResults, forDate),
   };
   return report;
