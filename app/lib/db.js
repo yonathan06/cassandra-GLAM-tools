@@ -55,11 +55,13 @@ async function getGlamByName(name) {
 
 exports.getGlamByName = getGlamByName;
 
-async function getGlamImgCount(glam) {
-  const queryImgNum = "SELECT COUNT(*) as value from images";
+async function getGlamImgCount(glam, upToDate = new Date()) {
   const {
     rows: [imgNumResult],
-  } = await glam.connection.query(queryImgNum);
+  } = await glam.connection.query(`
+    SELECT COUNT(*) as value from images
+    WHERE img_timestamp <= '${formatDateForPg(upToDate)}' 
+  `);
   if (imgNumResult) {
     return +imgNumResult.value;
   }
@@ -140,27 +142,40 @@ exports.getGlamMediaCountReport = getGlamMediaCountReport;
 async function getGlamCategoryCount(glam) {
   const {
     rows: [result],
-  } = await glam.connection.query("SELECT COUNT(*) AS count FROM categories");
+  } = await glam.connection.query(`
+   SELECT COUNT(*) AS count 
+   FROM categories
+  `);
   return Math.max(+result.count - 1, 0);
 }
 exports.getGlamCategoryCount = getGlamCategoryCount;
 
-async function getArticlesCount(glam) {
+async function getArticlesCount(glam, upToDate = new Date()) {
   const {
     rows: [result],
-  } = await glam.connection.query(
-    "SELECT COUNT(*) FROM (SELECT DISTINCT gil_page_title FROM usages) AS count"
-  );
+  } = await glam.connection.query(`
+    SELECT COUNT(*) 
+    FROM (
+      SELECT DISTINCT gil_page_title 
+      FROM usages 
+      WHERE first_seen <= '${formatDateForPg(upToDate)}'
+    ) AS count 
+  `);
   return +result.count;
 }
 exports.getArticlesCount = getArticlesCount;
 
-async function getProjectsCount(glam) {
+async function getProjectsCount(glam, upToDate = new DatE()) {
   const {
     rows: [result],
-  } = await glam.connection.query(
-    `SELECT COUNT(*) FROM (SELECT DISTINCT gil_wiki FROM usages) AS count`
-  );
+  } = await glam.connection.query(`
+    SELECT COUNT(*) 
+    FROM (
+      SELECT DISTINCT gil_wiki 
+      FROM usages
+      WHERE first_seen <= '${formatDateForPg(upToDate)}'
+    ) AS count
+  `);
   return +result.count;
 }
 exports.getProjectsCount = getProjectsCount;
@@ -182,8 +197,8 @@ async function getReportData(glam, date = new Date()) {
     ...mediaCountData,
     totalImgNum: await getGlamImgCount(glam),
     categoriesCount: await getGlamCategoryCount(glam),
-    articlesCount: await getArticlesCount(glam),
-    projectsCount: await getProjectsCount(glam),
+    articlesCount: await getArticlesCount(glam, date),
+    projectsCount: await getProjectsCount(glam, date),
     reportCreatedDate: Date.now(),
   };
   reportDataCache[glam.name] = { [forDateString]: data };
