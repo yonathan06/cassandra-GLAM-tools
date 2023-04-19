@@ -48,7 +48,7 @@ Install Python dependencies:
 
 ```bash
 pip3 install -r requirements.txt
-npm run install
+npm install
 ```
 
 **Add a development config file inside the config folder: `./config/config.development.json` With the same structure as in `./config/config.sample.json`**
