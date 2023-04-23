@@ -2,12 +2,16 @@ import logging
 import os
 from datetime import datetime, date, timedelta
 import subprocess
-from sqs_listener import SqsListener
 from config import config
 from etl.s3 import get_mediacount_file_by_date
 from etl.mediacounts_dump import dailyinsert_from_file
 from etl.glams_table import close_glams_connections, create_database, get_glam_by_name, load_glams_images, open_glams_connections, refresh_glams_visualizations
 from etl.etl_glam import process_glam
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import json
+
+hostName = "0.0.0.0"
+serverPort = 8080
 
 
 def _get_glams_from_body(body):
@@ -64,9 +68,20 @@ def _process_mediacounts(glams):
         current_date = current_date + timedelta(days=1)
 
 
-class NewGlamListener(SqsListener):
-    def handle_message(self, body, attributes, message_attributes):
-        glams = _get_glams_from_body(body)
+class MyServer(BaseHTTPRequestHandler):
+    def do_POST(self):
+        length = int(self.headers.get('content-length'))
+        message = json.loads(self.rfile.read(length))
+        glams = _get_glams_from_body(message)
+        self.send_header("Content-type", "text/plain")
+        if glams == None or len(glams) == 0:
+            self.send_response(400)
+            self.end_headers()
+            self.wfile.write("Bad payload".encode("utf-8")) 
+        else:
+            self.send_response(201)
+            self.end_headers()
+            self.wfile.write("Adding".encode("utf-8")) 
         _initialize_glams(glams)
         open_glams_connections(glams)
         load_glams_images(glams)
@@ -75,13 +90,15 @@ class NewGlamListener(SqsListener):
         close_glams_connections(glams)
         logging.info(f"Done adding {len(glams)} glams: {', '.join(map(lambda glam: glam['name'], glams))}")
 
+if __name__ == "__main__":        
+    webServer = HTTPServer((hostName, serverPort), MyServer)
+    print("Server started http://%s:%s" % (hostName, serverPort))
 
-os.environ['AWS_ACCOUNT_ID'] = config['aws']['config']['credentials']['accessKeyId']
+    try:
+        webServer.serve_forever()
+    except KeyboardInterrupt:
+        pass
 
-if __name__ == "__main__":
-    listener = NewGlamListener(
-        config['aws']['newGlamQueueName'],
-        region_name=config['aws']['config']['region'],
-        queue_url=config['aws']['newGlamQueueUrl']
-    )
-    listener.listen()
+    webServer.server_close()
+    print("Server stopped.")
+

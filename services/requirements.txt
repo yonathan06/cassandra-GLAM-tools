@@ -8,5 +8,4 @@ botocore
 gensim
 requests
 boto3
-pySqsListener
 tqdm
