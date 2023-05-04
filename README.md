@@ -59,6 +59,7 @@ export ENV="development"
 
 **Add a development config file inside the config folder: `./config/config.development.json` With the same structure as in `./config/config.sample.json`**
 
+
 ### Run initdaily.sh - script that run dail.py. Run it with the following commands to do it with a daily cron job
 The daily script runs every day at 4:00 AM
 Before you run the following commands, note:
@@ -67,6 +68,7 @@ You can verify this by running the following command in $HOME : python3 $HOME/ca
 **Run `crontab -e`, and add the following line: `0 4 * * * cd $HOME/cassandra-GLAM-tools/services && /bin/bash initdaily.sh`**
 You can always look to the file cronjobDaily.txt all the times when the daily was running
 2. Note that your time on the host is in UTC
+
 
 ### Run new glam listener
 
