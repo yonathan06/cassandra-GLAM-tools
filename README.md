@@ -63,10 +63,10 @@ export ENV="development"
 The daily script runs every day at 4:00 AM
 Before you run the following commands, note:
 1. Be sure the folder is located in $HOME
-2. You can verify this by running the following command in $HOME : python3 $HOME/cassandra-GLAM-tools/services/daily.py  -e development
-Run crontab -e, and add the following line: 0 4 * * * cd $HOME/cassandra-GLAM-tools/services  && /bin/bash initdaily.sh
+You can verify this by running the following command in $HOME : python3 $HOME/cassandra-GLAM-tools/services/daily.py  -e development
+**Run `crontab -e`, and add the following line: `0 4 * * * cd $HOME/cassandra-GLAM-tools/services && /bin/bash initdaily.sh`**
 You can always look to the file cronjobDaily.txt all the times when the daily was running
-
+2. Note that your time on the host is in UTC
 
 ### Run new glam listener
 
