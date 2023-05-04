@@ -12,7 +12,7 @@ mediacounts_bucket = s3.Bucket(bucket_name)
 
 client = boto3.client('s3', region_name=config["aws"]["config"]["region"])
 
-response = client.head_bucket(Bucket=bucket_name)
+# response = client.head_bucket(Bucket=bucket_name)
 logging.info(f"found bucket {bucket_name}")
 
 tmp_mediacounts_folder = f"{__package__}/tmp/{config['aws']['wikiMediacountsFolder']}"

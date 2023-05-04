@@ -3,7 +3,9 @@ import logging
 from datetime import date
 from urllib import request
 from tqdm import tqdm
-from etl.s3 import upload_mediacount_file, tmp_mediacounts_folder
+from etl.s3 import tmp_mediacounts_folder
+# from etl.s3 import upload_mediacount_file, tmp_mediacounts_folder
+
 
 
 wiki_dump_base_url = 'https://dumps.wikimedia.org/other/mediacounts/daily'
@@ -34,5 +36,5 @@ def download_file(date_val: date):
     logging.info(f"Starting download dump from {download_url}")
     with tqdm(unit='B', unit_scale=True, unit_divisor=1024, miniters=1, desc=filename) as t:
         request.urlretrieve(download_url, filepath, reporthook=_tqdm_hook(t))
-    upload_mediacount_file(date_val.year, filename)
+    # upload_mediacount_file(date_val.year, filename)
     return filepath

@@ -6,7 +6,11 @@ from lib.sentry import with_sentry
 from etl.glams_table import close_glams_connections, get_active_glams, load_glams_images, open_glams_connections, refresh_glams_visualizations
 from etl.etl_glam import process_glam
 from etl.download_mediacounts import download_file
+import datetime
 
+with open("cronjobDaily.txt", mode='a') as file:
+    file.write('Printed string %s recorded at %s.\n' % 
+               ("cronjobDaily", datetime.datetime.now()))
 
 def process_glams(glams):
     for glam in glams:

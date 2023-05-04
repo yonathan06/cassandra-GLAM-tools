@@ -48,44 +48,30 @@ Install Python dependencies:
 
 ```bash
 pip3 install -r requirements.txt
-npm install
+npm run install
+```
+
+export ENV:
+
+```bash
+export ENV="development"
 ```
 
 **Add a development config file inside the config folder: `./config/config.development.json` With the same structure as in `./config/config.sample.json`**
 
-## SSH tunneling to wmflabs
+### Run initdaily.sh - script that run dail.py. Run it with the following commands to do it with a daily cron job
+# The daily script runs every day at 4:00 AM
+# Before you run the following commands, note:
+# 1. Be sure the folder is located in $HOME
+# 2. You can verify this by running the following command in $HOME : python3 $HOME/cassandra-GLAM-tools/services/daily.py  -e development
+# Run crontab -e, and add the following line: 0 4 * * * cd $HOME/cassandra-GLAM-tools/services  && /bin/bash initdaily.sh
+# You can always look to the file cronjobDaily.txt all the times when the daily was running
 
-Create a [toolforge](https://admin.toolforge.org) account and add your ssh key there.
-
-You will need this setup to ssh toolforge, where the wikimedia database is
-
-Recommended: Create an ssh config file at `.ssh/config`:
-
-```bash
-Host wmflabs
-   HostName      tools-dev.wmflabs.org
-   User          <user>
-   Port          22
-   IdentityFile  ~/.ssh/<key>
-   LocalForward  3306 itwiki.analytics.db.svc.eqiad.wmflabs:3306
-```
-
-Open a SSH tunnel to the WMF databases:
-
-```bash
-ssh wmflabs
-```
-
-### Run daily task (usually done with a daily cron job)
-
-```bash
-python daily.py
-```
 
 ### Run new glam listener
 
 ```bash
-python new_glam_listener.py
+pm2 start new_glam_listener.py --interpreter python3 -- -e development
 ```
 
 ## Starting local postgres instance using docker compose

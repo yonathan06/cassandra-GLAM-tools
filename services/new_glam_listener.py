@@ -3,7 +3,7 @@ import os
 from datetime import datetime, date, timedelta
 import subprocess
 from config import config
-from etl.s3 import get_mediacount_file_by_date
+# from etl.s3 import get_mediacount_file_by_date
 from etl.mediacounts_dump import dailyinsert_from_file
 from etl.glams_table import close_glams_connections, create_database, get_glam_by_name, load_glams_images, open_glams_connections, refresh_glams_visualizations
 from etl.etl_glam import process_glam
@@ -12,7 +12,6 @@ import json
 
 hostName = "0.0.0.0"
 serverPort = 8080
-
 
 def _get_glams_from_body(body):
     glams = []

@@ -2,11 +2,21 @@ import os
 import json
 import logging
 from botocore.config import Config
+import argparse
+ 
+ 
+# Initialize parser
+parser = argparse.ArgumentParser()
+ 
+# Adding optional argument
+parser.add_argument("-e", "--ENV", help = "You need to insert an environment variable, like: development/ production")
+ 
+# Read arguments from command line
+args = parser.parse_args()
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s %(levelname)s %(message)s')
+# env = os.environ['ENV']
+env = args.ENV
 
-env = os.environ['ENV']
 
 logging.info(f"env: {env}")
 

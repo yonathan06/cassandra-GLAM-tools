@@ -1,7 +1,7 @@
 from etl.mediacounts_dump import dailyinsert_from_file
 import logging
 import os
-from etl.s3 import get_mediacount_file_by_date
+# from etl.s3 import get_mediacount_file_by_date
 from typing import List
 import argparse
 from datetime import date, datetime, timedelta

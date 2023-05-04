@@ -4,7 +4,7 @@
   "author": "Wikimedia Israel",
   "license": "MIT",
   "dependencies": {
-    "@nearform/sql": "^1.4.0",
+    "@nearform/sql": "1.9.2",
     "@sentry/node": "^5.2.0",
     "apicache": "~0.1.5",
     "aws-sdk": "^2.758.0",

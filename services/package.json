@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "aws-sdk": "^2.754.0",
-    "axios": "^0.20.0",
+    "axios": "^1.4.0",
     "date-fns": "^2.16.1",
     "mariadb": "^2.5.3",
     "pg": "^8.6.0",
