@@ -4,8 +4,6 @@ from datetime import date
 from urllib import request
 from tqdm import tqdm
 from etl.s3 import tmp_mediacounts_folder
-# from etl.s3 import upload_mediacount_file, tmp_mediacounts_folder
-
 
 
 wiki_dump_base_url = 'https://dumps.wikimedia.org/other/mediacounts/daily'
