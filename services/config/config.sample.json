@@ -13,6 +13,10 @@
         "password": "xxxxxxx",
         "database": "commonswiki_p"
     },
+    "admin": {
+        "username": "xxxxxxx",
+        "password": "xxxxxxx"
+    },
     "aws": {
         "config": {
             "region": "eu-west-1",
