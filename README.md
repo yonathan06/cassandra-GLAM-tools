@@ -48,7 +48,7 @@ Install Python dependencies:
 
 ```bash
 pip3 install -r requirements.txt
-npm run install
+npm install
 ```
 
 export ENV:
