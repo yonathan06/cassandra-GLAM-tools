@@ -1,16 +1,16 @@
 {
     "postgres": {
-        "user": "root",
-        "password": "5qvkFhOm1g97FoPbMoJyc8qY87m01ljiOMzv",
-        "host": "zl6cimmnex2.svc.trove.eqiad1.wikimedia.cloud",
+        "user": "cassandra",
+        "password": "cassandra",
+        "host": "localhost",
         "database": "cassandra",
         "port": 5432
     },
     "wmflabs": {
-        "host": "commonswiki.analytics.db.svc.wikimedia.cloud",
+        "host": "localhost",
         "port": 3306,
-        "user": "u25691",
-        "password": "1et62YPM8z940uFR",
+        "user": "xxxxx",
+        "password": "xxxxxxx",
         "database": "commonswiki_p"
     },
     "aws": {

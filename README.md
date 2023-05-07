@@ -48,7 +48,7 @@ Install Python dependencies:
 
 ```bash
 pip3 install -r requirements.txt
-npm run install
+npm install
 ```
 
 export ENV:
@@ -75,7 +75,7 @@ You can always look to the file cronjobDaily.txt all the times when the daily wa
 ```bash
 pm2 start new_glam_listener.py --interpreter python3 -- -e development
 ```
-
+z
 ## Starting local postgres instance using docker compose
 
 ```bash
