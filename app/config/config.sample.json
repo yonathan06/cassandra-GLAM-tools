@@ -10,6 +10,14 @@
         "username": "adminUser",
         "password": "adminPassword"
     },
+    "glamUser": {
+        "users": [
+            {
+                "username": "xxxxxx",
+                "password": "xxxxxx"
+            }
+        ]
+    },
     "aws": {
         "config": {
             "region": "eu-west-1",
