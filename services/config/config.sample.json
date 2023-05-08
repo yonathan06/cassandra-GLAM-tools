@@ -7,11 +7,15 @@
         "port": 5432
     },
     "wmflabs": {
-        "host": "localhost",
+        "host": "commonswiki.analytics.db.svc.wikimedia.cloud",
         "port": 3306,
         "user": "xxxxx",
         "password": "xxxxxxx",
         "database": "commonswiki_p"
+    },
+    "admin": {
+        "username": "adminUser",
+        "password": "adminPassword"
     },
     "aws": {
         "config": {
