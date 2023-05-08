@@ -11,16 +11,12 @@
         "password": "adminPassword"
     },
     "newGlamServiceEndpoint": "https://example.com/create",
-    "aws": {
-        "config": {
-            "region": "eu-west-1",
-            "credentials": {
-                "accessKeyId": "XXXXXXX",
-                "secretAccessKey": "XXXXXXXX"
+    "glamUser": {
+        "users": [
+            {
+                "username": "xxxxxx",
+                "password": "xxxxxx"
             }
-        },
-        "wikiDumpBucket": "wikimedia-dump",
-        "wikiMediacountsFolder": "mediacounts",
-        "newGlamQueueUrl": "https://sqs.eu-west-1.amazonaws.com/XXXXX/XXXX"
+        ]
     }
 }

@@ -30,6 +30,12 @@ npm install
 
 **Add a production config file inside the config folder: `./config/config.production.json` With the same structure as in `./config/config.sample.json`**
 
+export ENV:
+
+```bash
+export ENV="production"
+```
+
 Run the local server:
 
 ```bash
