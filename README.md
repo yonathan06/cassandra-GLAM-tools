@@ -75,7 +75,7 @@ A Logs folder will be created, every day a new file will be added with the date 
 ```bash
 pm2 start new_glam_listener.py --interpreter python3 -- -e production
 ```
-z
+
 ## Starting local postgres instance using docker compose
 
 ```bash
