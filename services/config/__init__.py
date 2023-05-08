@@ -13,7 +13,7 @@ logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.
 parser = argparse.ArgumentParser()
  
 # Adding optional argument
-parser.add_argument("-e", "--ENV", help = "Show Output")
+parser.add_argument("-e", "--ENV", help = "Show environment such as: development/production")
  
 # Read arguments from command line
 args = parser.parse_args()
