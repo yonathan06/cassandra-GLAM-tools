@@ -1,10 +1,13 @@
 import logging
+import os
 import subprocess
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from subprocess import SubprocessError
-
 from .glams_table import update_to_failed, update_to_running
 
+if not os.path.exists("Logs"):
+    os.makedirs("Logs")
+logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.log", filemode='a', level=logging.INFO, force=True)
 
 def _etl(name):
     logging.info('Running etl.js for %s', name)

@@ -4,7 +4,12 @@ from tqdm import tqdm
 import urllib.parse
 from etl.glams_table import dailyinsert_query
 import concurrent.futures
+import os 
+from datetime import date
 
+if not os.path.exists("Logs"):
+    os.makedirs("Logs")
+logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.log", filemode='a', level=logging.INFO, force=True)
 
 def _get_total_glam_images(glams):
     total_image_num = 0

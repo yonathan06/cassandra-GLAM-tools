@@ -5,14 +5,15 @@ from datetime import date
 from tqdm import tqdm
 from config import config
 
+if not os.path.exists("Logs"):
+    os.makedirs("Logs")
+logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.log", filemode='a', level=logging.INFO, force=True)
+
 bucket_name = config['aws']['wikiDumpBucket']
 logging.info(f"Looking for bucket {bucket_name}")
 s3 = boto3.resource('s3', region_name=config["aws"]["config"]["region"])
 mediacounts_bucket = s3.Bucket(bucket_name)
 
-client = boto3.client('s3', region_name=config["aws"]["config"]["region"])
-
-response = client.head_bucket(Bucket=bucket_name)
 logging.info(f"found bucket {bucket_name}")
 
 tmp_mediacounts_folder = f"{__package__}/tmp/{config['aws']['wikiMediacountsFolder']}"
