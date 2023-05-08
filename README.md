@@ -67,7 +67,7 @@ Before you run the following commands, note:
 You can verify this by running the following command in $HOME: <br /> python3 $HOME/cassandra-GLAM-tools/services/daily.py  -e production  <br />
 2. Note that your time on the host is in UTC.  <br />
 **Run `crontab -e`, and add the following line: `0 4 * * * cd $HOME/cassandra-GLAM-tools/services && /bin/bash initdaily.sh`**  <br />
-A Logs folder will be created, every day a new file will be added with the date of the day, where you can always see the logs of the daily.  <br >
+A Logs folder will be created, every day  at 4:00 AM a new file will be added with the date of the day, where you can always see the logs of the daily.  <br >
 
 
 ### Run new glam listener
