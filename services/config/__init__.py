@@ -3,13 +3,22 @@ import json
 import logging
 from botocore.config import Config
 from datetime import date, timedelta
+import argparse
 
 if not os.path.exists("Logs"):
     os.makedirs("Logs")
 logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.log", filemode='a', level=logging.INFO, force=True, format='%(asctime)s %(levelname)s %(message)s')
+ 
+# Initialize parser
+parser = argparse.ArgumentParser()
+ 
+# Adding optional argument
+parser.add_argument("-e", "--ENV", help = "Show environment such as: development/production")
+ 
+# Read arguments from command line
+args = parser.parse_args()
 
-
-env = os.environ['ENV']
+env = args.ENV
 
 logging.info(f"env: {env}")
 
