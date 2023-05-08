@@ -28,7 +28,7 @@ Install Node.js project dependencies:
 npm install
 ```
 
-**Add a development config file inside the config folder: `./config/config.development.json` With the same structure as in `./config/config.sample.json`**
+**Add a production config file inside the config folder: `./config/config.production.json` With the same structure as in `./config/config.sample.json`**
 
 Run the local server:
 
@@ -51,41 +51,29 @@ pip3 install -r requirements.txt
 npm install
 ```
 
-**Add a development config file inside the config folder: `./config/config.development.json` With the same structure as in `./config/config.sample.json`**
-
-## SSH tunneling to wmflabs
-
-Create a [toolforge](https://admin.toolforge.org) account and add your ssh key there.
-
-You will need this setup to ssh toolforge, where the wikimedia database is
-
-Recommended: Create an ssh config file at `.ssh/config`:
+export ENV:
 
 ```bash
-Host wmflabs
-   HostName      tools-dev.wmflabs.org
-   User          <user>
-   Port          22
-   IdentityFile  ~/.ssh/<key>
-   LocalForward  3306 itwiki.analytics.db.svc.eqiad.wmflabs:3306
+export ENV="production"
 ```
 
-Open a SSH tunnel to the WMF databases:
+**Add a production config file inside the config folder: `./config/config.production.json` With the same structure as in `./config/config.sample.json`**
 
-```bash
-ssh wmflabs
-```
 
-### Run daily task (usually done with a daily cron job)
+### Run initdaily.sh - script that run dail.py. <br /> Run it with the following commands to do it with a daily cron job
+The daily script runs every day at 4:00 AM
+Before you run the following commands, note:
+1. Be sure the folder is located in $HOME.  <br />
+You can verify this by running the following command in $HOME: <br /> python3 $HOME/cassandra-GLAM-tools/services/daily.py  -e production  <br />
+2. Note that your time on the host is in UTC.  <br />
+**Run `crontab -e`, and add the following line: `0 4 * * * cd $HOME/cassandra-GLAM-tools/services && /bin/bash initdaily.sh`**  <br />
+A Logs folder will be created, every day  at 4:00 AM a new file will be added with the date of the day, where you can always see the logs of the daily.  <br >
 
-```bash
-python daily.py
-```
 
 ### Run new glam listener
 
 ```bash
-python new_glam_listener.py
+pm2 start new_glam_listener.py --interpreter python3 -- -e production
 ```
 
 ## Starting local postgres instance using docker compose

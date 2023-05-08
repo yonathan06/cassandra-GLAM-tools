@@ -2,6 +2,7 @@ from etl.mediacounts_dump import dailyinsert_from_file
 import logging
 import os
 from datetime import date, timedelta
+import datetime
 from lib.sentry import with_sentry
 from etl.glams_table import close_glams_connections, get_active_glams, load_glams_images, open_glams_connections, refresh_glams_visualizations
 from etl.etl_glam import process_glam
@@ -31,6 +32,9 @@ def main(date_val: date):
 
 
 if __name__ == "__main__":
+    if not os.path.exists("Logs"):
+        os.makedirs("Logs")
+    logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.log", filemode='a', level=logging.INFO, force=True)
     yesterday_date = date.today() - timedelta(days=1)
     logging.info(f"Starting daily tasks for {yesterday_date}")
     with_sentry()

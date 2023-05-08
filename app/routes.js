@@ -14,7 +14,7 @@ const {
 } = require("./lib/db.js");
 const { authenticateAdmin } = require("./middlewares/auth");
 const { createMonthlyReport } = require("./lib/reports/monthly/index.js");
-const crypto = require("node:crypto");
+const crypto = require("crypto");
 
 function isValidGlam(glam) {
   return (

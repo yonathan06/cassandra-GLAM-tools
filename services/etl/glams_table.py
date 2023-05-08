@@ -4,9 +4,12 @@ import psycopg2.errors
 import logging
 from config import config
 import concurrent.futures
+import os 
+from datetime import date
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s %(levelname)s %(message)s')
+if not os.path.exists("Logs"):
+    os.makedirs("Logs")
+logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.log", filemode='a', level=logging.INFO, force=True)
 
 postgres_config = config['postgres']
 

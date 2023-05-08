@@ -3,11 +3,13 @@ import logging
 from datetime import date
 from urllib import request
 from tqdm import tqdm
-from etl.s3 import upload_mediacount_file, tmp_mediacounts_folder
-
+from etl.s3 import tmp_mediacounts_folder
 
 wiki_dump_base_url = 'https://dumps.wikimedia.org/other/mediacounts/daily'
 
+if not os.path.exists("Logs"):
+    os.makedirs("Logs")
+logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.log", filemode='a', level=logging.INFO, force=True)
 
 def _tqdm_hook(t):
     last_b = [0]
@@ -30,9 +32,8 @@ def download_file(date_val: date):
     _create_dir_if_not_exist(local_year_folder)
     filename = f"mediacounts.{date_val.strftime('%Y-%m-%d')}.v00.tsv.bz2"
     filepath = f"{local_year_folder}/{filename}"
-    download_url = f"{wiki_dump_base_url}/{date_val.year}/mediacounts.{date_val.strftime('%Y-%m-%d')}.v00.tsv.bz2"
+    download_url = f"{wiki_dump_base_url}/{date_val.year}/mediacounts.{date_val.strftime('%Y-%m-06')}.v00.tsv.bz2"
     logging.info(f"Starting download dump from {download_url}")
     with tqdm(unit='B', unit_scale=True, unit_divisor=1024, miniters=1, desc=filename) as t:
         request.urlretrieve(download_url, filepath, reporthook=_tqdm_hook(t))
-    upload_mediacount_file(date_val.year, filename)
     return filepath
