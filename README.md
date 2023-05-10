@@ -82,6 +82,12 @@ A Logs folder will be created, every day  at 4:00 AM a new file will be added wi
 pm2 start new_glam_listener.py --interpreter python3 -- -e production
 ```
 
+Youcan see the logs by running th following command:
+
+```bash
+pm2 logs
+```
+
 ## Starting local postgres instance using docker compose
 
 ```bash

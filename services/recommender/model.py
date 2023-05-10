@@ -2,12 +2,13 @@ import gzip
 import json
 import logging
 import pickle
-
+from datetime import date,datetime
 from gensim import corpora, models, similarities
 from tokenizer import tokenize
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s %(levelname)s %(message)s')
+if not os.path.exists("Logs"):
+    os.makedirs("Logs")
+logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.log", filemode='a', level=logging.INFO, force=True, format='%(asctime)s %(levelname)s %(message)s')
 
 counter = 0
 counter_en = 0
@@ -33,7 +34,7 @@ with gzip.open('wikidata.json.gz', 'rt') as fp_json:
         counter += 1
 
         if counter % 10000 == 0:
-            logging.info("Wikidata entity: %s", counter)
+            logging.info(" %s Wikidata entity: %s", datetime.now(), counter)
 
         entity = json.loads(line)
 
