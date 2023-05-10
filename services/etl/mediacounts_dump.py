@@ -5,7 +5,7 @@ import urllib.parse
 from etl.glams_table import dailyinsert_query
 import concurrent.futures
 import os 
-from datetime import date
+from datetime import date,datetime
 
 if not os.path.exists("Logs"):
     os.makedirs("Logs")
@@ -57,6 +57,6 @@ def dailyinsert_from_file(glams, filepath, date_val):
                     bar.update(inserted_counter)
                     if counter == total_image_num:
                         break
-            logging.info(f"waiting for all queries to be done")
+            logging.info(f" {datetime.now()} waiting for all queries to be done")
             executor.shutdown(wait=True)
-            logging.info(f"queries are done")
+            logging.info(f" {datetime.now()} queries are done")

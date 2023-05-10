@@ -5,7 +5,7 @@ import os
 import subprocess
 import sys
 from subprocess import SubprocessError
-
+from datetime import date,datetime
 from services.etl.glams_table import get_active_glams
 
 import sentry_sdk
@@ -13,24 +13,26 @@ from sentry_sdk.integrations.logging import LoggingIntegration
 
 config_file = '../config/config.json'
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s %(levelname)s %(message)s')
+if not os.path.exists("Logs"):
+    os.makedirs("Logs")
+logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.log", filemode='a', level=logging.INFO, force=True, format='%(asctime)s %(levelname)s %(message)s')
+
 
 
 def run_recommender(glam):
-    logging.info('Running recommender for %s', glam['name'])
+    logging.info(' %s Running recommender for %s', datetime.now(), glam['name'])
 
     try:
         subprocess.run(['python3', 'similarity.py', glam['database']], check=True)
     except SubprocessError:
-        logging.error('Subprocess similarity.py failed')
+        logging.error(' %s Subprocess similarity.py failed', datetime.now())
 
 
 def main():
     config = json.load(open(config_file))
 
     try:
-        logging.info('External error reporting enabled')
+        logging.info(' %s External error reporting enabled', datetime.now())
 
         sentry_logging = LoggingIntegration(
             level=logging.INFO,
@@ -41,17 +43,17 @@ def main():
             integrations=[sentry_logging]
         )
     except KeyError:
-        logging.info('External error reporting DISABLED')
+        logging.info(' %s External error reporting DISABLED', datetime.now())
         pass
 
     for glam in get_active_glams():
         if 'status' in glam:
             if glam['status'] == 'paused':
-                logging.info('Glam %s is paused', glam['name'])
+                logging.info(' %s Glam %s is paused', glam['name'], datetime.now())
                 continue
 
             if glam['status'] == 'failed':
-                logging.info('Glam %s is failed', glam['name'])
+                logging.info(' %s Glam %s is failed', glam['name'], datetime.now())
                 continue
 
             run_recommender(glam)

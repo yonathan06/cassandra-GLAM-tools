@@ -18,21 +18,21 @@ def _get_glams_from_body(body):
     glams = []
     if "glams" in body:
         logging.info(
-            f'Received new message with {len(body["glams"])} glams')
+            f' {datetime.now()} Received new message with {len(body["glams"])} glams')
         for glam in body['glams']:
             glam = get_glam_by_name(glam["name"])
             glams.append(glam)
     else:
-        logging.info(f'Received new message. Glam name: {body["name"]}')
+        logging.info(f' {datetime.now()} Received new message. Glam name: {body["name"]}')
         glam = get_glam_by_name(body["name"])
         glams.append(glam)
     return glams
 
 
 def _setup(name):
-    logging.info('Running setup.js for %s', name)
+    logging.info(' %s Running setup.js for %s', datetime.now(), name)
     subprocess.run(['node', f'etl/setup.js', name], check=True)
-    logging.info('Subprocess setup.js completed')
+    logging.info(' %s Subprocess setup.js completed', datetime.now())
 
 
 def _first_time_process(glam):
@@ -41,30 +41,30 @@ def _first_time_process(glam):
     try:
         _setup(glam['name'])
     except subprocess.SubprocessError:
-        logging.error('Subprocess setup.py failed')
+        logging.error(' %s Subprocess setup.py failed', datetime.now())
         return
     process_glam(glam)
 
 
 def _initialize_glams(glams):
-    logging.info(f"Initializing {len(glams)} glams")
+    logging.info(f" {datetime.now()} Initializing {len(glams)} glams")
     for glam in glams:
         _first_time_process(glam)
 
 
 def _process_mediacounts(glams):
-    logging.info(f"Processing mediacounts for {len(glams)} glams")
+    logging.info(f" {datetime.now()} Processing mediacounts for {len(glams)} glams")
     today = date.today()
     current_date = datetime.strptime(
         config['mediacountStartDate'], "%Y-%m-%d").date()
     while current_date < today:
-        logging.info(f"Loading mediacounts for date: {current_date}")
+        logging.info(f" {datetime.now()} Loading mediacounts for date: {current_date}")
         try:
             filepath = get_mediacount_file_by_date(current_date)
             dailyinsert_from_file(glams, filepath, current_date)
             os.remove(filepath)
         except Exception as err:
-            logging.error(f"Error loading mediacount for date {current_date}:\n{err}")
+            logging.error(f" {datetime.now()} Error loading mediacount for date {current_date}:\n{err}")
         current_date = current_date + timedelta(days=1)
 
 
@@ -88,9 +88,10 @@ class MyServer(BaseHTTPRequestHandler):
         _process_mediacounts(glams)
         refresh_glams_visualizations(glams)
         close_glams_connections(glams)
-        logging.info(f"Done adding {len(glams)} glams: {', '.join(map(lambda glam: glam['name'], glams))}")
+        logging.info(f" {datetime.now()} Done adding {len(glams)} glams: {', '.join(map(lambda glam: glam['name'], glams))}")
 
-if __name__ == "__main__":        
+if __name__ == "__main__":  
+    logging.basicConfig(filename=f"new_glam_listener.log", filemode='a', level=logging.INFO, force=True)      
     webServer = HTTPServer((hostName, serverPort), MyServer)
     print("Server started http://%s:%s" % (hostName, serverPort))
 

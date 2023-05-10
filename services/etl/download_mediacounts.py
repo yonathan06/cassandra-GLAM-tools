@@ -1,6 +1,6 @@
 import os
 import logging
-from datetime import date
+from datetime import date, datetime
 from urllib import request
 from tqdm import tqdm
 from etl.s3 import tmp_mediacounts_folder
@@ -33,7 +33,7 @@ def download_file(date_val: date):
     filename = f"mediacounts.{date_val.strftime('%Y-%m-%d')}.v00.tsv.bz2"
     filepath = f"{local_year_folder}/{filename}"
     download_url = f"{wiki_dump_base_url}/{date_val.year}/mediacounts.{date_val.strftime('%Y-%m-06')}.v00.tsv.bz2"
-    logging.info(f"Starting download dump from {download_url}")
+    logging.info(f" {datetime.now()} Starting download dump from {download_url}")
     with tqdm(unit='B', unit_scale=True, unit_divisor=1024, miniters=1, desc=filename) as t:
         request.urlretrieve(download_url, filepath, reporthook=_tqdm_hook(t))
     return filepath

@@ -30,10 +30,22 @@ npm install
 
 **Add a production config file inside the config folder: `./config/config.production.json` With the same structure as in `./config/config.sample.json`**
 
+export ENV:
+
+```bash
+export ENV="production"
+```
+
 Run the local server:
 
 ```bash
-npm run dev
+pm2 start server.js
+```
+
+You can see the logs by running th following command:
+
+```bash
+pm2 logs
 ```
 
 ## Installation - services
@@ -74,6 +86,12 @@ A Logs folder will be created, every day  at 4:00 AM a new file will be added wi
 
 ```bash
 pm2 start new_glam_listener.py --interpreter python3 -- -e production
+```
+
+You can see the logs by running th following command:
+
+```bash
+pm2 logs
 ```
 
 ## Starting local postgres instance using docker compose
