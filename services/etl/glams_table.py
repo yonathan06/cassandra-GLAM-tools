@@ -5,7 +5,7 @@ import logging
 from config import config
 import concurrent.futures
 import os 
-from datetime import date
+from datetime import date,datetime
 
 if not os.path.exists("Logs"):
     os.makedirs("Logs")
@@ -135,48 +135,48 @@ def get_glam_database_connection(glam_database):
 
 
 def open_glams_connections(glams):
-    logging.info(f"opening connections for {len(glams)} glams")
+    logging.info(f" {datetime.now()} opening connections for {len(glams)} glams")
     for glam in glams:
         glam['conn'] = get_glam_database_connection(glam['database'])
 
 
 def close_glams_connections(glams):
-    logging.info(f"closing connections for {len(glams)} glams")
+    logging.info(f" {datetime.now()} closing connections for {len(glams)} glams")
     for glam in glams:
         glam['conn'].close()
 
 
 def load_glams_images(glams):
-    logging.info(f"loading images for {len(glams)} glams")
+    logging.info(f" {datetime.now()} loading images for {len(glams)} glams")
     for glam in glams:
         glam['images'] = get_glam_images(glam['conn'])
 
 
 def _refresh_vis_sum_view(glam):
-    logging.info(f"refreshing for visualizations_sum for {glam['name']}")
+    logging.info(f" {datetime.now()} refreshing for visualizations_sum for {glam['name']}")
     cur = glam['conn'].cursor()
     cur.execute('REFRESH MATERIALIZED VIEW visualizations_sum')
     cur.close()
-    logging.info(f"done refreshing for visualizations_sum for {glam['name']}")
+    logging.info(f" {datetime.now()} done refreshing for visualizations_sum for {glam['name']}")
 
 
 def _refresh_vis_stats_view(glam):
-    logging.info(f"refreshing for visualizations_stats for {glam['name']}")
+    logging.info(f" {datetime.now()} refreshing for visualizations_stats for {glam['name']}")
     cur = glam['conn'].cursor()
     cur.execute('REFRESH MATERIALIZED VIEW visualizations_stats')
     cur.close()
-    logging.info(f"done refreshing for visualizations_stats for {glam['name']}")
+    logging.info(f" {datetime.now()} done refreshing for visualizations_stats for {glam['name']}")
 
 
 def refresh_glams_visualizations(glams):
-    logging.info(f"refreshing views for {len(glams)} glams")
+    logging.info(f" {datetime.now()} refreshing views for {len(glams)} glams")
     with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
         for glam in glams:
             executor.submit(_refresh_vis_sum_view, glam)
             executor.submit(_refresh_vis_stats_view, glam)
-        logging.info(f"waiting for all data refreshes to be done")
+        logging.info(f" {datetime.now()} waiting for all data refreshes to be done")
         executor.shutdown(wait=True)
-        logging.info(f"all data refreshes done")
+        logging.info(f" {datetime.now()} all data refreshes done")
 
 
 def dailyinsert_query(key, arr, date_val):

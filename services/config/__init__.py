@@ -2,7 +2,7 @@ import os
 import json
 import logging
 from botocore.config import Config
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 import argparse
 
 if not os.path.exists("Logs"):
@@ -20,7 +20,7 @@ args = parser.parse_args()
 
 env = args.ENV
 
-logging.info(f"env: {env}")
+logging.info(f" {datetime.now()} env: {env}")
 
 config = json.load(open(f"{__package__}/config.{env}.json"))
 

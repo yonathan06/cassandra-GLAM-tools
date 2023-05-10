@@ -10,18 +10,18 @@ if not os.path.exists("Logs"):
 logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.log", filemode='a', level=logging.INFO, force=True)
 
 def _etl(name):
-    logging.info('Running etl.js for %s', name)
+    logging.info(' %s Running etl.js for %s', datetime.now(), name)
     subprocess.run(['node', f'{__package__}/etl.js', name], check=True)
-    logging.info('Subprocess etl.js completed')
+    logging.info(' %s Subprocess etl.js completed', datetime.now())
 
 
 def process_glam(glam):
     if glam['lastrun'] != None and datetime.utcnow() < glam['lastrun'].replace(tzinfo=None) + timedelta(days=1):
-        logging.info('Glam %s is already updated', glam['name'])
+        logging.info(' %s Glam %s is already updated', datetime.now(), glam['name'])
         return
 
     success = True
-    logging.info(f'Processing glam: {glam["name"]}')
+    logging.info(f' {datetime.now()} Processing glam: {glam["name"]}')
 
     try:
         _etl(glam['name'])
@@ -35,7 +35,7 @@ def process_glam(glam):
             return
 
     if success:
-        logging.info('Completed scheduler for %s', glam['name'])
+        logging.info(' %s Completed scheduler for %s',datetime.now() ,glam['name'])
         update_to_running(glam)
     else:
-        logging.error('Failed scheduler for %s', glam['name'])
+        logging.error(' %s Failed scheduler for %s',datetime.now(), glam['name'])

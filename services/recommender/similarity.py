@@ -2,7 +2,7 @@ import json
 import logging
 import pickle
 import sys
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 import langid
 import mwclient
@@ -20,8 +20,11 @@ if len(sys.argv) == 1:
 
 database = sys.argv[1]
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s %(levelname)s %(message)s')
+if not os.path.exists("Logs"):
+    os.makedirs("Logs")
+logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.log", filemode='a', level=logging.INFO, force=True, format='%(asctime)s %(levelname)s %(message)s')
+
+
 
 with open('../config/config.json', 'r') as fp:
     config = json.load(fp)
@@ -178,7 +181,7 @@ metamodel_en = load_model('en/model')
 metamodel_de = load_model('de/model')
 
 for image in images:
-    logging.info('Processing image %s of %s: %s', image_counter, len(images), image[0])
+    logging.info(' %s Processing image %s of %s: %s', datetime.now(), image_counter, len(images), image[0])
     image_counter += 1
 
     try:
