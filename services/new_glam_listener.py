@@ -10,9 +10,6 @@ from etl.etl_glam import process_glam
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 
-hostName = "0.0.0.0"
-serverPort = 8080
-
 
 def _get_glams_from_body(body):
     glams = []
@@ -73,15 +70,10 @@ class MyServer(BaseHTTPRequestHandler):
         length = int(self.headers.get('content-length'))
         message = json.loads(self.rfile.read(length))
         glams = _get_glams_from_body(message)
-        self.send_header("Content-type", "text/plain")
         if glams == None or len(glams) == 0:
             self.send_response(400)
-            self.end_headers()
-            self.wfile.write("Bad payload".encode("utf-8")) 
         else:
             self.send_response(201)
-            self.end_headers()
-            self.wfile.write("Adding".encode("utf-8")) 
         _initialize_glams(glams)
         open_glams_connections(glams)
         load_glams_images(glams)
@@ -91,6 +83,8 @@ class MyServer(BaseHTTPRequestHandler):
         logging.info(f" {datetime.now()} Done adding {len(glams)} glams: {', '.join(map(lambda glam: glam['name'], glams))}")
 
 if __name__ == "__main__":  
+    hostName = "0.0.0.0"
+    serverPort = 8080
     logging.basicConfig(filename=f"new_glam_listener.log", filemode='a', level=logging.INFO, force=True)      
     webServer = HTTPServer((hostName, serverPort), MyServer)
     print("Server started http://%s:%s" % (hostName, serverPort))
