@@ -39,7 +39,13 @@ export ENV="production"
 Run the local server:
 
 ```bash
-npm run dev
+pm2 start server.js
+```
+
+You can see the logs by running th following command:
+
+```bash
+pm2 logs
 ```
 
 ## Installation - services
@@ -82,7 +88,7 @@ A Logs folder will be created, every day  at 4:00 AM a new file will be added wi
 pm2 start new_glam_listener.py --interpreter python3 -- -e production
 ```
 
-Youcan see the logs by running th following command:
+You can see the logs by running th following command:
 
 ```bash
 pm2 logs
