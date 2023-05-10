@@ -10,6 +10,7 @@
         "username": "adminUser",
         "password": "adminPassword"
     },
+    "newGlamServiceEndpoint": "https://example.com/create",
     "aws": {
         "config": {
             "region": "eu-west-1",

@@ -1,21 +1,11 @@
 const { Pool } = require('pg');
-const AWS = require("aws-sdk");
 const fs = require('fs');
 const SQL = require('@nearform/sql');
 const config = JSON.parse(fs.readFileSync(`${__dirname}/config.${process.env.ENV}.json`));
-
-AWS.config = {
-  ...AWS.config,
-  ...config.aws.config
-};
-
-const sqs = new AWS.SQS();
+const axios = require('axios');
 
 function sendNewGlamMessage(body) {
-  return sqs.sendMessage({
-    QueueUrl: config.aws.newGlamQueueUrl,
-    MessageBody: JSON.stringify(body),
-  }).promise()
+  return axios.post(config.newGlamServiceEndpoint, body);
 }
 
 config.glamUser.realm = 'User area';
