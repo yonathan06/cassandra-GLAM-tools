@@ -74,13 +74,20 @@ export ENV="production"
 
 ### Run initdaily.sh - script that run dail.py. <br /> Run it with the following commands to do it with a daily cron job
 The daily script runs every day at 4:00 AM
-Before you run the following commands, note:
-1. Be sure the folder is located in $HOME.  <br />
-You can verify this by running the following command in $HOME: <br /> python3 $HOME/cassandra-GLAM-tools/services/daily.py  -e production  <br />
-2. Note that your time on the host is in UTC.  <br />
-**Run `crontab -e`, and add the following line: `0 4 * * * cd $HOME/cassandra-GLAM-tools/services && /bin/bash initdaily.sh`**  <br />
-A Logs folder will be created, every day  at 4:00 AM a new file will be added with the date of the day, where you can always see the logs of the daily.  <br >
 
+### Run daily cronjob
+
+```bash
+pm2 start daily.py --cron '0 4 * * *' --interpreter python3 --no-autorestart -- -e production
+```
+
+### Save the process
+
+```bash
+pm2 save
+```
+
+A Logs folder will be created, every day  at 4:00 AM a new file will be added with the date of the day, where you can always see the logs of the daily.  <br >
 
 ### Run new glam listener
 
