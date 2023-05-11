@@ -1,22 +1,22 @@
 {
-    "postgres": {
-        "user": "cassandra",
-        "password": "cassandra",
-        "host": "localhost",
-        "database": "cassandra",
-        "port": 5432
-    },
-    "admin": {
-        "username": "adminUser",
-        "password": "adminPassword"
-    },
-    "newGlamServiceEndpoint": "https://example.com/create",
-    "glamUser": {
-        "users": [
-            {
-                "username": "xxxxxx",
-                "password": "xxxxxx"
-            }
-        ]
-    }
+  "postgres": {
+    "user": "cassandra",
+    "password": "cassandra",
+    "host": "localhost",
+    "database": "cassandra",
+    "port": 5432
+  },
+  "admin": {
+    "username": "adminUser",
+    "password": "adminPassword"
+  },
+  "newGlamServiceEndpoint": "https://example.com/create",
+  "glamUser": {
+    "users": [
+      {
+        "username": "xxxxxx",
+        "password": "xxxxxx"
+      }
+    ]
+  }
 }
