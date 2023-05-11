@@ -10,11 +10,16 @@
         "username": "adminUser",
         "password": "adminPassword"
     },
+<<<<<<< HEAD
+=======
+    "newGlamServiceEndpoint": "https://example.com/create",
+>>>>>>> 1570e61b558a30c975784be97444657e022f457a
     "glamUser": {
         "users": [
             {
                 "username": "xxxxxx",
                 "password": "xxxxxx"
+<<<<<<< HEAD
             }
         ]
     },
@@ -24,10 +29,9 @@
             "credentials": {
                 "accessKeyId": "XXXXXXX",
                 "secretAccessKey": "XXXXXXXX"
+=======
+>>>>>>> 1570e61b558a30c975784be97444657e022f457a
             }
-        },
-        "wikiDumpBucket": "wikimedia-dump",
-        "wikiMediacountsFolder": "mediacounts",
-        "newGlamQueueUrl": "https://sqs.eu-west-1.amazonaws.com/XXXXX/XXXX"
+        ]
     }
 }

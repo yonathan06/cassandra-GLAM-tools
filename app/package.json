@@ -7,7 +7,7 @@
     "@nearform/sql": "1.9.2",
     "@sentry/node": "^5.2.0",
     "apicache": "~0.1.5",
-    "aws-sdk": "^2.758.0",
+    "axios": "^1.4.0",
     "cookie-parser": "^1.4.5",
     "csv": "^5.1.1",
     "date-fns": "^2.16.1",
@@ -17,8 +17,7 @@
     "joi": "^17.4.0",
     "morgan": "^1.9.1",
     "pg": "^8.6.0",
-    "puppeteer": "^13.7.0",
-    "request": "^2.88.0"
+    "puppeteer": "^13.7.0"
   },
   "scripts": {
     "dev": "nodemon",

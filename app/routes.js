@@ -1,5 +1,5 @@
 const express = require("express");
-const request = require("request");
+const axios = require("axios");
 const Joi = require("joi");
 const api = require("./api.js");
 const auth = require("http-auth");
@@ -512,16 +512,13 @@ module.exports = function (app) {
     let url =
       "https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels|sitelinks/urls&languages=en|fr|de|it&sitefilter=enwiki|frwiki|dewiki|itwiki&format=json&ids=" +
       req.params.ids;
-    request(url, function (error, response, body) {
-      if (error) {
-        if (response && response.statusCode) {
-          res.error(error);
-          res.sendStatus(response.statusCode);
-        }
-      } else {
-        res.json(JSON.parse(response.body));
-      }
-    });
+    try {
+      const response = await axios(url);
+      res.json(response.data);
+    } catch(error) {
+      res.error(error);
+      res.sendStatus(response.statusCode);
+    }
   });
 
   function validateQuery(query) {
