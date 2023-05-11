@@ -1,37 +1,22 @@
 {
-    "postgres": {
-        "user": "cassandra",
-        "password": "cassandra",
-        "host": "localhost",
-        "database": "cassandra",
-        "port": 5432
-    },
-    "admin": {
-        "username": "adminUser",
-        "password": "adminPassword"
-    },
-<<<<<<< HEAD
-=======
-    "newGlamServiceEndpoint": "https://example.com/create",
->>>>>>> 1570e61b558a30c975784be97444657e022f457a
-    "glamUser": {
-        "users": [
-            {
-                "username": "xxxxxx",
-                "password": "xxxxxx"
-<<<<<<< HEAD
-            }
-        ]
-    },
-    "aws": {
-        "config": {
-            "region": "eu-west-1",
-            "credentials": {
-                "accessKeyId": "XXXXXXX",
-                "secretAccessKey": "XXXXXXXX"
-=======
->>>>>>> 1570e61b558a30c975784be97444657e022f457a
-            }
-        ]
-    }
+  "postgres": {
+    "user": "cassandra",
+    "password": "cassandra",
+    "host": "localhost",
+    "database": "cassandra",
+    "port": 5432
+  },
+  "admin": {
+    "username": "adminUser",
+    "password": "adminPassword"
+  },
+  "newGlamServiceEndpoint": "https://example.com/create",
+  "glamUser": {
+    "users": [
+      {
+        "username": "xxxxxx",
+        "password": "xxxxxx"
+      }
+    ]
+  }
 }
