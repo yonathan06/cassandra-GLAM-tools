@@ -11,7 +11,7 @@ logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.
 
 def _etl(name):
     logging.info(' %s Running etl.js for %s', datetime.now(), name)
-    subprocess.run(['node', f'{__package__}/etl.js', name], check=True)
+    subprocess.run(['node', '--max-old-space-size=5120', f'{__package__}/etl.js', name], check=True)
     logging.info(' %s Subprocess etl.js completed', datetime.now())
 
 

@@ -28,7 +28,7 @@ def _get_glams_from_body(body):
 
 def _setup(name):
     logging.info(' %s Running setup.js for %s', datetime.now(), name)
-    subprocess.run(['node', f'etl/setup.js', name], check=True)
+    subprocess.run(['node', '--max-old-space-size=5120', 'etl/setup.js', name], check=True)
     logging.info(' %s Subprocess setup.js completed', datetime.now())
 
 
