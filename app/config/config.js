@@ -26,7 +26,10 @@ async function insertGlams(glams) {
                     VALUES (${name}, ${fullname}, ${category}, ${image}, ${database}, 'pending', ${website || null}, ${country || null})`;
     await cassandraPgPool.query(query)
   }
-  await sendNewGlamMessage({ glams: newGlamsToSend });
+
+  sendNewGlamMessage({ glams: newGlamsToSend })
+    .then(() => console.log('New glams sent'))
+    .catch(err => console.log(err));
 }
 
 function updateGlam(glam) {
