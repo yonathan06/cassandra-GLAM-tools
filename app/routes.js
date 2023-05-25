@@ -217,7 +217,7 @@ module.exports = function (app) {
 
     let existingGlam = existingGlams.find((g) => g.name === name);
     while(existingGlam) {
-      name += "-" + Math.floor(Math.random() * 10000);
+      name += "_" + Math.floor(Math.random() * 10000);
       existingGlam = existingGlams.find((g) => g.name === name);
     }
 
@@ -244,7 +244,7 @@ module.exports = function (app) {
       validateCategoryNotInUse(glam.category, existingGlams);
     }
     await config.insertGlams(value.glams);
-    res.send(`${glams.length} inserted successfully`);
+    res.send(`${value.glams.length} inserted successfully`);
   });
 
   app.get("/api/admin/glams/:id", authenticateAdmin, async function (req, res) {
