@@ -74,13 +74,13 @@ class MyServer(BaseHTTPRequestHandler):
             self.send_response(400)
         else:
             self.send_response(201)
-        _initialize_glams(glams)
-        open_glams_connections(glams)
-        load_glams_images(glams)
-        _process_mediacounts(glams)
-        refresh_glams_visualizations(glams)
-        close_glams_connections(glams)
-        logging.info(f" {datetime.now()} Done adding {len(glams)} glams: {', '.join(map(lambda glam: glam['name'], glams))}")
+            _initialize_glams(glams)
+            open_glams_connections(glams)
+            load_glams_images(glams)
+            _process_mediacounts(glams)
+            refresh_glams_visualizations(glams)
+            close_glams_connections(glams)
+            logging.info(f" {datetime.now()} Done adding {len(glams)} glams: {', '.join(map(lambda glam: glam['name'], glams))}")
 
 if __name__ == "__main__":  
     hostName = "0.0.0.0"
