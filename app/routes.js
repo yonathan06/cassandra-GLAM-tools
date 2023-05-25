@@ -198,7 +198,6 @@ module.exports = function (app) {
     glams: Joi.array()
       .items(
         Joi.object({
-          name: Joi.string().required(),
           fullname: Joi.string().required(),
           category: Joi.string().required(),
           image: Joi.string().required(),
@@ -208,23 +207,43 @@ module.exports = function (app) {
       )
       .required(),
   });
+
+  function uniquifyGlamName(fullname, existingGlams) {
+    name = fullname
+      .split(" ")
+      .map((s) => s[0])
+      .join("")
+      .replace(" ", "");
+
+    let existingGlam = existingGlams.find((g) => g.name === name);
+    while(existingGlam) {
+      name += "-" + Math.floor(Math.random() * 10000);
+      existingGlam = existingGlams.find((g) => g.name === name);
+    }
+
+    return name;
+  }
+
+  function validateCategoryNotInUse(category, existingGlams) {
+    const glam = existingGlams.find((g) => g.category === category);
+    if (glam) {
+      throw new Error(`Category ${category} already in use by ${glam.name}`);
+    }
+  }
+
   app.post("/api/admin/glams", authenticateAdmin, async function (req, res) {
     const { value, error } = schema.validate(req.body);
-    const { glams } = value;
-    for (let glam of glams) {
-      if (error || glam.name.includes(" ")) {
-        res.status(400).send(error);
-        return;
-      }
-      const existingGlam = await getGlamByName(glam.name);
-      if (existingGlam) {
-        res.status(400).send("Glam already exists with name " + glam.name);
-        return;
-      }
+    const existingGlams = await getAllGlams();
+
+    for (let glam of value.glams) {
+      glam.name = uniquifyGlamName(glam.fullname, existingGlams);
+
       glam.category = glam.category.replace("Category:", "").replace(/_/g, " ");
       glam.database = glam.name.toLowerCase();
+
+      validateCategoryNotInUse(glam.category, existingGlams);
     }
-    await config.insertGlams(glams);
+    await config.insertGlams(value.glams);
     res.send(`${glams.length} inserted successfully`);
   });
 
@@ -515,7 +534,7 @@ module.exports = function (app) {
     try {
       const response = await axios(url);
       res.json(response.data);
-    } catch(error) {
+    } catch (error) {
       res.error(error);
       res.sendStatus(response.statusCode);
     }
@@ -565,8 +584,8 @@ module.exports = function (app) {
         number = +number;
       }
       return number.toLocaleString();
-    } catch(e) {
-      return 0
+    } catch (e) {
+      return 0;
     }
   }
   app.get("/api/report/:id", async function (req, res, next) {
@@ -591,8 +610,8 @@ module.exports = function (app) {
         tot: parseNumberToLocalString(image.tot),
         avg: parseNumberToLocalString(image.avg),
         date: dateFns.format(image.img_timestamp, "dd.LL.yyyy"),
-        src: getThumbnailUrl(image.img_name)
-      }))
+        src: getThumbnailUrl(image.img_name),
+      }));
       const pdfBuffer = await createMonthlyReport({
         name: glam.fullname,
         mainImage: glam.image,
