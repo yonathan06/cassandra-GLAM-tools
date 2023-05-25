@@ -29,19 +29,6 @@ def open_connection(autocommit=True):
 def get_active_glams():
     connection, cursor = open_connection()
     try:
-        cursor.execute("SELECT * FROM glams")
-        glams = cursor.fetchall()
-        return glams
-    except Exception as error:
-        logging.error('Error getting all glams', error)
-    finally:
-        connection.close()
-        cursor.close()
-
-
-def get_active_glams():
-    connection, cursor = open_connection()
-    try:
         cursor.execute(
             "SELECT * FROM glams WHERE status!='disabled'")
         glams = cursor.fetchall()
