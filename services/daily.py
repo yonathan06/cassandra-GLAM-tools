@@ -5,7 +5,7 @@ from datetime import date, timedelta, datetime
 from lib.sentry import with_sentry
 from etl.glams_table import close_glams_connections, get_active_glams, load_glams_images, open_glams_connections, refresh_glams_visualizations
 from etl.etl_glam import process_glam
-from etl.download_mediacounts import download_file
+from etl.download_mediacounts import get_nfs_file_path
 
 
 def process_glams(glams):
@@ -15,10 +15,15 @@ def process_glams(glams):
 
 def main(date_val: date):
     glams = get_active_glams()
+
+    if glams == None:
+        logging.info(f" {datetime.now()} No active glams found")
+        return
+
     logging.info(f" {datetime.now()} Processing {len(glams)} glams: {', '.join(map(lambda glam: glam['name'] ,glams))}")
 
     process_glams(glams)
-    filepath = download_file(date_val)
+    filepath = get_nfs_file_path(date_val)
     try:
         open_glams_connections(glams)
         load_glams_images(glams)

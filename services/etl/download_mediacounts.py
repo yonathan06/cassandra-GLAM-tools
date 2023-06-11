@@ -1,8 +1,10 @@
-import os
-import logging
 from datetime import date, datetime
+import logging
+import os
 from urllib import request
+
 from tqdm import tqdm
+
 from etl.s3 import tmp_mediacounts_folder
 
 wiki_dump_base_url = 'https://dumps.wikimedia.org/other/mediacounts/daily'
@@ -37,3 +39,8 @@ def download_file(date_val: date):
     with tqdm(unit='B', unit_scale=True, unit_divisor=1024, miniters=1, desc=filename) as t:
         request.urlretrieve(download_url, filepath, reporthook=_tqdm_hook(t))
     return filepath
+
+def get_nfs_file_path(date_val: date):
+    mediacout_nfs_dir = f"/mnt/nfs/dumps-clouddumps1002.wikimedia.org/other/mediacounts/daily"
+    filename = f"mediacounts.{date_val.strftime('%Y-%m-%d')}.v00.tsv.bz2"
+    return f"{mediacout_nfs_dir}/{date_val.year}/{filename}"
