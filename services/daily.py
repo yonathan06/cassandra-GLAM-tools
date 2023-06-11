@@ -20,8 +20,6 @@ def main(date_val: date):
         logging.info(f" {datetime.now()} No active glams found")
         return
 
-    glams = list(filter(lambda glam: glam['name'] == "MTMTCB", glams))
-
     logging.info(f" {datetime.now()} Processing {len(glams)} glams: {', '.join(map(lambda glam: glam['name'] ,glams))}")
 
     process_glams(glams)
