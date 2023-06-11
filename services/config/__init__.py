@@ -9,25 +9,11 @@ if not os.path.exists("Logs"):
     os.makedirs("Logs")
 logging.basicConfig(filename=f"Logs/cronjob_{date.today().strftime('%Y-%m-%d')}.log", filemode='a', level=logging.INFO, force=True, format='%(asctime)s %(levelname)s %(message)s')
  
-# Initialize parser
-parser = argparse.ArgumentParser()
- 
-# Adding optional argument
-parser.add_argument("-e", "--ENV", help = "Show environment such as: development/production")
- 
-# Read arguments from command line
-args = parser.parse_args()
+env = os.environ.get('ENV')
 
-env = args.ENV
+if env == None:
+    raise Exception("ENV variable is not set")
 
 logging.info(f" {datetime.now()} env: {env}")
 
 config = json.load(open(f"{__package__}/config.{env}.json"))
-
-os.environ["AWS_ACCESS_KEY_ID"] = config['aws']['config']['credentials']['accessKeyId']
-os.environ["AWS_SECRET_ACCESS_KEY"] = config['aws']['config']['credentials']['secretAccessKey']
-
-
-aws_config = Config(
-    region_name=config['aws']['config']['region']
-)
