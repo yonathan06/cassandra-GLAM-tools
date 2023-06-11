@@ -5,7 +5,7 @@ from datetime import date, timedelta, datetime
 from lib.sentry import with_sentry
 from etl.glams_table import close_glams_connections, get_active_glams, load_glams_images, open_glams_connections, refresh_glams_visualizations
 from etl.etl_glam import process_glam
-from etl.download_mediacounts import copy_nfs_file_to_tmp
+from etl.download_mediacounts import get_nfs_file_path
 
 
 def process_glams(glams):
@@ -23,12 +23,11 @@ def main(date_val: date):
     logging.info(f" {datetime.now()} Processing {len(glams)} glams: {', '.join(map(lambda glam: glam['name'] ,glams))}")
 
     process_glams(glams)
-    filepath = copy_nfs_file_to_tmp(date_val)
+    filepath = get_nfs_file_path(date_val)
     try:
         open_glams_connections(glams)
         load_glams_images(glams)
         dailyinsert_from_file(glams, filepath, date_val)
-        os.remove(filepath)
         refresh_glams_visualizations(glams)
         close_glams_connections(glams)
     except:
