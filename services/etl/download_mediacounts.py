@@ -2,6 +2,7 @@ from datetime import date, datetime
 import logging
 import os
 from urllib import request
+from shutil import copyfile
 
 from tqdm import tqdm
 
@@ -28,15 +29,18 @@ def _create_dir_if_not_exist(dir_name):
     if not os.path.exists(dir_name):
         os.mkdir(dir_name)
 
-
-def download_file(date_val: date):
+def get_tmp_file_path(date_val: date):
     local_year_folder = f"{tmp_mediacounts_folder}/{date_val.year}"
     _create_dir_if_not_exist(local_year_folder)
     filename = f"mediacounts.{date_val.strftime('%Y-%m-%d')}.v00.tsv.bz2"
     filepath = f"{local_year_folder}/{filename}"
+    return filepath
+
+def download_file(date_val: date):
+    filepath = get_tmp_file_path(date_val)
     download_url = f"{wiki_dump_base_url}/{date_val.year}/mediacounts.{date_val.strftime('%Y-%m-06')}.v00.tsv.bz2"
     logging.info(f" {datetime.now()} Starting download dump from {download_url}")
-    with tqdm(unit='B', unit_scale=True, unit_divisor=1024, miniters=1, desc=filename) as t:
+    with tqdm(unit='B', unit_scale=True, unit_divisor=1024, miniters=1, desc=filepath) as t:
         request.urlretrieve(download_url, filepath, reporthook=_tqdm_hook(t))
     return filepath
 
@@ -44,3 +48,11 @@ def get_nfs_file_path(date_val: date):
     mediacout_nfs_dir = f"/mnt/nfs/dumps-clouddumps1002.wikimedia.org/other/mediacounts/daily"
     filename = f"mediacounts.{date_val.strftime('%Y-%m-%d')}.v00.tsv.bz2"
     return f"{mediacout_nfs_dir}/{date_val.year}/{filename}"
+
+def copy_nfs_file_to_tmp(date_val: date):
+    nfs_filepath = get_nfs_file_path(date_val)
+    tmp_filepath = get_tmp_file_path(date_val)
+    logging.info(f" {datetime.now()} Starting copy from {nfs_filepath} to {tmp_filepath}")
+    copyfile(nfs_filepath, tmp_filepath)
+    return tmp_filepath
+
