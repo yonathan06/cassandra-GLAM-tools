@@ -71,6 +71,7 @@ async function getLevelChilds() {
   }
 
   if (catFreeTail >= config.limits["categories"]) {
+    log(`Number of categories(${catFreeTail}) exceeded limit in config`);
     await finalize(true);
   }
 
@@ -153,6 +154,7 @@ async function loadImages() {
   }
 
   if (countImages >= config.limits["images"]) {
+    log(`The number of images (${countImages}) exceeded limit in config`);
     await finalize(true);
   }
 
