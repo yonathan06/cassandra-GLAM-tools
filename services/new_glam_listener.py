@@ -1,4 +1,5 @@
 import logging
+import multiprocessing
 import os
 from datetime import datetime, date, timedelta
 import subprocess
@@ -8,7 +9,7 @@ from etl.glams_table import close_glams_connections, create_database, get_glam_b
 from etl.etl_glam import process_glam
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from etl.download_mediacounts import get_nfs_file_path
+from fill_gaps import fill_gaps
 
 
 def _get_glams_from_body(body):
@@ -54,14 +55,7 @@ def _process_mediacounts(glams):
     today = date.today()
     current_date = datetime.strptime(
         config['mediacountStartDate'], "%Y-%m-%d").date()
-    while current_date < today:
-        logging.info(f" {datetime.now()} Loading mediacounts for date: {current_date}")
-        try:
-            filepath = get_nfs_file_path(current_date)
-            dailyinsert_from_file(glams, filepath, current_date)
-        except Exception as err:
-            logging.error(f" {datetime.now()} Error loading mediacount for date {current_date}:\n{err}")
-        current_date = current_date + timedelta(days=1)
+    fill_gaps(current_date, today, glams, num_of_workers=multiprocessing.cpu_count())
 
 
 class MyServer(BaseHTTPRequestHandler):
@@ -80,7 +74,9 @@ class MyServer(BaseHTTPRequestHandler):
             _initialize_glams(glams)
             open_glams_connections(glams)
             load_glams_images(glams)
+            close_glams_connections(glams)
             _process_mediacounts(glams)
+            open_glams_connections(glams)
             refresh_glams_visualizations(glams)
             close_glams_connections(glams)
             logging.info(f" {datetime.now()} Done adding {len(glams)} glams: {', '.join(map(lambda glam: glam['name'], glams))}")
