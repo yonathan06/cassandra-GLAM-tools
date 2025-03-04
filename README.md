@@ -106,3 +106,15 @@ pm2 logs
 ```bash
 docker-compose up -d
 ```
+
+# FLOW
+
+## Adding a new organization
+
+1. User submits a response in the google form
+2. Supporter (that's you) gets an email notification (set it up in advance...)
+3. Verify the user's response validity
+4. Log in to the WikiGlams control panel. Use the details from the production config file.
+5. **Make sure that the `new_glam_listener` is running**
+6. **Create a new GLAM** with the relevant details of the organization
+7. Make sure that the `new_glam_listener` finishes the job

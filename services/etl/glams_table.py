@@ -157,10 +157,12 @@ def _refresh_vis_stats_view(glam):
 
 def refresh_glams_visualizations(glams):
     logging.info(f" {datetime.now()} refreshing views for {len(glams)} glams")
+    futures = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
         for glam in glams:
-            executor.submit(_refresh_vis_sum_view, glam)
-            executor.submit(_refresh_vis_stats_view, glam)
+            fut1 = executor.submit(_refresh_vis_sum_view, glam)
+            fut2 = executor.submit(_refresh_vis_stats_view, glam)
+            futures.append((glam, fut1, fut2))
         logging.info(f" {datetime.now()} waiting for all data refreshes to be done")
         executor.shutdown(wait=True)
         logging.info(f" {datetime.now()} all data refreshes done")

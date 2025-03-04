@@ -6,7 +6,7 @@
 	}
 
 	.header {
-		margin-bottom: 30px;
+		margin-bottom: 20px;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -112,6 +112,21 @@
 		margin-bottom: 16px;
 		text-align: left;
 	}
+	.paginator {
+		display: flex;
+		margin-bottom: 1rem;
+		column-gap: 0.75rem;
+    	align-items: center;
+	}
+	.paginator>a {
+		display: flex;
+		padding: 0 0.5rem;
+		font-weight: bold;
+		font-size: 1.5rem;
+		cursor: pointer;
+		align-items: center;
+		justify-content: center;
+	}
 </style>
 <div class="pusher">
 	{{> sidebar}}
@@ -126,64 +141,89 @@
 			</form>
 			{{> langSelect}}
 		</div>
-		<div class="glams-boxes" id="glamsContainer">
-			{{#*inline "glamLink"}}
-			<div class="glam-container">
-				<img src="{{glam.image}}">
-				<div class="flag">
-					<img src="/assets/icons/countries/{{glam.country}}.png" alt="{{glam.country}}" />
-				</div>
-				<div class="text-block">
-					<a class="glam-link" href="/{{glam.name}}" alt="{{glam.category}}">
-						<h4>{{glam.fullname}}</h4>
-					</a>
-				</div>
-			</div>
-			{{/inline}}
-
-			{{#each glams}}
-				{{> glamLink glam=this}}
-			{{/each}}
+		<div class="paginator">
+			<a id="paginatePrevious">
+				&laquo;
+			</a>
+			<span id="pageText"></span>
+			<a id="paginateNext">&raquo;</a>
 		</div>
+		<div class="glams-boxes" id="glamsContainer"></div>
 	</main>
 </div>
 <script>
+	const GLAMS_PER_PAGE = 20;
 
 	const glams = {{ json glams }};
+	let filteredGlams = glams;
+	let page = 1;
+	let numOfPages = Math.ceil(glams.length / GLAMS_PER_PAGE);
 
 	const searchGlamForm = document.querySelector('#searchGlamForm');
 	const searchInput = searchGlamForm.querySelector('input[name="searchTerm"]');
 	const glamsContainer = document.querySelector('#glamsContainer');
+	const pageText = document.querySelector("#pageText");
+	const paginatePrevious = document.querySelector("#paginatePrevious")
+	const paginateNext = document.querySelector("#paginateNext")
 
-	function filterGlams() {
-		const value = searchInput.value.toLowerCase();
-		const glamsHtml = glams.reduce((html, glam) => {
-			if (glam.fullname.toLowerCase().includes(value)) {
-				html += `
-					<div class="glam-container">
-						<img src="${glam.image}">
-						<div class="flag">
-							<img src="/assets/icons/countries/${glam.country}.png" alt="${glam.country}" />
-						</div>
-						<div class="text-block">
-							<a class="glam-link" href="/${glam.name}" alt="${glam.category}">
-								<h4>${glam.fullname}</h4>
-							</a>
-						</div>
+	function getPaginatedGlams() {
+  		return filteredGlams.slice((page - 1) * GLAMS_PER_PAGE, page * GLAMS_PER_PAGE);
+	}
+
+	function updatePageText() {
+		pageText.innerHTML = page + " out of " + numOfPages;
+	}
+
+	function paginate(amount) {
+		page = Math.max(1, Math.min(numOfPages, page + amount));
+		updatePageText();
+		renderGlams();
+	}
+
+	function renderGlams() {
+		const glamsHtml =  getPaginatedGlams().reduce((html, glam) => {
+			html += `
+				<div class="glam-container">
+					<img src="${glam.image}">
+					<div class="flag">
+						<img src="/assets/icons/countries/${glam.country}.png" alt="${glam.country}" />
 					</div>
-				`;
-			}
+					<div class="text-block">
+						<a class="glam-link" href="/${glam.name}" alt="${glam.category}">
+							<h4>${glam.fullname}</h4>
+						</a>
+					</div>
+				</div>
+			`;
 			return html;
 		}, '');
 		if (glamsHtml) {
 			glamsContainer.innerHTML = glamsHtml;
 		} else {
+			page = 0;
 			glamsContainer.innerHTML = '<h1>0 {{langDict.results}}</h1>';
 		}
 	}
+
+	function filterGlams() {
+		const value = searchInput.value.toLowerCase();
+		filteredGlams = glams.filter((glam) => glam.fullname.toLowerCase().includes(value));
+		numOfPages = Math.ceil(filteredGlams.length / GLAMS_PER_PAGE);
+		renderGlams();
+	}
+
 	searchGlamForm.addEventListener('submit', (e) => {
 		e.preventDefault();
 	})
-	searchInput.addEventListener('keyup', () => filterGlams());
+	searchInput.addEventListener('keyup', () => {
+		page = 1;
+		filterGlams();
+		updatePageText();
+	});
+	paginatePrevious.addEventListener('click', () => paginate(-1));
+	paginateNext.addEventListener('click', () => paginate(1));
+	renderGlams();
+	updatePageText();
+
 </script>
 {{/mainWrapper}}

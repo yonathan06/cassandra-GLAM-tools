@@ -4,9 +4,9 @@ from csv import DictWriter
 import sys
 
 START_YEAR = 2020
-END_YEAR = 2023
+END_YEAR = 2025
 
-FIELDS = ['Slug', 'Name', 'Wikimedia Category', 'Joined At', 'Country', f'Media Before {START_YEAR}', 'Media From 2020', 'Media From 2021', 'Media From 2022', 'Media From 2023', 'All Media']
+FIELDS = ['Slug', 'Name', 'Wikimedia Category', 'Joined At', 'Country', f'Media Before {START_YEAR}', 'Media From 2020', 'Media From 2021', 'Media From 2022', 'Media From 2023', 'Media From 2024', 'Media From 2025', 'All Media']
 
 filename = sys.argv[1]
 
