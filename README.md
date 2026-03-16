@@ -106,3 +106,13 @@ pm2 logs
 ```bash
 docker-compose up -d
 ```
+
+## Notes to self
+Making changes is currently hard.
+I don't have time to set up a local environment - it's not easy enough. 
+So I'm Cowboy-programming. 
+And another issue: My regular yochayco linux user has no permissions to edit files.
+So I'm either using vim, or doing 'save as' in `/tmp` folder and then copying from `mn__` user.
+And the worst part: This `mn__` user can't push to remote git.
+I've cloned the project and I can update it with `yochayco` but the local repo is out of sync since `yochayco` won't write to `.git` folder.
+From the cloned project I'm making PRs to yonatanmil but there is no real reason to do that I guess.

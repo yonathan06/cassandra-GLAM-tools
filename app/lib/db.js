@@ -38,10 +38,9 @@ function generateAppGlamFromDb(element) {
 }
 
 async function getAllGlams() {
-  const result = await query(SQL`SELECT * FROM glams`);
+  const result = await query(SQL`SELECT * FROM glams ORDER BY fullname`);
   return result.rows.map(generateAppGlamFromDb);
 }
-
 exports.getAllGlams = getAllGlams;
 
 async function getGlamByName(name) {

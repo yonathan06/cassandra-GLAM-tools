@@ -128,6 +128,10 @@
 		flex-direction: column;
 	}
 
+	.data-card.hover, .data-card:hover {
+		background-color:#2687ff;
+	}
+
 	.data-card-title {
 		font-size: 17px;
 		color: inherit;
@@ -332,15 +336,15 @@
 				});
 			</script>
 		</div>
-		<div class="data-card">
+		<div class="data-card page-views">
 			<a href="{{glam.name}}/page-views" class="data-card-title">{{langDict.views.index.report.viewsDate}}</a>
 			<div class="data-card-number">{{toLocaleString data.yesterdayMediacount}}</div>
 		</div>
-		<div class="data-card">
+		<div class="data-card page-views">
 			<a href="{{glam.name}}/page-views" class="data-card-title">{{langDict.views.index.report.viewsThisMonth}}</a>
 			<div class="data-card-number">{{toLocaleString data.thisMonthMediacount}}</div>
 		</div>
-		<div class="data-card">
+		<div class="data-card page-views">
 			<a href="{{glam.name}}/page-views" class="data-card-title">{{langDict.views.index.report.monthlyAvgViews}}</a>
 			<div class="data-card-number">{{toLocaleString data.thisYearMonthlyAvg}}</div>
 		</div>
@@ -349,11 +353,11 @@
 				class="data-card-title">{{langDict.views.index.report.relatedCategories}}</a>
 			<div class="data-card-number">{{toLocaleString data.categoriesCount}}</div>
 		</div>
-		<div class="data-card">
+		<div class="data-card usage">
 			<a href="{{glam.name}}/usage" class="data-card-title">{{langDict.views.index.report.articleUsage}}</a>
 			<div class="data-card-number">{{toLocaleString data.articlesCount}}</div>
 		</div>
-		<div class="data-card">
+		<div class="data-card usage">
 			<a href="{{glam.name}}/usage" class="data-card-title">{{langDict.views.index.report.projectsUsage}}</a>
 			<div class="data-card-number">{{toLocaleString data.projectsCount}}</div>
 		</div>
@@ -563,6 +567,28 @@
 			inputVal = inputVal.replace(/\s/g, "_");
 			window.location.href += "/search/" + inputVal;
 		}
+	});
+
+	const pageViewsCards = document.querySelectorAll('.data-card.page-views');
+
+	pageViewsCards.forEach(card => {
+			card.addEventListener('mouseenter', () => {
+					pageViewsCards.forEach(c => c.classList.add('hover'));
+			});
+			card.addEventListener('mouseleave', () => {
+					pageViewsCards.forEach(c => c.classList.remove('hover'));
+			});
+	});
+	
+	const usageCards = document.querySelectorAll('.data-card.usage');
+
+	usageCards.forEach(card => {
+			card.addEventListener('mouseenter', () => {
+					usageCards.forEach(c => c.classList.add('hover'));
+			});
+			card.addEventListener('mouseleave', () => {
+					usageCards.forEach(c => c.classList.remove('hover'));
+			});
 	});
 </script>
 {{/mainWrapper}}
